@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
-export default function ArticleLayout() {
-  return (
-    <div>ArtivaleLayout</div>
-  )
+export default function ArticleLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <section>{children}</section>;
 }
