@@ -1,5 +1,10 @@
-import React from "react";
+import ArticleIndex from "@/ui/components/ArticleIndex/ArticleIndex";
 
 export default function Article() {
-  return <div>Article</div>;
+  console.log("Article");
+  return (
+    <div>
+      <ArticleIndex />
+    </div>
+  );
 }

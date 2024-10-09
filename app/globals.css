@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*Text editor */
+
+.rdw-editor-wrapper {
+  @apply  h-fit p-4;
+}
+.rdw-editor-toolbar {
+  @apply bg-blue-700 flex justify-between p-2 items-center h-12;
+}
+.editor-container{
+  height: calc(35rem) !important ;
+  @apply bg-slate-600;
+}
+
+.public-DraftStyleDefault-block{
+  margin: 0 !important;
+}

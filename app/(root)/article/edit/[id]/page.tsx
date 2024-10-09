@@ -1,7 +1,24 @@
-import React from 'react'
+import { getArticle, saveArticle } from "@/service/actions/article.server";
+import dynamic from "next/dynamic";
 
-export default function ArticleEdit() {
-  return (
-    <div>ArticleEdit</div>
-  )
+const TextEditor = dynamic(() => import("@/ui/TextEditor/TextEditor"), {
+  ssr: false,
+});
+
+export async function generateStaticParams() {
+  return [{ id: "new" }];
+}
+export default async function ArticleEdit({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const { id } = params;
+  console.log("id:", id);
+
+  let article;
+  if (id !== "new") {
+    article = await getArticle(id);
+  }
+  return <TextEditor saveArticle={saveArticle} article={article} />;
 }

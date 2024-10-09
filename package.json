@@ -9,18 +9,35 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/core": "^2.8.0",
+    "@tiptap/extension-image": "^2.8.0",
+    "@tiptap/react": "^2.8.0",
+    "@tiptap/starter-kit": "^2.8.0",
+    "draft-convert": "^2.1.13",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "font-awesome": "^4.7.0",
+    "jodit-react": "^4.1.2",
+    "mongodb": "^6.9.0",
+    "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.15"
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-froala-wysiwyg": "^4.3.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/draft-convert": "^2.1.8",
+    "@types/draft-js": "^0.11.18",
+    "@types/draftjs-to-html": "^0.8.4",
+    "@types/mongodb": "^4.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-draft-wysiwyg": "^1.13.8",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.15"
+    "typescript": "^5"
   }
 }

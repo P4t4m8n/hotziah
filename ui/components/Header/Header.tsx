@@ -7,7 +7,7 @@ import { USER_MENU_ITEMS } from "@/service/constants/menuItem";
 
 export default function Header() {
   return (
-    <header className=" flex w-full shadow-sm h-fit p-4 bg-slate-100">
+    <header className=" flex w-full shadow-sm h-28 p-4 bg-slate-100">
       <Link className="w-16 h-16" href={"/"}>
         <LogoSvg />
       </Link>

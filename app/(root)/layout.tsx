@@ -7,9 +7,9 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main>
+    <main className="grid ">
       <Header />
-      {children}
+      <section className="h-main-hight bg-slate-400">{children}</section>
       <Footer />
     </main>
   );
