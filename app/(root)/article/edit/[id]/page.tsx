@@ -8,7 +8,7 @@ const TextEditor = dynamic(() => import("@/ui/TextEditor/TextEditor"), {
 export async function generateStaticParams() {
   return [{ id: "new" }];
 }
-export default async function ArticleEdit({
+export default async function ArticleEditPage({
   params,
 }: {
   params: { id: string };
