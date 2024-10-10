@@ -4,20 +4,33 @@ import { IMenu } from "@/service/models/menu.model";
 import { useModel } from "@/ui/hooks/useModel";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { MouseEvent, useRef } from "react";
 
 interface Props {
   menuItems: IMenu;
 }
 
 export default function GeneralMenu({ menuItems }: Props) {
+  const handleClick = (e: MouseEvent, onClick: () => void) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setIsOpen(false);
+    onClick();
+  };
   const modelRef = useRef(null);
   const [isOpen, setIsOpen] = useModel(modelRef);
 
   const { iconSvg, imgUrl, text, style } = menuItems.menuBtn;
   return (
-    <div ref={modelRef}>
-      <button className={style!} onClick={() => setIsOpen(!isOpen)}>
+    <div className=" relative w-fit" ref={modelRef}>
+      <button
+        className={style}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsOpen(true);
+        }}
+      >
         {iconSvg && iconSvg}
         {imgUrl && (
           <Image
@@ -29,12 +42,14 @@ export default function GeneralMenu({ menuItems }: Props) {
         )}
         {text}
       </button>
-      <ul>
+      <ul className={`${isOpen ? "block" : "hidden"} ${menuItems.menuStyle}`}>
         {menuItems.items.map((item, idx) => (
-          <li key={idx} className={item.style}>
+          <li key={idx} >
             {item.onClick && (
-              <button onClick={item.onClick}>
-                {" "}
+              <button
+                className={item.style}
+                onClick={(e) => handleClick(e, item.onClick!)}
+              >
                 {item.iconSvg && item.iconSvg}
                 {item.imgUrl && (
                   <Image

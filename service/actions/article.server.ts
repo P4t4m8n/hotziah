@@ -21,8 +21,8 @@ export const saveArticle = async (article: IArticle): Promise<IArticle> => {
     }
 
     const result = await collection.insertOne({
-      ...article,
-      _id: new ObjectId(article._id),
+      article
+    
     });
     return { ...article, id: result.insertedId.toString() };
   } catch (error) {

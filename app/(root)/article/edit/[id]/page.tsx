@@ -14,7 +14,6 @@ export default async function ArticleEditPage({
   params: { id: string };
 }) {
   const { id } = params;
-  console.log("id:", id);
 
   let article;
   if (id !== "new") {

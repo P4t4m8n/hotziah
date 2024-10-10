@@ -1,8 +1,7 @@
 export const uploadImg = async (file: Blob): Promise<string> => {
   const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUD_NAME!;
   const UPLOAD_PRESET = process.env.NEXT_PUBLIC_UPLOAD_PRESET!;
-  console.log("CLOUD_NAME:", CLOUD_NAME);
-  console.log("UPLOAD_PRESET:", UPLOAD_PRESET);
+
   const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
   try {

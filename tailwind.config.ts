@@ -17,6 +17,9 @@ const config: Config = {
         "title-bar": "50ch",
         "description-bar": "255ch",
       },
+      boxShadow: {
+        model: "0px 10px 3000px 1500px rgba(0, 0, 0, 0.5)",
+      },
     },
   },
   plugins: [],

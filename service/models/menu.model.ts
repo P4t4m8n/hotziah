@@ -12,5 +12,6 @@ export interface IMenuBtn {
 
 export interface IMenu {
   menuBtn: IMenuBtn;
+  menuStyle: string;
   items: IMenuItem[];
 }

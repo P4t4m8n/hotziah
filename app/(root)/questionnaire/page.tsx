@@ -1,7 +1,11 @@
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 export default function Questionnaire() {
   return (
-    <div>page</div>
-  )
+    <div>
+     
+      <Link href="/questionnaire/edit/new">חדש</Link>
+    </div>
+  );
 }

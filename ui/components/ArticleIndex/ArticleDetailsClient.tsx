@@ -2,13 +2,17 @@
 
 import { IArticle } from "@/service/models/article.model";
 import { useEffect, useRef } from "react";
-import { RawDraftContentBlock, RawDraftContentState, RawDraftEntityRange, RawDraftInlineStyleRange } from "draft-js";
+import {
+  RawDraftContentBlock,
+  RawDraftContentState,
+  RawDraftEntityRange,
+  RawDraftInlineStyleRange,
+} from "draft-js";
 
 interface Props {
   article: IArticle;
 }
 export default function ArticleDetailsClient({ article }: Props) {
-  console.log("article:", article);
   const articleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,19 +30,19 @@ export default function ArticleDetailsClient({ article }: Props) {
 const convertRawToHTML = (rawContent: RawDraftContentState): string => {
   const { blocks, entityMap } = rawContent;
   const htmlBlocks: string[] = [];
-  const listItems: string[] = []; // Store list items to wrap later
-  let isList = false; // Track if we're in a list context
-  let listType = ""; // Track list type (ordered or unordered)
+  const listItems: string[] = [];
+  let isList = false;
+  let listType = "";
 
   const renderBlock = (block: RawDraftContentBlock) => {
     const blockType = block.type;
     const text = block.text;
-    const inlineStyleRanges: RawDraftInlineStyleRange[] = block.inlineStyleRanges; // Use inlineStyleRanges for styles
+    const inlineStyleRanges: RawDraftInlineStyleRange[] =
+      block.inlineStyleRanges;
     let styledText = text;
 
-    // Apply inline styles
     inlineStyleRanges.forEach((style: RawDraftInlineStyleRange) => {
-      const { offset, length, style: styleType } = style; // Get the style type
+      const { offset, length, style: styleType } = style;
       const start = styledText.slice(0, offset);
       const middle = styledText.slice(offset, offset + length);
       const end = styledText.slice(offset + length);
@@ -53,13 +57,11 @@ const convertRawToHTML = (rawContent: RawDraftContentState): string => {
         case "UNDERLINE":
           styledText = `${start}<u>${middle}</u>${end}`;
           break;
-        // Add more inline styles if needed
         default:
           break;
       }
     });
 
-    // Handle block types
     switch (blockType) {
       case "header-one":
         htmlBlocks.push(`<h1>${styledText}</h1>`);
@@ -94,7 +96,9 @@ const convertRawToHTML = (rawContent: RawDraftContentState): string => {
             const { type, data } = entity;
             if (type === "IMAGE") {
               htmlBlocks.push(
-                `<img width=144 height=144 src="${data.src}" alt="${data.alt || ""}" />`
+                `<img width=144 height=144 src="${data.src}" alt="${
+                  data.alt || ""
+                }" />`
               );
             }
           }
@@ -116,7 +120,5 @@ const convertRawToHTML = (rawContent: RawDraftContentState): string => {
   }
 
   // Join all blocks into a single HTML string and maintain spacing
-  return htmlBlocks
-    .join("")
-    .replace(/<p><\/p>/g, "<p>&nbsp;</p>"); // Replace empty paragraphs with non-breaking spaces for visible spacing
+  return htmlBlocks.join("").replace(/<p><\/p>/g, "<p>&nbsp;</p>"); // Replace empty paragraphs with non-breaking spaces for visible spacing
 };

@@ -54,10 +54,8 @@ export default function TextEditor({ saveArticle, article }: Props) {
       },
       imgUrl: imageUrl,
     };
-    console.log("articleData:", articleData);
 
     const _articale = await saveArticle(articleData);
-    console.log("_articale:", _articale);
   };
 
   return (
