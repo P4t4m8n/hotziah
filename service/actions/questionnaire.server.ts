@@ -4,16 +4,17 @@ import { ObjectId } from "mongodb";
 import { getCollection } from "../db/mongo";
 import {
   IQuestionnaire,
-  IQuestionnaireDTO,
+  IQuestionnaireDto,
   IQuestionnaireFilter,
 } from "../models/questionnaire.model";
+import { loggerService } from "../util/logger.util";
 
 export const saveQuestionnaire = async (
   questionnaire: IQuestionnaire
 ): Promise<IQuestionnaire> => {
   try {
-    const questionnaireDTO = _questionnaireToDTO(questionnaire);
-    let savedDto: IQuestionnaireDTO;
+    const questionnaireDTO = _toDTO(questionnaire);
+    let savedDto: IQuestionnaireDto;
     if (questionnaire._id) {
       savedDto = await _updateQuestionnaire(questionnaireDTO);
     } else {
@@ -21,11 +22,7 @@ export const saveQuestionnaire = async (
     }
     return { ...questionnaire, _id: savedDto._id!.toString() };
   } catch (error) {
-    throw new Error(
-      `Error saving questionnaire: ${
-        error instanceof Error ? error.message : String(error)
-      }`
-    );
+    throw _handleError(error, "Error saving questionnaire");
   }
 };
 
@@ -45,11 +42,7 @@ export const getQuestionnaireById = async (
 
     return questionnaire;
   } catch (error) {
-    throw new Error(
-      `Error getting questionnaire: ${
-        error instanceof Error ? error.message : String(error)
-      }`
-    );
+    throw _handleError(error, "Error getting questionnaire by id");
   }
 };
 
@@ -65,31 +58,40 @@ export const getQuestionnaires = async (
 
     return questionnaires;
   } catch (error) {
-    throw new Error(
-      `Error getting questionnaires: ${
-        error instanceof Error ? error.message : String(error)
-      }`
-    );
+    throw _handleError(error, "Error getting questionnaires");
+  }
+};
+
+export const removeQuestionnaire = async (_id: string): Promise<void> => {
+  try {
+    const collocation = await getCollection("questionnaire");
+    const { deletedCount } = await collocation.deleteOne({
+      _id: new ObjectId(_id),
+    });
+    if (deletedCount === 0) {
+      throw new Error("Questionnaire not found");
+    }
+  } catch (error) {
+    throw _handleError(error, "Error removing questionnaire");
   }
 };
 
 //Private functions
 const _createQuestionnaire = async (
-  questionnaire: IQuestionnaireDTO
-): Promise<IQuestionnaireDTO> => {
+  questionnaire: IQuestionnaireDto
+): Promise<IQuestionnaireDto> => {
   const collocation = await getCollection("questionnaire");
-
   const { insertedId } = await collocation.insertOne(questionnaire);
   return { ...questionnaire, _id: insertedId };
 };
 
 const _updateQuestionnaire = async (
-  questionnaire: IQuestionnaireDTO
-): Promise<IQuestionnaireDTO> => {
+  questionnaire: IQuestionnaireDto
+): Promise<IQuestionnaireDto> => {
   const collocation = await getCollection("questionnaire");
 
   const { upsertedId } = await collocation.updateOne(
-    { _id: new ObjectId(questionnaire._id) },
+    { _id: questionnaire._id },
     { $set: questionnaire }
   );
   if (!upsertedId) {
@@ -98,9 +100,7 @@ const _updateQuestionnaire = async (
   return { ...questionnaire, _id: upsertedId };
 };
 
-const _questionnaireToDTO = (
-  questionnaire: IQuestionnaire
-): IQuestionnaireDTO => {
+const _toDTO = (questionnaire: IQuestionnaire): IQuestionnaireDto => {
   const { _id, author, ...rest } = questionnaire;
   return {
     ...rest,
@@ -176,4 +176,19 @@ const _buildPipeline = (filter: IQuestionnaireFilter) => {
   pipeline.push(project);
 
   return pipeline;
+};
+
+const _handleError = (error: unknown, errorStr: string) => {
+  loggerService.error(errorStr, error as Error);
+  return new Error(
+    `Error saving questionnaire: ${
+      error instanceof Error ? error.message : String(error)
+    }`
+  );
+};
+
+export const questionnaireConfig = {
+  collectionName: "questionnaire",
+  toDTO: _toDTO,
+  buildPipeline: _buildPipeline,
 };

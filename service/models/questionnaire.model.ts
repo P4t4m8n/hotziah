@@ -1,15 +1,15 @@
 import { ObjectId } from "mongodb";
 import { IUserSmall } from "./User.model";
+import { IDto, IFilter } from "./app.model";
 
-export interface IQuestionnaireBase {
+interface IQuestionnaireBase {
   subjects: TQuestionnaireSubject[];
   title: string;
   description: string;
   question: IQuestion | null; // Root question
 }
-export interface IQuestionnaireDTO extends IQuestionnaireBase {
+export interface IQuestionnaireDto extends IDto, IQuestionnaireBase {
   authorId: ObjectId;
-  _id?: ObjectId;
 }
 
 export interface IQuestionnaire extends IQuestionnaireBase {
@@ -17,12 +17,11 @@ export interface IQuestionnaire extends IQuestionnaireBase {
   author: IUserSmall;
 }
 
-export interface IQuestionnaireFilter {
+export interface IQuestionnaireFilter extends IFilter {
   subjects?: TQuestionnaireSubject[];
   title?: string;
   authorName?: string;
   createdAfter?: Date;
-  _id?: string;
 }
 
 export interface IAnswer {

@@ -47,7 +47,7 @@ export default function TextEditor({ saveArticle, article }: Props) {
       title,
       description,
       ...rawContent,
-      auther: {
+      author: {
         _id: "6706d5455aa062bf9efff6d5",
         username: "Therapist",
         imgUrl: "",

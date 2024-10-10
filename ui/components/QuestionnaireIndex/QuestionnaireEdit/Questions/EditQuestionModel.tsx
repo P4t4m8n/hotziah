@@ -1,3 +1,5 @@
+/* cSpell:disable */
+
 import {
   IAnswer,
   IQuestion,
@@ -71,7 +73,7 @@ export default function EditQuestionModel({
     }));
   };
 
-  const { answers, value, questionText } = questionToEdit;
+  const { answers, questionText } = questionToEdit;
 
   const menuItems: IMenu = {
     menuBtn: {
