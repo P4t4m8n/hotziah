@@ -1,8 +1,7 @@
 import { IAnswer, IQuestion } from "@/service/models/questionnaire.model";
 import EditQuestionModel from "./EditQuestionModel";
 import { getEmptyQuestion } from "@/service/util/questionnaire.util";
-import QuestionList from "./QuestionList";
-import QuestionPreview from "./QuestionPreview";
+import QuestionPreview from "../../QuestionPreview";
 
 interface Props {
   answer: IAnswer;

@@ -11,7 +11,7 @@ import {
   getEmptyAnswer,
   getEmptyQuestion,
 } from "@/service/util/questionnaire.util";
-import GeneralMenu from "../Menus/GeneralMenu";
+import GeneralMenu from "../../../Menus/GeneralMenu";
 import { IMenu } from "@/service/models/menu.model";
 
 interface Props {
@@ -119,7 +119,6 @@ export default function EditQuestionModel({
           placeholder="שאלה"
           className="z-10 text-black"
         />
-    
 
         <div className="flex flex-col gap-4">
           <h3 className=" pb-2">שאלות:</h3>
@@ -135,7 +134,6 @@ export default function EditQuestionModel({
                     placeholder="תשובה"
                     className=" text-black"
                   />
-          
                 </>
               ) : (
                 <span className=" bg-slate-400 text-black p-1 rounded-md">

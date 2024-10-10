@@ -1,6 +1,6 @@
 import { IQuestion } from "@/service/models/questionnaire.model";
-import EditQuestionModel from "./QuestionnaireEdit/Questions/EditQuestionModel";
-import AnswerList from "./QuestionnaireEdit/Questions/AnswerList";
+import EditQuestionModel from "./EditQuestionModel";
+import AnswerList from "./AnswerList";
 
 interface Props {
   question: IQuestion;
