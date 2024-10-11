@@ -8,6 +8,7 @@ import {
   IQuestionnaireFilter,
 } from "../models/questionnaire.model";
 import { loggerService } from "../util/logger.util";
+import { IModelConfig } from "../models/server.model";
 
 export const saveQuestionnaire = async (
   questionnaire: IQuestionnaire
@@ -31,7 +32,7 @@ export const getQuestionnaireById = async (
 ): Promise<IQuestionnaire> => {
   try {
     const pipeline = _buildPipeline({ _id });
-    const collection = await getCollection("questionnaire");
+    const collection = await getCollection("questionnaires");
     const [questionnaire] = await collection
       .aggregate<IQuestionnaire>(pipeline)
       .toArray();
@@ -50,7 +51,7 @@ export const getQuestionnaires = async (
   filter: IQuestionnaireFilter
 ): Promise<IQuestionnaire[]> => {
   try {
-    const collection = await getCollection("questionnaire");
+    const collection = await getCollection("questionnaires");
     const pipeline = _buildPipeline(filter);
     const questionnaires = await collection
       .aggregate<IQuestionnaire>(pipeline)
@@ -64,7 +65,7 @@ export const getQuestionnaires = async (
 
 export const removeQuestionnaire = async (_id: string): Promise<void> => {
   try {
-    const collocation = await getCollection("questionnaire");
+    const collocation = await getCollection("questionnaires");
     const { deletedCount } = await collocation.deleteOne({
       _id: new ObjectId(_id),
     });
@@ -80,7 +81,7 @@ export const removeQuestionnaire = async (_id: string): Promise<void> => {
 const _createQuestionnaire = async (
   questionnaire: IQuestionnaireDto
 ): Promise<IQuestionnaireDto> => {
-  const collocation = await getCollection("questionnaire");
+  const collocation = await getCollection("questionnaires");
   const { insertedId } = await collocation.insertOne(questionnaire);
   return { ...questionnaire, _id: insertedId };
 };
@@ -88,7 +89,7 @@ const _createQuestionnaire = async (
 const _updateQuestionnaire = async (
   questionnaire: IQuestionnaireDto
 ): Promise<IQuestionnaireDto> => {
-  const collocation = await getCollection("questionnaire");
+  const collocation = await getCollection("questionnaires");
 
   const { upsertedId } = await collocation.updateOne(
     { _id: questionnaire._id },
@@ -187,8 +188,12 @@ const _handleError = (error: unknown, errorStr: string) => {
   );
 };
 
-export const questionnaireConfig = {
-  collectionName: "questionnaire",
+export const questionnaireConfig: IModelConfig<
+  IQuestionnaire,
+  IQuestionnaireDto,
+  IQuestionnaireFilter
+> = {
+  collectionName: "questionnaires",
   toDTO: _toDTO,
   buildPipeline: _buildPipeline,
 };

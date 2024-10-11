@@ -1,10 +1,11 @@
 export const COLLECTIONS = [
   "articles",
-  "discussions",
-  "forms",
+  "forums",
   "users",
   "therapists",
-  "questionnaire",
+  "questionnaires",
+  "posts",
+  "threads",
 ] as const;
 
 export type TCollectionName = (typeof COLLECTIONS)[number];

@@ -7,4 +7,3 @@ export interface IDto {
 export interface IFilter {
   _id?: string;
 }
-

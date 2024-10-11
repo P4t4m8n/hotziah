@@ -5,17 +5,15 @@ import { getCollection } from "../db/mongo";
 import modelConfigs from "./modelConfig";
 import { loggerService } from "../util/logger.util";
 import { TCollectionName } from "../models/db.model";
-import { ModelConfig } from "../models/server.model";
+import { IModelConfig } from "../models/server.model";
 import { IDto, IFilter } from "../models/app.model";
-
-
 
 export const saveEntity = async <T extends { _id: string }, DTO extends IDto>(
   entity: T,
   key: TCollectionName
 ): Promise<T> => {
   try {
-    const config = modelConfigs[key] as ModelConfig<T, DTO, IFilter>;
+    const config = modelConfigs[key] as IModelConfig<T, DTO, IFilter>;
     if (!config) throw new Error(`No model config found for key ${key}`);
 
     const collection = await getCollection(config.collectionName);
@@ -40,7 +38,7 @@ export const getEntityById = async <T extends { _id: string }, Filter>(
 ): Promise<T> => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const config = modelConfigs[key] as ModelConfig<T, any, Filter>;
+    const config = modelConfigs[key] as IModelConfig<T, any, Filter>;
     if (!config) throw new Error(`No model config found for key ${key}`);
 
     const filter = { _id } as Filter;
@@ -64,7 +62,7 @@ export const getEntities = async <T extends { _id: string }, Filter>(
 ): Promise<T[]> => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const config = modelConfigs[key] as ModelConfig<T, any, Filter>;
+    const config = modelConfigs[key] as IModelConfig<T, any, Filter>;
     if (!config) throw new Error(`No model config found for key ${key}`);
 
     const pipeline = config.buildPipeline(filter);
@@ -125,8 +123,8 @@ const _updateEntity = async <DTO extends IDto>(
 };
 
 const _handleError = (error: unknown, errorStr: string) => {
-    loggerService.error(errorStr, error as Error);
-    return new Error(
-      `${errorStr}: ${error instanceof Error ? error.message : String(error)}`
-    );
-  };
+  loggerService.error(errorStr, error as Error);
+  return new Error(
+    `${errorStr}: ${error instanceof Error ? error.message : String(error)}`
+  );
+};

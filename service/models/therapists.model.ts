@@ -2,7 +2,7 @@
 
 import { ObjectId } from "mongodb";
 import { IDto, IFilter } from "./app.model";
-import { IUserSmall } from "./User.model";
+import { IUser } from "./user.model";
 
 interface TTherapistBase {
   subjects: TTherapistSubject[];
@@ -12,10 +12,11 @@ interface TTherapistBase {
   phone: string;
   address: TAddress;
   fullName: string;
+  eduction: TTherapistEducation;
 }
 
 export interface ITherapist extends TTherapistBase {
-  user: IUserSmall;
+  user: IUser;
   _id?: string;
 }
 
@@ -30,6 +31,7 @@ export interface ITherapistFilter extends IFilter {
   fullName?: string;
   gender?: TTherapistGender;
   city?: string;
+  education?: TTherapistEducation;
 }
 
 export const THERAPIST_SUBJECTS = [
@@ -63,6 +65,19 @@ export const THERAPIST_MEETING = [
   "אחר",
 ] as const;
 export type TTherapistMeeting = (typeof THERAPIST_MEETING)[number];
+
+export const THERAPIST_EDUCATION = [
+  "תואר ראשון",
+  "תואר שני",
+  "אחר",
+  'ד"ר',
+  "פסיכולוג",
+  "פסיכותרפיסט",
+  "פסיכיאטר",
+  "טיפול קוגניטיבי התנהגותי",
+  "טיפול פסיכודינמי",
+] as const;
+export type TTherapistEducation = (typeof THERAPIST_EDUCATION)[number];
 
 type TAddress = {
   city: string;

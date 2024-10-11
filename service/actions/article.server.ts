@@ -4,6 +4,7 @@ import { IArticle, IArticleDto, IArticleFilter } from "../models/article.model";
 import { getCollection } from "../db/mongo";
 import { ObjectId } from "mongodb";
 import { loggerService } from "../util/logger.util";
+import { IModelConfig } from "../models/server.model";
 
 export const saveArticle = async (article: IArticle): Promise<IArticle> => {
   try {
@@ -169,7 +170,11 @@ const _handleError = (error: unknown, errorStr: string) => {
   );
 };
 
-export const articleConfig = {
+export const articleConfig: IModelConfig<
+  IArticle,
+  IArticleDto,
+  IArticleFilter
+> = {
   collectionName: "articles",
   toDTO: _toDTO,
   buildPipeline: _buildPipeline,

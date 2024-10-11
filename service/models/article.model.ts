@@ -1,5 +1,5 @@
 import { RawDraftContentState } from "draft-js";
-import { IUserSmall } from "./User.model";
+import { IUser } from "./user.model";
 import { Document, ObjectId } from "mongodb";
 import { IDto, IFilter } from "./app.model";
 
@@ -11,7 +11,7 @@ interface IArticleBase extends RawDraftContentState {
 
 export interface IArticle extends IArticleBase {
   _id?: string;
-  author: IUserSmall;
+  author: IUser;
 }
 
 export interface IArticleDto extends IDto, IArticleBase, Document {

@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { IUserSmall } from "./User.model";
+import { IUser } from "./user.model";
 import { IDto, IFilter } from "./app.model";
 
 interface IQuestionnaireBase {
@@ -14,7 +14,7 @@ export interface IQuestionnaireDto extends IDto, IQuestionnaireBase {
 
 export interface IQuestionnaire extends IQuestionnaireBase {
   _id?: string;
-  author: IUserSmall;
+  author: IUser;
 }
 
 export interface IQuestionnaireFilter extends IFilter {

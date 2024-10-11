@@ -4,10 +4,10 @@ import {
   IQuestionnaire,
   TQuestionType,
 } from "../models/questionnaire.model";
-import { IUserSmall } from "../models/User.model";
+import { IUser } from "../models/user.model";
 import { v4 as uuidv4 } from "uuid";
 
-export const getEmptyQuestionnaire = (author: IUserSmall): IQuestionnaire => {
+export const getEmptyQuestionnaire = (author: IUser): IQuestionnaire => {
   return {
     author,
     subjects: [],
