@@ -8,14 +8,15 @@ interface IPostBase {
 
 export interface IPostDto extends IPostBase, IDto {
   _id?: ObjectId;
-  threadId: ObjectId;
+  parentId: ObjectId;
   authorId: ObjectId;
 }
 
 export interface IPost extends IPostBase {
   _id: string;
-  threadId: string;
+  parentId: string;
   author: IUser;
+  comments: IPost[];
 }
 
 export interface IPostFilter extends IFilter {

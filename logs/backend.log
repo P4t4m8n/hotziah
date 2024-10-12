@@ -1,0 +1,19 @@
+12.10.2024, 13:57:51 - ERROR - Error signing up | User already exists
+12.10.2024, 14:01:00 - ERROR - Error signing up | User already exists
+12.10.2024, 14:02:04 - ERROR - Error getting entity by ID of type users | Entity not found
+12.10.2024, 14:02:04 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
+12.10.2024, 14:02:16 - ERROR - Error getting entity by ID of type users | Entity not found
+12.10.2024, 14:02:16 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
+12.10.2024, 14:02:39 - ERROR - Error getting entity by ID of type users | Entity not found
+12.10.2024, 14:02:39 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
+12.10.2024, 14:03:02 - ERROR - Error getting entity by ID of type users | Entity not found
+12.10.2024, 14:03:02 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
+12.10.2024, 14:03:23 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
+12.10.2024, 14:03:23 - ERROR - Error getting entity by ID of type users | Entity not found
+12.10.2024, 14:26:56 - ERROR - Error signing up | Cannot read properties of undefined (reading 'toString')
+12.10.2024, 15:34:23 - ERROR - Error getting session user | User not found
+12.10.2024, 15:56:59 - ERROR - Error getting session user | User not found
+12.10.2024, 15:57:00 - ERROR - Error getting session user | User not found
+12.10.2024, 15:57:27 - ERROR - Error getting session user | User not found
+12.10.2024, 16:02:39 - ERROR - Error getting session user | User not found
+12.10.2024, 16:02:39 - ERROR - Error getting session user | User not found

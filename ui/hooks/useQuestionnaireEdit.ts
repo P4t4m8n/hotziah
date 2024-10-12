@@ -6,17 +6,20 @@ import {
 } from "@/service/models/questionnaire.model";
 import { ChangeEvent, useState } from "react";
 import _ from "lodash";
+import { useUser } from "./useUser";
+import { getEmptyQuestionnaire } from "@/service/util/questionnaire.util";
+import { entityClientService } from "@/service/client/generic.client";
 
-export const useQuestionnaireEdit = (
-  questionnaire: IQuestionnaire,
-  saveQuestionnaire: (questionnaire: IQuestionnaire) => Promise<IQuestionnaire>
-) => {
+export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
+  const user = useUser().user;
   const [questionnaireToEdit, setQuestionnaireToEdit] =
-    useState<IQuestionnaire>(questionnaire);
+    useState<IQuestionnaire>(questionnaire || getEmptyQuestionnaire(user!));
 
   const onSaveQuestionnaire = async () => {
     try {
-      const _questionnaire = await saveQuestionnaire(questionnaireToEdit);
+      const _questionnaire = await entityClientService.save(
+        questionnaireToEdit
+      );
       setQuestionnaireToEdit(_questionnaire);
     } catch (error) {
       console.error(error);
@@ -144,7 +147,7 @@ export const useQuestionnaireEdit = (
       return questionnaireCopy;
     });
   };
-  
+
   return {
     handleChange,
     questionnaireToEdit,

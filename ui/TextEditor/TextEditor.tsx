@@ -7,17 +7,17 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { uploadImg } from "@/service/util/uploadImg";
 import { IArticle } from "@/service/models/article.model";
 import Image from "next/image";
+import { articleClientService } from "@/service/client/article.client";
 
 interface Props {
-  saveArticle: (article: IArticle) => Promise<IArticle>;
   article?: IArticle;
 }
 
-export default function TextEditor({ saveArticle, article }: Props) {
+export default function TextEditor({ article }: Props) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [title, setTitle] = useState(article?.title || "");
   const [description, setDescription] = useState(article?.description || "");
-  const [imageUrl, setImageUrl] = useState(article?.imageUrl || "");
+  const [imageUrl, setImageUrl] = useState(article?.imgUrl || "");
 
   useEffect(() => {
     if (article) {
@@ -51,11 +51,15 @@ export default function TextEditor({ saveArticle, article }: Props) {
         _id: "6706d5455aa062bf9efff6d5",
         username: "Therapist",
         imgUrl: "",
+        permission: "admin",
+        firstName: "Therapist",
+        lastName: "Therapist",
       },
       imgUrl: imageUrl,
     };
 
-    const _articale = await saveArticle(articleData);
+    const _article = await articleClientService.create(articleData);
+    console.log("_article:", _article);
   };
 
   return (

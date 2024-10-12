@@ -1,4 +1,4 @@
-import { getArticle, saveArticle } from "@/service/actions/article.server";
+import { getArticle } from "@/service/server/article.server";
 import dynamic from "next/dynamic";
 
 const TextEditor = dynamic(() => import("@/ui/TextEditor/TextEditor"), {
@@ -19,5 +19,5 @@ export default async function ArticleEditPage({
   if (id !== "new") {
     article = await getArticle(id);
   }
-  return <TextEditor saveArticle={saveArticle} article={article} />;
+  return <TextEditor article={article} />;
 }

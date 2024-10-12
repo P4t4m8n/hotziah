@@ -1,26 +1,29 @@
 import { IDto, IFilter } from "./app.model";
 
 interface IUserBase {
-  username: string;
+  username?: string;
   imgUrl?: string;
-  permission: TUserPermission;
+  email?: string;
+  permission?: TUserPermission;
+
+  firstName?: string;
+  lastName?: string;
 }
 export interface IUser extends IUserBase {
   _id?: string;
-  providerId?: string;
-
 }
 
 export interface IUserDto extends IDto, IUserBase {
-  providerId?: string;
-  provider?: TUserProvider;
+  password?: string;
 }
 
 export interface IUserFIlter extends IFilter {
   username?: string;
+  provider?: TUserProvider;
   providerId?: string;
   permission?: TUserPermission;
   _id?: string;
+  email?: string;
 }
 
 export const USER_PROVIDERS = ["google", "facebook", "email"] as const;

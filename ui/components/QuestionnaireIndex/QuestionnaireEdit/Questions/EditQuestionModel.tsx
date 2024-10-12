@@ -9,12 +9,12 @@ import { useModel } from "@/ui/hooks/useModel";
 import { AddSvg } from "@/ui/Icons/Svgs";
 import { ChangeEvent, useRef, useState } from "react";
 
+import GeneralMenu from "../../../Menus/GeneralMenu";
+import { IMenu } from "@/service/models/menu.model";
 import {
   getEmptyAnswer,
   getEmptyQuestion,
 } from "@/service/util/questionnaire.util";
-import GeneralMenu from "../../../Menus/GeneralMenu";
-import { IMenu } from "@/service/models/menu.model";
 
 interface Props {
   saveQuestion: (question: IQuestion, parentAnswerValue?: string) => void;

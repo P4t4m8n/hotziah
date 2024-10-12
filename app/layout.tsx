@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthProvider } from "@/service/context/UserContext";
 
 export const metadata: Metadata = {
   title: "Hotziah",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl">
-      <body className={`antialiased min-h-screen min-w-full`}>{children}</body>
+      <body className={`antialiased min-h-screen min-w-full`}>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

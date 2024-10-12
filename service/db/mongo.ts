@@ -1,13 +1,13 @@
-import { MongoClient, Db, Collection } from "mongodb";
+import { MongoClient, Db, Collection, Document } from "mongodb";
 import { TCollectionName } from "../models/db.model";
 
 let dbConnection: Db | null = null;
 
-export const getCollection = async (
+export const getCollection = async <T extends Document>(
   collectionName: TCollectionName
-): Promise<Collection> => {
+): Promise<Collection<T>> => {
   const db = await _connect();
-  return db.collection(collectionName);
+  return db.collection<T>(collectionName);
 };
 
 const _connect = async (): Promise<Db> => {

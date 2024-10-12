@@ -6,6 +6,9 @@ export const COLLECTIONS = [
   "questionnaires",
   "posts",
   "threads",
+  "sessions",
 ] as const;
 
 export type TCollectionName = (typeof COLLECTIONS)[number];
+export type TModelCollectionName = Exclude<TCollectionName, "sessions">;
+

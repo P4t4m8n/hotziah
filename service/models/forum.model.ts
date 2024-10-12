@@ -23,3 +23,4 @@ export interface IForumFilter extends IFilter {
   postName?: string;
   threadName?: string;
 }
+

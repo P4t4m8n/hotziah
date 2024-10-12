@@ -7,5 +7,22 @@ export const USER_MENU_ITEMS: IMenu = {
     style: "user-menu-btn",
     iconSvg: <AvatarSvg />,
   },
-  items: [],
+  items: [
+    {
+      link: "/login",
+      text: "Login",
+      style: "user-menu-item",
+    },
+    {
+      link: "/signup",
+      text: "Sign-up",
+      style: "user-menu-item",
+    },
+    {
+      link: "/logout",
+      text: "logout",
+      style: "user-menu-item",
+    },
+  ],
+  menuStyle: "",
 };

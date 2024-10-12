@@ -44,7 +44,7 @@ export default function GeneralMenu({ menuItems }: Props) {
       </button>
       <ul className={`${isOpen ? "block" : "hidden"} ${menuItems.menuStyle}`}>
         {menuItems.items.map((item, idx) => (
-          <li key={idx} >
+          <li key={idx}>
             {item.onClick && (
               <button
                 className={item.style}

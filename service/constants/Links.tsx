@@ -8,7 +8,7 @@ export const APP_LINKS = [
   },
   {
     name: "פורום",
-    url: "/form",
+    url: "/forum",
     icon: <ArticleSvg />,
   },
   {

@@ -1,27 +1,23 @@
 "use client";
 import { IQuestionnaire } from "@/service/models/questionnaire.model";
-
 import { useQuestionnaireEdit } from "@/ui/hooks/useQuestionnaireEdit";
+
 import QuestionnaireTitle from "./QuestionnaireEdit/QuestionnaireTitle";
 import QuestionnaireSubjects from "./QuestionnaireEdit/QuestionnaireSubjects";
 import QuestionnaireDescription from "./QuestionnaireEdit/QuestionnaireDescription";
 import QuestionnaireRoot from "./QuestionnaireEdit/QuestionnaireRoot";
 
 interface Props {
-  questionnaire: IQuestionnaire;
-  saveQuestionnaire: (questionnaire: IQuestionnaire) => Promise<IQuestionnaire>;
+  questionnaire?: IQuestionnaire;
 }
-export default function QuestionnaireEditClient({
-  questionnaire,
-  saveQuestionnaire,
-}: Props) {
+export default function QuestionnaireEditClient({ questionnaire }: Props) {
   const {
     handleChange,
     questionnaireToEdit,
     saveQuestion,
     removeQuestion,
     onSaveQuestionnaire,
-  } = useQuestionnaireEdit(questionnaire, saveQuestionnaire);
+  } = useQuestionnaireEdit(questionnaire);
 
   const { title, description, subjects, question } = questionnaireToEdit;
   return (

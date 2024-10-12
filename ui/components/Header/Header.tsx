@@ -1,9 +1,8 @@
 import { APP_LINKS } from "@/service/constants/Links";
 import { LogoSvg } from "@/ui/Icons/Svgs";
 import Link from "next/link";
-import React from "react";
-import GeneralMenu from "../Menus/GeneralMenu";
-import { USER_MENU_ITEMS } from "@/service/constants/menuItem";
+
+import UserMenu from "../User/UserMenu";
 
 export default function Header() {
   return (
@@ -23,7 +22,7 @@ export default function Header() {
           </Link>
         ))}
       </nav>
-      <GeneralMenu menuItems={USER_MENU_ITEMS} />
+      <UserMenu />
     </header>
   );
 }
