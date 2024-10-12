@@ -50,6 +50,7 @@ const buildPipeline = (filter: IForumFilter) => {
       _id: { $toString: "$_id" },
       name: 1,
       description: 1,
+      type: 1,
       admins: {
         $map: {
           input: "$admins",

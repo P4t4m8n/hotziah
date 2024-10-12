@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { faker } from "@faker-js/faker";
 import { IUserDto } from "../models/user.model";
-import { IForumDto } from "../models/forum.model";
+import { FORUM_TYPE, IForumDto } from "../models/forum.model";
 import { IThreadDto } from "../models/thread.model";
 import { IPostDto } from "../models/posts.model";
 import { getCollection } from "./mongo";
@@ -28,6 +28,7 @@ const createRandomForum = (_admins: ObjectId[]): IForumDto => {
     name: faker.lorem.words(3),
     description: faker.lorem.sentences(2),
     admins,
+    type: FORUM_TYPE[Math.floor(Math.random() * FORUM_TYPE.length)],
   };
 };
 

@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="rtl">
+    <html lang="he">
       <body className={`antialiased min-h-screen min-w-full`}>
         <AuthProvider>{children}</AuthProvider>
       </body>

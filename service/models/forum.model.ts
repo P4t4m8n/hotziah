@@ -5,6 +5,7 @@ import { IUser } from "./user.model";
 interface IForumBase {
   name: string;
   description: string;
+  type: TForumType;
 }
 
 export interface IForumDto extends IForumBase, IDto {
@@ -22,5 +23,15 @@ export interface IForumFilter extends IFilter {
   _id?: string;
   postName?: string;
   threadName?: string;
+  type?: TForumType;
 }
 
+export const FORUM_TYPE = [
+  "public",
+  "private",
+  "restricted",
+  "technical",
+  "social",
+] as const;
+
+export type TForumType = (typeof FORUM_TYPE)[number];
