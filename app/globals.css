@@ -50,6 +50,7 @@
     var(--_g) calc(3 * var(--s)) calc(3 * var(--s)),
     repeating-linear-gradient(135deg, var(--c2) 0 12.5%, var(--c3) 0 25%);
   background-size: calc(4 * var(--s)) calc(4 * var(--s));
+  border-radius: 24px;
 }
 .svg-background-1 {
   --s: 100px; /* control the size*/
@@ -125,6 +126,8 @@
       var(--c3) 0 50%
     );
   background-size: var(--s) calc(var(--s) * tan(30deg));
+  border-radius: 24px;
+
 }
 
 .svg-background-6 {
@@ -336,3 +339,9 @@
   content: "•";
   @apply mx-2 text-black;
 }
+.forum-type::before {
+  content: "•";
+  @apply  text-white  px-2 text-xl;
+}
+
+

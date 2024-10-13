@@ -1,6 +1,9 @@
 import { IForumDetails, IForumFilter } from "@/service/models/forum.model";
 import { getEntityDetailed } from "@/service/server/generic.server";
-import ForumDetailsClient from "@/ui/components/Forum/ForumDetailsClient";
+import ForumDetailsHeader from "@/ui/components/Forum/ForumDetails/ForumDetailsHeader";
+import ForumDetailsThreads from "@/ui/components/Forum/ForumDetails/ForumDetailsThreads";
+import { PlusSvg } from "@/ui/Icons/Svgs";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   return [{ id: "1" }];
@@ -12,17 +15,30 @@ export default async function ForumDetailsServer({
   params: { id: string };
 }) {
   const { id } = params;
-  let forum: IForumDetails = await getEntityDetailed<
+  const forum: IForumDetails = await getEntityDetailed<
     IForumDetails,
     IForumFilter
   >({ _id: id }, "forums");
 
-  const { name, description, threads } = forum;
+  const { name, description, threads, type } = forum;
+  console.log("forum:", forum);
+  console.log("type:", type);
 
   return (
-    <div>
-      <h1>{name}</h1>
-      <p>{description}</p>
+    <div className="p-8 h-full">
+      <ForumDetailsHeader name={name} type={type} />
+      <div className="flex justify-between p-6">
+        <p className="p-6 font-semibold text-sm">{description}</p>
+        <Link
+          className="bg-orange rounded-lg flex gap-2 h-12 w-32 p-2 items-center justify-center"
+          href={`/forum/edit/new`}
+        >
+          <PlusSvg />
+          <h4 className="text-xs font-bold text-blue">NEW THREAD</h4>
+        </Link>
+      </div>
+
+      <ForumDetailsThreads threads={threads} />
     </div>
   );
 }

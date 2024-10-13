@@ -20,6 +20,8 @@ const config: Config = {
         "main-height": "calc(100vh - 9rem)",
         "text-editor": "calc(100% - 4rem)",
         "forum-index": "calc(100% - 5rem)",
+        "forum-details-threads": "calc(100% - 14.5rem)",
+        "forum-details-list": "calc(100% - 5rem)",
       },
       width: {
         "title-bar": "50ch",
