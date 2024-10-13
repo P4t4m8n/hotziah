@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useUser } from "@/ui/hooks/useUser";
 import GeneralMenu from "../Menus/GeneralMenu";
 import { IUser } from "@/service/models/user.model";
@@ -34,7 +34,14 @@ export default function UserMenu() {
   const menuItems = user ? getUserMenuItems(user) : null;
 
   if (!user) {
-    return <Link href="/login">Login</Link>;
+    return (
+      <Link
+        className="w-16 h-12 bg-black text-white rounded-lg p-4 font-bold flex justify-center items-center"
+        href="/login"
+      >
+        Login
+      </Link>
+    );
   }
   return <GeneralMenu menuItems={menuItems!} />;
 }

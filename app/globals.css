@@ -8,7 +8,7 @@
   @apply h-fit p-4;
 }
 .rdw-editor-toolbar {
-  @apply bg-blue-700 flex justify-between p-2 items-center h-12;
+  @apply bg-blue flex justify-between p-2 items-center h-12;
 }
 .editor-container {
   height: calc(35rem) !important ;
@@ -26,4 +26,313 @@
   &::before {
     @apply right-2 top-1/2 transform  -translate-y-1/2 absolute;
   }
+}
+
+/* Hide scrollbar for all browsers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.svg-background-0 {
+  --s: 50px; /* control the size*/
+  --c1: #f86466;
+  --c2: #000000;
+  --c3: #f5daf5;
+
+  --_g: conic-gradient(at 50% 25%, #0000 75%, var(--c1) 0);
+  background: var(--_g), var(--_g) var(--s) var(--s),
+    var(--_g) calc(2 * var(--s)) calc(2 * var(--s)),
+    var(--_g) calc(3 * var(--s)) calc(3 * var(--s)),
+    repeating-linear-gradient(135deg, var(--c2) 0 12.5%, var(--c3) 0 25%);
+  background-size: calc(4 * var(--s)) calc(4 * var(--s));
+}
+.svg-background-1 {
+  --s: 100px; /* control the size*/
+  --c1: #ff9900;
+  --c2: #0341ae;
+
+  background: conic-gradient(at 50% 25%, var(--c2) 25%, #0000 0)
+      calc(var(--s) / -4) calc(var(--s) / -2),
+    conic-gradient(at 25% 25%, var(--c1) 25%, #0000 0 75%, var(--c2) 0)
+      calc(var(--s) / 4) calc(var(--s) / -4),
+    conic-gradient(from -90deg at 75% 25%, var(--c2) 75%, var(--c1) 0);
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-2 {
+  --s: 30px; /* control the size*/
+  --c1: #8c2318;
+  --c2: #f29e5a;
+
+  background: conic-gradient(at 60% 60%, var(--c1) 75%, #0000 0) 0 0 /
+      calc(5 * var(--s) / 2) calc(5 * var(--s) / 2),
+    repeating-conic-gradient(var(--c1) 0 25%, #0000 0 50%) 0 0 /
+      calc(5 * var(--s)) calc(5 * var(--s)),
+    repeating-conic-gradient(var(--c2) 0 25%, var(--c1) 0 50%) 0 0 / var(--s)
+      var(--s);
+}
+
+.svg-background-3 {
+  --s: 16px; /* control the size*/
+  --c1: #e4844a;
+  --c2: #0d6759;
+
+  --g: radial-gradient(
+    30% 50% at 30% 100%,
+    #0000 66%,
+    var(--c1) 67% 98%,
+    #0000
+  );
+  background: var(--g), var(--g) calc(5 * var(--s)) calc(3 * var(--s)),
+    repeating-linear-gradient(90deg, var(--c1) 0 10%, var(--c2) 0 50%);
+  background-size: calc(10 * var(--s)) calc(6 * var(--s));
+}
+
+.svg-background-4 {
+  --s: 90px; /* control the size*/
+  --c1: #c58a39;
+  --c2: #a92c4d;
+
+  background: conic-gradient(at 25% 75%, #0000 25%, var(--c1) 0)
+      calc(var(--s) / -8) calc(var(--s) / 8) / var(--s) var(--s),
+    radial-gradient(50% 50%, var(--c1) 24%, var(--c2) 26% 74%, #0000 76%) 0 0 /
+      var(--s) var(--s),
+    conic-gradient(var(--c1) 75%, var(--c2) 0) calc(var(--s) / 2)
+      calc(var(--s) / 2) / calc(2 * var(--s)) calc(2 * var(--s));
+}
+
+.svg-background-5 {
+  --s: 200px; /* control the size*/
+  --c1: #1d1d1d;
+  --c2: #4e4f51;
+  --c3: #3c3c3c;
+
+  background: repeating-conic-gradient(
+        from 30deg,
+        #0000 0 120deg,
+        var(--c3) 0 50%
+      )
+      calc(var(--s) / 2) calc(var(--s) * tan(30deg) / 2),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--c1) 0 60deg,
+      var(--c2) 0 120deg,
+      var(--c3) 0 50%
+    );
+  background-size: var(--s) calc(var(--s) * tan(30deg));
+}
+
+.svg-background-6 {
+  --s: 64px; /* control the size*/
+  --c1: #c02942;
+  --c2: #53777a;
+  --c3: #ecd078;
+  --c4: #d95b43;
+
+  background: radial-gradient(var(--c1) 24%, #0000 25%),
+    radial-gradient(var(--c2) 30%, #0000 32%) calc(var(--s) / 2)
+      calc(var(--s) / 2),
+    repeating-conic-gradient(from 30deg, var(--c3) 0 30deg, var(--c4) 0 25%);
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-7 {
+  --s: 100px; /* control the size*/
+  --c1: #fff0e5;
+  --c2: #025d8c;
+  --c3: #e1642a;
+
+  --_g: 50%, #0000 37%, var(--c1) 39% 70%, #0000 72%;
+  --_t: 50%, var(--c2) 40deg, var(--c3) 0 140deg, var(--c2) 0 180deg, #0000 0;
+  --_s: 47% 50% at;
+  background: radial-gradient(var(--_s) -10% var(--_g)) 0 calc(var(--s) / 2),
+    radial-gradient(var(--_s) -10% var(--_g)) calc(var(--s) / 2) 0,
+    radial-gradient(var(--_s) 110% var(--_g)),
+    radial-gradient(var(--_s) 110% var(--_g)) calc(var(--s) / 2)
+      calc(var(--s) / 2),
+    conic-gradient(from 0deg at 55% var(--_t)) calc(var(--s) / 4) 0,
+    conic-gradient(from 180deg at 45% var(--_t)) calc(var(--s) / 4) 0, var(--c2);
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-8 {
+  --s: 120px;
+  --c1: #06d6a0;
+  --c2: #118ab2;
+
+  background: repeating-linear-gradient(
+    90deg,
+    var(--c1),
+    var(--c1) 10px,
+    var(--c2) 10px,
+    var(--c2) 20px
+  );
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-9 {
+  --s: 90px;
+  --c1: #073b4c;
+  --c2: #ffd166;
+  --c3: #06d6a0;
+
+  background: conic-gradient(
+    at 50% 50%,
+    var(--c1) 33%,
+    var(--c2) 33%,
+    var(--c3) 33%
+  );
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-10 {
+  --s: 70px;
+  --c1: #118ab2;
+  --c2: #ffd166;
+  --c3: #073b4c;
+
+  background: repeating-conic-gradient(var(--c1), var(--c2), var(--c3));
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-11 {
+  --s: 100px;
+  --c1: #457b9d;
+  --c2: #e63946;
+
+  background: conic-gradient(at 50% 50%, var(--c1), var(--c2));
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-12 {
+  --s: 80px;
+  --c1: #e76f51;
+  --c2: #264653;
+
+  background: repeating-linear-gradient(
+    135deg,
+    var(--c1),
+    var(--c1) 10px,
+    var(--c2) 10px,
+    var(--c2) 20px
+  );
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-13 {
+  --s: 60px;
+  --c1: #f4a261;
+  --c2: #e76f51;
+
+  background: repeating-conic-gradient(var(--c1) 25%, var(--c2) 25% 50%);
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-14 {
+  --s: 100px;
+  --c1: #264653;
+  --c2: #2a9d8f;
+
+  background: conic-gradient(at 50% 50%, var(--c1), var(--c2));
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-15 {
+  --s: 120px;
+  --c1: #e9c46a;
+  --c2: #2a9d8f;
+
+  background: repeating-linear-gradient(
+    90deg,
+    var(--c1),
+    var(--c1) 20px,
+    var(--c2) 20px,
+    var(--c2) 40px
+  );
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-16 {
+  --s: 110px;
+  --c1: #2b2d42;
+  --c2: #8d99ae;
+
+  background: conic-gradient(from 180deg, var(--c1), var(--c2));
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-17 {
+  --s: 85px;
+  --c1: #ef233c;
+  --c2: #d90429;
+
+  background: repeating-linear-gradient(
+    45deg,
+    var(--c1),
+    var(--c1) 15px,
+    var(--c2) 15px,
+    var(--c2) 30px
+  );
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-18 {
+  --s: 50px;
+  --c1: #ffbe0b;
+  --c2: #fb5607;
+
+  background: conic-gradient(at 75% 75%, var(--c1), var(--c2));
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-19 {
+  --s: 90px;
+  --c1: #8338ec;
+  --c2: #3a86ff;
+
+  background: repeating-conic-gradient(var(--c1), var(--c2));
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-20 {
+  --s: 70px;
+  --c1: #ff006e;
+  --c2: #3a86ff;
+
+  background: repeating-linear-gradient(
+    135deg,
+    var(--c1),
+    var(--c1) 20px,
+    var(--c2) 20px,
+    var(--c2) 40px
+  );
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-21 {
+  --s: 100px;
+  --c1: #fb5607;
+  --c2: #ffbe0b;
+
+  background: conic-gradient(at 50% 50%, var(--c1), var(--c2));
+  background-size: var(--s) var(--s);
+}
+
+.svg-background-22 {
+  --s: 110px;
+  --c1: #ffbe0b;
+  --c2: #8338ec;
+
+  background: repeating-conic-gradient(var(--c1), var(--c2));
+  background-size: var(--s) var(--s);
+}
+
+.nav-link::before {
+  content: "•";
+  @apply mx-2 text-black;
 }

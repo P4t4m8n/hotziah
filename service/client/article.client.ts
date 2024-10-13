@@ -9,7 +9,7 @@ const create = async (article: IArticle): Promise<IArticle | undefined> => {
     );
     return savedArticle;
   } catch (error) {
-    console.log("error:", error);
+    console.error("error:", error);
   }
 };
 

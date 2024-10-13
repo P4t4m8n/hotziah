@@ -1,6 +1,6 @@
 "use server";
 
-import { Collection, ObjectId } from "mongodb";
+import { Collection, Document, ObjectId } from "mongodb";
 import { getCollection } from "../db/mongo";
 import modelConfigs from "./modelConfig";
 import { TModelCollectionName } from "../models/db.model";
@@ -86,7 +86,34 @@ export const getEntity = async <
   }
 };
 
-export const getEntities = async <T extends { _id: string }, Filter>(
+export const getEntityDetailed = async <
+  T extends Document,
+  Filter extends IFilter
+>(
+  filter: Filter,
+  key: TModelCollectionName
+): Promise<T> => {
+  try {
+    
+    const config = modelConfigs[key] as IModelConfig<T, never, IFilter>;
+    if (!config) throw new Error(`No model config found for key ${key}`);
+
+    const pipeline = config.buildPipelineDetailed!(filter);
+    
+    const collection = await getCollection(config.collectionName);
+    const [entity] = await collection.aggregate<T>(pipeline).toArray();
+
+    if (!entity || !entity._id) {
+      throw new Error("Entity not found");
+    }
+
+    return entity;
+  } catch (error) {
+    throw handleError(error, `Error getting entity by ID of type ${key}`);
+  }
+};
+
+export const getEntities = async <T extends Document, Filter>(
   filter: Filter,
   key: TModelCollectionName
 ): Promise<T[]> => {

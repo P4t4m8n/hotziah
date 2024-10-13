@@ -24,7 +24,7 @@ export default function AuthIndexClient({ isLogin }: Props) {
         await signUp(userDto);
       }
     } catch (error) {
-      console.log("error:", error);
+      console.info("error:", error);
     } finally {
       setIsLoading(false);
     }

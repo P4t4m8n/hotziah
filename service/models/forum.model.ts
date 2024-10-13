@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { IDto, IFilter } from "./app.model";
 import { IUser } from "./user.model";
+import { IThreadDetails } from "./thread.model";
 
 interface IForumBase {
   name: string;
@@ -8,14 +9,19 @@ interface IForumBase {
   type: TForumType;
 }
 
-export interface IForumDto extends IForumBase, IDto {
-  _id?: ObjectId;
-  admins: ObjectId[];
-}
-
 export interface IForum extends IForumBase {
   _id: string;
   admins: IUser[];
+}
+
+export interface IForumDetails extends IForum {
+  threads: IThreadDetails[];
+  numOfThreads?: number; //include in case only fetching forums for preview instead of fetching all the threads
+}
+
+export interface IForumDto extends IForumBase, IDto {
+  _id?: ObjectId;
+  admins: ObjectId[];
 }
 
 export interface IForumFilter extends IFilter {

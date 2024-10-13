@@ -59,7 +59,6 @@ export default function TextEditor({ article }: Props) {
     };
 
     const _article = await articleClientService.create(articleData);
-    console.log("_article:", _article);
   };
 
   return (

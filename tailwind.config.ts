@@ -8,10 +8,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {},
+      colors: {
+        black: "#000000ff",
+        blue: "#14213dff",
+        orange: "#fca311ff",
+        platinum: "#6b7280",
+        white: "#ffffffff",
+      },
+
       height: {
-        "main-hight": "calc(100vh - 13rem)",
+        "main-height": "calc(100vh - 9rem)",
         "text-editor": "calc(100% - 4rem)",
+        "forum-index": "calc(100% - 5rem)",
       },
       width: {
         "title-bar": "50ch",

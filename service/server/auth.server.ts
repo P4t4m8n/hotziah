@@ -46,7 +46,6 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
     if (existingUser) {
       throw new Error("User already exists");
     }
-    console.log("existingUser:", existingUser);
 
     const hash = await bcrypt.hash(userDto.password, saltRounds);
 

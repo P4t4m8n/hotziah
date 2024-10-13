@@ -6,19 +6,19 @@ import UserMenu from "../User/UserMenu";
 
 export default function Header() {
   return (
-    <header className=" flex w-full shadow-sm h-28 p-4 bg-slate-100">
-      <Link className="w-16 h-16" href={"/"}>
+    <header className=" flex w-full border-b-2 h-20 p-4 px-4">
+      <Link className="w-12 h-12" href={"/"}>
         <LogoSvg />
       </Link>
       <nav className=" flex w-full justify-around  ">
         {APP_LINKS.map((link) => (
           <Link
-            className=" items-center flex flex-col"
+            className=" items-center flex flex-col w-12 h-12"
             key={link.url}
             href={link.url}
           >
             {link.icon}
-            <span>{link.name}</span>
+            <span className="text-sm">{link.name}</span>
           </Link>
         ))}
       </nav>

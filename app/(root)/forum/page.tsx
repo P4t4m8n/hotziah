@@ -1,18 +1,15 @@
-import { IForum, TForumType } from "@/service/models/forum.model";
-import { getForums } from "@/service/server/forum.server";
-import ForumClient from "@/ui/components/Forum/ForumClient";
+import { IForumDetails, IForumFilter } from "@/service/models/forum.model";
+import { getEntities } from "@/service/server/generic.server";
+import ForumIndexHeader from "@/ui/components/Forum/ForumIndexHeader";
+import ForumList from "@/ui/components/Forum/ForumList";
 
-export default async function FormServer() {
-  const forums = await getForums({});
-  const forumsGrouped: { key: TForumType; value: IForum[] }[] = [];
-  forums.forEach((forum) => {
-    const group = forumsGrouped.find((group) => group.key === forum.type);
-    if (group) {
-      group.value.push(forum);
-    } else {
-      forumsGrouped.push({ key: forum.type, value: [forum] });
-    }
-  });
+export default async function FormIndexServer() {
+  const forums = await getEntities<IForumDetails, IForumFilter>({}, "forums");
 
-  return <ForumClient forums={forumsGrouped} />;
+  return (
+    <div className="bg-orange-500 p-4 h-full overflow-auto no-scrollbar">
+      <ForumIndexHeader />
+      <ForumList forums={forums} />
+    </div>
+  );
 }

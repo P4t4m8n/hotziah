@@ -116,5 +116,5 @@ export async function seedDemoData(
   const postsCollection = await getCollection<IPostDto>("posts");
   await postsCollection.insertMany(posts);
 
-  console.log("Demo data seeded successfully!");
+  console.info("Demo data seeded successfully!");
 }
