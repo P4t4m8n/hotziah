@@ -13,7 +13,6 @@ export default async function FormServer() {
       forumsGrouped.push({ key: forum.type, value: [forum] });
     }
   });
-  console.log("forumsGrouped:", forumsGrouped)
 
   return <ForumClient forums={forumsGrouped} />;
 }
