@@ -92,3 +92,12 @@
 13.10.2024, 17:32:45 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object
 13.10.2024, 17:38:27 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: Unsupported conversion from array to string in $convert with no onError value
 13.10.2024, 17:38:31 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: Unsupported conversion from array to string in $convert with no onError value
+14.10.2024, 13:05:32 - ERROR - Error getting entity by ID of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: null
+14.10.2024, 13:38:39 - ERROR - Error getting entity by ID of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: null
+14.10.2024, 13:41:56 - ERROR - Error getting entity by ID of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: null
+14.10.2024, 13:58:23 - ERROR - Error getting entities of type forums | No model config found for key forums
+14.10.2024, 15:27:15 - ERROR - Error getting entity by ID of type forums | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+14.10.2024, 15:27:26 - ERROR - Error getting entity by ID of type forums | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+14.10.2024, 15:27:27 - ERROR - Error getting entity by ID of type forums | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+14.10.2024, 16:43:07 - ERROR - Error getting entity by ID of type forums | Entity not found
+14.10.2024, 16:43:17 - ERROR - Error getting entity by ID of type forums | Entity not found

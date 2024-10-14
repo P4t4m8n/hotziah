@@ -6,24 +6,20 @@ import { IPost } from "./posts.model";
 interface IThreadsBase {
   name: string;
 }
-
 export interface IThread extends IThreadsBase {
   _id: string;
   forumId: string;
   author: IUser;
   numOfPosts?: number;
 }
-
 export interface IThreadDetails extends IThread {
-  posts: IPost[];
+  posts: IPost[]; //When is preview or child of forum will continue just one post its the latest
 }
-
 export interface IThreadDto extends IThreadsBase, IDto {
   _id?: ObjectId;
   forumId: ObjectId;
   authorId: ObjectId;
 }
-
 export interface IThreadFilter extends IFilter {
   name?: string;
   forumId?: string;

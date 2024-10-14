@@ -4,10 +4,10 @@ import { TModelCollectionName } from "../models/db.model";
 import { questionnaireConfig } from "../services/questionnaire.service";
 import { therapistConfig } from "../services/therapist.service";
 import { userConfig } from "../services/user.service";
-import { forumConfig } from "../services/forum.service";
 import { articleConfig } from "../services/article.service";
 import { postConfig } from "../services/post.service";
 import { threadConfig } from "../services/thread.service";
+import { forumConfig } from "./util/forum.server.util";
 
 const modelConfigs: Record<
   TModelCollectionName,

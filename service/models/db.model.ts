@@ -25,7 +25,7 @@ export interface IPipelineStage {
   $addFields?: Record<string, unknown>;
   $project?: Record<string, unknown>;
   $regex?: Record<string, unknown>;
-  $unwind?: string;
+  $unwind?: string|Record<string, unknown>;
   $sort?: Record<string, unknown>;
   $limit?: number;
   $group?: Record<string, unknown>;

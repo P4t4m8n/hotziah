@@ -18,7 +18,7 @@ export default function Header() {
             href={link.url}
           >
             {link.icon}
-            <span className="text-sm">{link.name}</span>
+            <span className="text-xs font-semibold">{link.name}</span>
           </Link>
         ))}
       </nav>

@@ -9,7 +9,7 @@ export default function MainLayout({
   return (
     <main className="grid ">
       <Header />
-      <section className="h-main-height">{children}</section>
+      <section className="h-main-height flex flex-col">{children}</section>
       <Footer />
     </main>
   );

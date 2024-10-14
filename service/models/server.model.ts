@@ -1,9 +1,9 @@
+import { Document } from "mongodb";
 import { IPipelineStage, TCollectionName } from "./db.model";
 
-export interface IModelConfig<T, DTO, Filter> {
+export interface IModelConfig<T extends Document, DTO, Filter> {
   collectionName: TCollectionName;
   toDTO: (entity: T) => DTO;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  buildPipeline: (filter: Filter) => any[];
+  buildPipeline: (filter: Filter) => IPipelineStage[];
   buildPipelineDetailed?: (filter: Filter) => IPipelineStage[];
 }

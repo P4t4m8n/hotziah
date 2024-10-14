@@ -8,10 +8,7 @@ import { IModelConfig } from "../models/server.model";
 import { IDto, IFilter } from "../models/app.model";
 import { handleError } from "../util/error.util";
 
-export const saveEntity = async <
-  T extends { _id?: string | ObjectId },
-  DTO extends IDto
->(
+export const saveEntity = async <T extends Document, DTO extends IDto>(
   entity: T,
   key: TModelCollectionName
 ): Promise<T> => {
@@ -60,14 +57,10 @@ export const saveEntityDto = async <
   }
 };
 
-export const getEntity = async <
-  T extends { _id?: string | ObjectId },
-  Filter extends IFilter,
-  R = T
->(
+export const getEntity = async <T extends Document, Filter extends IFilter>(
   filter: Filter,
   key: TModelCollectionName
-): Promise<R> => {
+): Promise<T> => {
   try {
     const config = modelConfigs[key] as IModelConfig<T, never, IFilter>;
     if (!config) throw new Error(`No model config found for key ${key}`);
@@ -80,26 +73,26 @@ export const getEntity = async <
       throw new Error("Entity not found");
     }
 
-    return entity as unknown as R;
+    return entity;
   } catch (error) {
     throw handleError(error, `Error getting entity by ID of type ${key}`);
   }
 };
 
-export const getEntityDetailed = async <
-  T extends Document,
-  Filter extends IFilter
->(
+export const getEntityDetailed = async <T extends Document, Filter>(
   filter: Filter,
   key: TModelCollectionName
 ): Promise<T> => {
   try {
-    
-    const config = modelConfigs[key] as IModelConfig<T, never, IFilter>;
+    const config = modelConfigs[key] as unknown as IModelConfig<
+      T,
+      never,
+      Filter
+    >;
     if (!config) throw new Error(`No model config found for key ${key}`);
 
     const pipeline = config.buildPipelineDetailed!(filter);
-    
+
     const collection = await getCollection(config.collectionName);
     const [entity] = await collection.aggregate<T>(pipeline).toArray();
 
@@ -118,8 +111,11 @@ export const getEntities = async <T extends Document, Filter>(
   key: TModelCollectionName
 ): Promise<T[]> => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const config = modelConfigs[key] as unknown as IModelConfig<T, any, Filter>;
+    const config = modelConfigs[key] as unknown as IModelConfig<
+      T,
+      unknown,
+      Filter
+    >;
     if (!config) throw new Error(`No model config found for key ${key}`);
 
     const pipeline = config.buildPipeline(filter);

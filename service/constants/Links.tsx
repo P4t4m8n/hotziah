@@ -1,24 +1,29 @@
-import { ArticleSvg } from "@/ui/Icons/Svgs";
+import {
+  ArticleSvg,
+  ForumSvg,
+  QuestionnaireSvg,
+  TherapistSvg,
+} from "@/ui/Icons/Svgs";
 
 export const APP_LINKS = [
   {
-    name: "מאמרים",
+    name: "ARTICLES",
     url: "/article",
     icon: <ArticleSvg />,
   },
   {
-    name: "פורום",
+    name: "FORUMS",
     url: "/forum",
-    icon: <ArticleSvg />,
+    icon: <ForumSvg />,
   },
   {
-    name: "שאלונים",
+    name: "QUESTIONNAIRES",
     url: "/questionnaire",
-    icon: <ArticleSvg />,
+    icon: <QuestionnaireSvg />,
   },
   {
-    name: "מטפלים",
+    name: "THERAPISTS",
     url: "/therapist",
-    icon: <ArticleSvg />,
+    icon: <TherapistSvg />,
   },
 ];

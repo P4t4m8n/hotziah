@@ -26,6 +26,7 @@ const config: Config = {
       width: {
         "title-bar": "50ch",
         "description-bar": "255ch",
+        "forum-edit": "clamp(20rem, 100%,40rem)",
       },
       boxShadow: {
         model: "0px 10px 3000px 1500px rgba(0, 0, 0, 0.5)",
