@@ -432,3 +432,34 @@ Invalid `prisma.post.findUnique()` invocation:
 
 
 Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 15:23:15 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 15:23:16 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 15:23:22 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 15:40:42 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 16:35:51 - ERROR - Error querying forums in forum.server.ts | 
+Invalid `prisma.forum.findMany()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 16:35:51 - ERROR - Error querying forums in forum.server.ts | 
+Invalid `prisma.forum.findMany()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 17:47:19 - ERROR - Error querying forums in forum.server.ts | Cannot read properties of undefined (reading 'id')

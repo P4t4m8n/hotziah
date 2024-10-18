@@ -1,16 +1,15 @@
 import { formatDate } from "@/service/client/util/app.util";
 import { IComment } from "@/service/models/comments.model";
-import { ArrowSvg } from "@/ui/Icons/Svgs";
 import Image from "next/image";
+import CommentItemClient from "./CommentItemClient";
 
 interface Props {
   comment: IComment;
 }
 export default function CommentItem({ comment }: Props) {
-  console.log("comment:", comment);
-  const { content, author, createdAt, _count } = comment;
+  const { content, author, createdAt } = comment;
   return (
-    <li className=" p-2 rounded-lg flex flex-col gap-2">
+    <li className=" p-2 rounded-lg flex flex-col gap-2 w-full">
       <div className="flex gap-2 items-center">
         <Image
           src={author.imgUrl || ""}
@@ -24,15 +23,10 @@ export default function CommentItem({ comment }: Props) {
           <span className="font-thin text-xs">{formatDate(createdAt)}</span>
         </div>
       </div>
+
       <article className="text-xs text-black p-4 max-h-24  ">{content}</article>
-      <div className="px-4 flex justify-between">
-        <button className="flex gap-1 items-center">
-          <span className="font-semibold text-sm">
-            {_count?.replies} replies
-          </span>
-          <ArrowSvg />
-        </button>
-      </div>
+
+      <CommentItemClient comment={comment} />
     </li>
   );
 }

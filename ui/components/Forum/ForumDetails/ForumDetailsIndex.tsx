@@ -9,7 +9,6 @@ interface Props {
 
 export default function ForumDetailsIndex({ forum }: Props) {
   const { title, description, posts, type, admins, id } = forum;
-  console.log("admins:", admins.length)
 
   return (
     <div className="p-8 h-full">

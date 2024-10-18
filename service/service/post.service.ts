@@ -1,5 +1,5 @@
 import { IServiceConfig } from "../models/db.model";
-import { IPost, IPostDto, IPostSelectSql } from "../models/post.model";
+import { IPost, IPostDetailedSelectSql, IPostDto, IPostSelectSql } from "../models/post.model";
 import { IUserSmall } from "../models/user.model";
 import { userService } from "../server/user.server";
 
@@ -20,7 +20,7 @@ const getEmptyPost = (author: IUserSmall, forumId: string): IPost => {
   };
 };
 
-const buildSql = (): IPostSelectSql => {
+const buildSmallSql = (): IPostSelectSql => {
   return {
     id: true,
     title: true,
@@ -28,6 +28,43 @@ const buildSql = (): IPostSelectSql => {
     forumId: true,
     author: {
       select: userService.buildSmallSql!(),
+    },
+  };
+};
+const buildSql = (): IPostDetailedSelectSql => {
+  return {
+    id: true,
+    title: true,
+    content: true,
+    forumId: true,
+    author: {
+      select: userService.buildSmallSql!(),
+    },
+    _count: {
+      select: {
+        comments: true,
+      },
+    },
+    comments: {
+      where: { parentId: null },
+      select: {
+        id: true,
+        parentId: true,
+        content: true,
+        createdAt: true,
+        author: {
+          select: {
+            id: true,
+            username: true,
+            imgUrl: true,
+          },
+        },
+        _count: {
+          select: {
+            replies: true,
+          },
+        },
+      },
     },
   };
 };
@@ -41,5 +78,6 @@ export const postService: IServiceConfig<
   collectionName: "post",
   toDTO,
   buildSql,
+  buildSmallSql,
   getEmptyEntity: getEmptyPost,
 };

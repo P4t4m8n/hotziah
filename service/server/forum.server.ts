@@ -1,15 +1,10 @@
+"use server";
+
 import { prisma } from "@/prisma/prismaClient";
-import {
-  IForum,
-  IForumDto,
-  IForumFilter,
-  IForumSelectSql,
-} from "../models/forum.model";
+import { IForum, IForumDto, IForumFilter } from "../models/forum.model";
 import { handleError } from "../util/error.util";
-import { userService } from "./user.server";
-import { IServiceConfig } from "../models/db.model";
 import { ForumSubject, ForumType } from "@prisma/client";
-import { IPost } from "../models/post.model";
+import { forumService } from "../service/forum.service";
 
 export const saveForum = async (formData: FormData): Promise<void> => {
   const forumToSave: IForumDto = {
@@ -22,33 +17,26 @@ export const saveForum = async (formData: FormData): Promise<void> => {
   };
 
   if (forumToSave.id) {
-    await forumServer.update(forumToSave);
+    await updateForum(forumToSave);
   } else {
-    await forumServer.create(forumToSave);
+    await createForum(forumToSave);
   }
 };
 
-const query = async (filter: IForumFilter): Promise<IForum[]> => {
+export const getForums = async (filter: IForumFilter): Promise<IForum[]> => {
   try {
-    const forumsData = await prisma.forum.findMany({
+    const forums = await prisma.forum.findMany({
       where: {
         id: filter.id,
         title: { contains: filter.title },
         subjects: filter.subject ? { hasSome: filter.subject } : undefined,
         type: { equals: filter.type },
       },
-      select: forumService.buildSql(),
+      select: forumService.buildSmallSql(),
       take: filter.take,
       skip: filter.skip,
     });
-    if (!forumsData) throw new Error("No forums found");
-
-    const forums: IForum[] = forumsData.map((forum) => {
-      return {
-        ...forum,
-        numOfPosts: forum._count.posts,
-      };
-    });
+    if (!forums) throw new Error("No forums found");
 
     return forums;
   } catch (error) {
@@ -56,72 +44,21 @@ const query = async (filter: IForumFilter): Promise<IForum[]> => {
   }
 };
 
-const get = async (id: string): Promise<IForum> => {
+export const getForumById = async (id: string): Promise<IForum> => {
   try {
     const forum = await prisma.forum.findUnique({
       where: { id },
-      select: {
-        id: true,
-        description: true,
-        admins: {
-          select: userService.buildSmallSql!(),
-        },
-        type: true,
-        subjects: true,
-        title: true,
-        posts: {
-          select: {
-            id: true,
-            title: true,
-            content: true,
-            forumId: true,
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                comments: true,
-              },
-            },
-            comments: {
-              orderBy: {
-                createdAt: "desc",
-              },
-              select: {
-                author: {
-                  select: userService.buildSmallSql!(),
-                },
-                content: true,
-                createdAt: true,
-                id: true,
-              },
-              take: 1,
-            },
-          },
-        },
-      },
+      select: forumService.buildSql(),
     });
     if (!forum) throw new Error("Forum not found");
 
-    const posts = forum.posts.map((post) => {
-      const _post: IPost = {
-        ...post,
-        numOfComments: post._count.comments||0,
-      };
-      return _post;
-    });
-
-    return { ...forum, posts };
+    return forum;
   } catch (error) {
     throw handleError(error, "Error in getForum service");
   }
 };
 
-const create = async (forumDto: IForumDto): Promise<IForum> => {
+export const createForum = async (forumDto: IForumDto): Promise<IForum> => {
   try {
     const newForum = await prisma.forum.create({
       data: {
@@ -142,7 +79,7 @@ const create = async (forumDto: IForumDto): Promise<IForum> => {
   }
 };
 
-const update = async (forum: IForumDto): Promise<IForum> => {
+export const updateForum = async (forum: IForumDto): Promise<IForum> => {
   try {
     const updatedForum = await prisma.forum.update({
       where: { id: forum.id },
@@ -161,7 +98,7 @@ const update = async (forum: IForumDto): Promise<IForum> => {
   }
 };
 
-const remove = async (id: string): Promise<boolean> => {
+export const removeForum = async (id: string): Promise<boolean> => {
   try {
     await prisma.forum.delete({
       where: { id },
@@ -171,92 +108,4 @@ const remove = async (id: string): Promise<boolean> => {
   } catch (error) {
     throw handleError(error, "Error in removeForum service");
   }
-};
-
-const toDTO = (forum: IForum): IForumDto => {
-  const { admins, ...rest } = forum;
-  return {
-    ...rest,
-
-    admins: admins.map((admin) => admin.id!),
-  };
-};
-
-const getEmptyForum = (): IForum => {
-  return {
-    title: "",
-    description: "",
-    type: "PUBLIC",
-    admins: [],
-    subjects: ["GENERAL"],
-    posts: [],
-  };
-};
-
-const buildSql = (): IForumSelectSql => {
-  return {
-    _count: {
-      select: {
-        posts: true,
-      },
-    },
-    id: true,
-    description: true,
-    admins: {
-      select: userService.buildSmallSql!(),
-    },
-    type: true,
-    subjects: true,
-    title: true,
-    posts: {
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: {
-            id: true,
-            username: true,
-            imgUrl: true,
-          },
-        },
-        comments: {
-          orderBy: {
-            createdAt: "desc",
-          },
-          select: {
-            author: {
-              select: userService.buildSmallSql!(),
-            },
-            content: true,
-            createdAt: true,
-            id: true,
-          },
-          take: 1,
-        },
-      },
-      take: 1,
-    },
-  };
-};
-
-export const forumService: IServiceConfig<
-  IForum,
-  IForumDto,
-  IForumSelectSql,
-  IForumSelectSql
-> = {
-  collectionName: "forum",
-  toDTO,
-  buildSql,
-  getEmptyEntity: getEmptyForum,
-};
-
-export const forumServer = {
-  query,
-  get,
-  create,
-  update,
-  remove,
 };

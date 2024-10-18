@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const TABLES = [
   "article",
   "forum",
@@ -5,6 +6,7 @@ export const TABLES = [
   "therapist",
   "questionnaire",
   "post",
+  "comment",
 ] as const;
 
 export type TTableName = (typeof TABLES)[number];
@@ -19,12 +21,11 @@ export interface IWhereSql {
   };
 }
 
-
 export interface IServiceConfig<T, DTO, SelectSql, SmallSelectSql> {
   collectionName: TTableName;
-  toDTO: (entity: T) => DTO;
-  buildSql: () => SelectSql;
-  buildSmallSql?: () => SmallSelectSql;
+  toDTO: (entity: T, ...args: any[]) => DTO;
+  buildSql: (...args: any[]) => SelectSql;
+  buildSmallSql: (...args: any[]) => SmallSelectSql;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getEmptyEntity?: (...args: any[]) => T;
+  getEmptyEntity: (...args: any[]) => T;
 }

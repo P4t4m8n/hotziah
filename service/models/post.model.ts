@@ -36,3 +36,12 @@ export interface IPostSelectSql extends ISelectSql {
     select: IUserSmallSelectSql;
   };
 }
+export interface IPostDetailedSelectSql extends IPostSelectSql {
+  _count: {
+    select: {
+      comments: boolean;
+    };
+  };
+
+  comments:{}
+}

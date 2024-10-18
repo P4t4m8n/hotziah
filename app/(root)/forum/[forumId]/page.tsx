@@ -1,5 +1,4 @@
-
-import { forumServer } from "@/service/server/forum.server";
+import { getForumById } from "@/service/server/forum.server";
 import ForumDetailsIndex from "@/ui/components/Forum/ForumDetails/ForumDetailsIndex";
 
 export async function generateStaticParams() {
@@ -12,7 +11,7 @@ export default async function ForumDetailsServer({
   params: { forumId: string };
 }) {
   const { forumId } = params;
-  const forum = await forumServer.get(forumId);
+  const forum = await getForumById(forumId);
 
   return <ForumDetailsIndex forum={forum} />;
 }

@@ -23,15 +23,7 @@ export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
           ],
         },
       },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: userService.buildSmallSql!(),
-        },
-      },
+      select: postService.buildSmallSql!(),
       take: filter.limit,
       skip: filter.page,
     });

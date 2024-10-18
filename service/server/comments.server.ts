@@ -1,31 +1,74 @@
-"user server";
+"use server";
 
 import { prisma } from "@/prisma/prismaClient";
 import { IComment, ICommentFilter } from "../models/comments.model";
 import { handleError } from "../util/error.util";
-import { userService } from "./user.server";
+import { commentService } from "../service/comment.service";
 
-const query = async (filter: ICommentFilter): Promise<IComment[]> => {
+export const getComments = async (
+  filter: ICommentFilter
+): Promise<IComment[]> => {
   try {
-    const comments = prisma.comment.findMany({
+    const comments = await prisma.comment.findMany({
       where: {
-        parentId: filter.parentId,
+        OR: [
+          {
+            parentId: filter.parentId,
+          },
+          {
+            author: {
+              OR: [
+                { username: filter.authorName },
+                { email: filter.authorName },
+                { firstName: filter.authorName },
+                { lastName: filter.authorName },
+              ],
+            },
+          },
+          {
+            post: {
+              OR: [
+                { id: filter.parentId },
+                { title: filter.postTitle },
+                { title: filter.parentTitle },
+              ],
+            },
+          },
+          {
+            parent: {
+              id: filter.parentId,
+            },
+          },
+        ],
       },
-      select: {
-        id: true,
-        content: true,
-        author: {
-          select: userService.buildSmallSql!(),
-        },
-      },
+      select: commentService.buildSql(),
     });
 
     return comments;
   } catch (error) {
-    throw handleError(error, "Error getting comments in comment service");
+    const formattedError = handleError(
+      error,
+      "Error getting comments in server"
+    );
+    throw formattedError;
   }
 };
 
-export const commentServer = {
-  query,
+export const getCommentById = async (commentId: string): Promise<IComment> => {
+  try {
+    const comment = await prisma.comment.findUnique({
+      where: {
+        id: commentId,
+      },
+      select: commentService.buildSql(),
+    });
+
+    if (!comment) {
+      throw new Error("Comment not found");
+    }
+
+    return comment;
+  } catch (error) {
+    throw handleError(error, "Error getting comment by id in server");
+  }
 };

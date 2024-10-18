@@ -2,6 +2,7 @@ import { IUserSmall, IUserSmallSelectSql } from "./user.model";
 import { IPost } from "./post.model";
 import { IEntity } from "./app.model";
 import { ForumSubject, ForumType } from "@prisma/client";
+import { ISelectSql } from "./db.model";
 
 interface IForumBase extends IEntity {
   title: string;
@@ -31,13 +32,12 @@ export interface IForumFilter extends IEntity {
   skip?: number;
 }
 
-export interface IForumSelectSql {
+export interface IForumSmallSelectSql extends ISelectSql {
   _count: {
     select: {
       posts: boolean;
     };
   };
-  id: boolean;
   description: boolean;
   admins: {
     select: IUserSmallSelectSql;
@@ -52,11 +52,8 @@ export interface IForumSelectSql {
       content: boolean;
       forumId: boolean;
       author: {
-        select: {
-          id: boolean;
-          username: boolean;
-          imgUrl: boolean;
-        };
+        select: IUserSmallSelectSql;
+
       };
       comments: {
         orderBy: {
@@ -75,6 +72,54 @@ export interface IForumSelectSql {
     };
     take: 1;
   };
+}
+export interface IForumSelectSql extends ISelectSql {
+  
+    id: boolean,
+    description: boolean,
+    admins: {
+      select: IUserSmallSelectSql;
+
+    },
+    type: boolean,
+    subjects: boolean,
+    title: boolean,
+    posts: {
+      select: {
+        id: boolean,
+        title: boolean,
+        content: boolean,
+        forumId: boolean,
+        author: {
+          select: {
+            id: boolean,
+            username: boolean,
+            imgUrl: boolean,
+          },
+        },
+        _count: {
+          select: {
+            comments: boolean,
+          },
+        },
+        comments: {
+          orderBy: {
+            createdAt: "desc",
+          },
+          select: {
+            author: {
+              select: IUserSmallSelectSql;
+
+            },
+            content: boolean,
+            createdAt: boolean,
+            id: boolean,
+          },
+          take: 1,
+        },
+      },
+    },
+  
 }
 
 export const FORUM_TYPE = Object.keys(ForumType);
