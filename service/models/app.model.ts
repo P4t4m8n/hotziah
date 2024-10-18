@@ -1,12 +1,3 @@
-import { Document, ObjectId } from "mongodb";
-
-export interface IDto extends Document {
-  _id?: ObjectId;
-}
-
-export interface IFilter {
-  _id?: string;
-}
 
 export type TInputUserFormKeys =
   | "email"
@@ -31,3 +22,9 @@ export interface ITtextAreaProps extends IInputProps {
 export interface ISelectSingleProps extends IInputProps {
   options: readonly string[];
 }
+
+export interface IEntity {
+  id?: string;
+}
+
+

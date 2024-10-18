@@ -1,104 +1,134 @@
-import { ObjectId } from "mongodb";
-import { getCollection } from "../db/mongo";
-import { IUser, IUserDto, IUserFIlter } from "../models/user.model";
+import { prisma } from "@/prisma/prismaClient";
+import {
+  IUser,
+  IUserDto,
+  IUserFilter,
+  IUserSelectSql,
+  IUserSmallSelectSql,
+} from "../models/user.model";
 import { handleError } from "../util/error.util";
+import { IServiceConfig } from "../models/db.model";
 
-const query = async (filter: IUserFIlter): Promise<IUser[]> => {
-  const collection = await getCollection("users");
-  const pipeline = buildPipeline(filter);
-  const users = await collection.aggregate<IUser>(pipeline).toArray();
-  return users;
-};
+const query = async (filter: IUserFilter): Promise<IUser[]> => {
+  try {
+    const selectSql = userService.buildSql();
 
-const get = async (filter: IUserFIlter): Promise<IUser> => {
-  const collection = await getCollection("users");
-  const pipeline = buildPipeline(filter);
-  const [user] = await collection.aggregate<IUser>(pipeline).toArray();
-  return user;
-};
+    const users = await prisma.user.findMany({
+      where: {
+        id: filter.id,
+        isTherapist: { equals: filter.isTherapist },
+        username: { contains: filter.username },
+        email: { contains: filter.email },
+        permission: { equals: filter.permission },
+        firstName: { contains: filter.firstName },
+        lastName: { contains: filter.lastName },
+      },
+      take: filter.amount,
+      skip: filter.page,
+      select: selectSql,
+    });
 
-const create = async (dto: IUserDto): Promise<IUser> => {
-  const collection = await getCollection("users");
-  const { insertedId } = await collection.insertOne(dto);
-  delete dto.password;
-  return { ...dto, _id: insertedId.toString() };
-};
-
-const update = async (dto: IUserDto): Promise<IUser> => {
-  const collection = await getCollection("users");
-  const { _id, ...rest } = dto;
-  const { acknowledged } = await collection.updateOne(
-    { _id: new ObjectId(_id) },
-    { $set: rest }
-  );
-  if (!acknowledged) {
-    throw handleError(new Error("Entity not found"), "Error updating entity");
+    return users;
+  } catch (error) {
+    throw handleError(error, "Error in getUsers service");
   }
-
-  delete dto.password;
-  return { ...dto, _id: dto._id?.toString() };
 };
-const remove = async (id: string): Promise<void> => {
-  const collection = await getCollection("users");
-  const { deletedCount } = await collection.deleteOne({
-    _id: new ObjectId(id),
-  });
-  if (deletedCount === 0) {
-    throw handleError(new Error("Entity not found"), "Error removing entity");
+
+const get = async (id: string): Promise<IUser> => {
+  const selectSql = userService.buildSql();
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: selectSql,
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user;
+  } catch (error) {
+    throw handleError(error, "Error in getUser service");
+  }
+};
+
+const update = async (user: IUserDto): Promise<IUser> => {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        ...user,
+      },
+    });
+
+    return updatedUser;
+  } catch (error) {
+    throw handleError(error, "Error in updateUser service");
+  }
+};
+
+const remove = async (id: string): Promise<boolean> => {
+  try {
+    await prisma.user.delete({
+      where: { id },
+    });
+
+    return true;
+  } catch (error) {
+    throw handleError(error, "Error in removeUser service");
   }
 };
 
 const toDTO = (user: IUser): IUserDto => {
-  const { _id, ...rest } = user;
   return {
-    ...rest,
-    _id: new ObjectId(_id),
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    permission: user.permission,
+    isTherapist: user.isTherapist,
+    imgUrl: user.imgUrl,
   };
 };
 
-const buildPipeline = (filter: IUserFIlter) => {
-  const pipeline = [];
-
-  if (filter.username) {
-    pipeline.push({ $match: { username: filter.username } });
-  }
-
-  if (filter.providerId) {
-    pipeline.push({ $match: { providerId: filter.providerId } });
-  }
-
-  if (filter.provider) {
-    pipeline.push({ $match: { provider: filter.provider } });
-  }
-
-  if (filter.permission) {
-    pipeline.push({ $match: { permission: filter.permission } });
-  }
-
-  if (filter._id) {
-    pipeline.push({ $match: { _id: new ObjectId(filter._id) } });
-  }
-
-  const project = {
-    $project: {
-      _id: { $toString: "$_id" },
-      username: 1,
-      imgUrl: 1,
-      permission: 1,
-      providerId: 1,
-    },
+const buildSql = (): IUserSelectSql => {
+  return {
+    id: true,
+    username: true,
+    email: true,
+    firstName: true,
+    lastName: true,
+    permission: true,
+    isTherapist: true,
+    imgUrl: true,
   };
-  pipeline.push(project);
+};
 
-  return pipeline;
+const buildSmallSql = (): IUserSmallSelectSql => {
+  return {
+    id: true,
+    username: true,
+    imgUrl: true,
+  };
+};
+
+export const userService: IServiceConfig<
+  IUser,
+  IUserDto,
+  IUserSelectSql,
+  IUserSmallSelectSql
+> = {
+  collectionName: "user",
+  toDTO,
+  buildSql,
+  buildSmallSql,
 };
 
 export const userServer = {
   query,
   get,
-  create,
   update,
   remove,
-  toDTO,
-  buildPipeline,
 };

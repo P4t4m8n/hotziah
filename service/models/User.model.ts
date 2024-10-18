@@ -1,33 +1,64 @@
-import { IDto, IFilter } from "./app.model";
+import { IEntity } from "./app.model";
+import { Permission } from "@prisma/client";
+import { ISelectSql, IWhereSql } from "./db.model";
 
-interface IUserBase {
+export interface IUserSmall extends IEntity {
+  username: string;
+  imgUrl: string;
+}
+
+export interface IUser extends IUserSmall {
+  username: string;
+  imgUrl: string;
+  email: string;
+  permission: Permission;
+  firstName: string;
+  lastName: string;
+  isTherapist: boolean;
+}
+
+export interface IUserDto extends IUser {
+  password?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IUserFilter extends IEntity {
   username?: string;
-  imgUrl?: string;
+  permission?: Permission;
+  id?: string;
   email?: string;
-  permission?: TUserPermission;
-
+  page?: number;
+  amount?: number;
+  isTherapist?: boolean;
   firstName?: string;
   lastName?: string;
 }
-export interface IUser extends IUserBase {
-  _id?: string;
+
+export interface IUserWhereSql extends IWhereSql {
+  where: {
+    isTherapist?: { equals: boolean };
+    username?: { contains: string };
+    email?: { contains: string };
+    permission?: { equals: string };
+    firstName?: { contains: string };
+    lastName?: { contains: string };
+    id?: string;
+  };
+  take: number;
+  skip: number;
 }
 
-export interface IUserDto extends IDto, IUserBase {
-  password?: string;
+export interface IUserSelectSql extends IUserSmallSelectSql {
+  email: boolean;
+  firstName: boolean;
+  lastName: boolean;
+  permission: boolean;
+  isTherapist: boolean;
+  password?: boolean;
 }
 
-export interface IUserFIlter extends IFilter {
-  username?: string;
-  provider?: TUserProvider;
-  providerId?: string;
-  permission?: TUserPermission;
-  _id?: string;
-  email?: string;
+export interface IUserSmallSelectSql extends ISelectSql {
+  username: boolean;
+  imgUrl: boolean;
 }
-
-export const USER_PROVIDERS = ["google", "facebook", "email"] as const;
-export type TUserProvider = (typeof USER_PROVIDERS)[number];
-
-export const USER_PERMISSIONS = ["admin", "user"] as const;
-export type TUserPermission = (typeof USER_PERMISSIONS)[number];

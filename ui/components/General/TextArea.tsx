@@ -23,8 +23,9 @@ export default function TextArea({ textAreaProps }: Props) {
         name={name}
         defaultValue={value}
         required
+        autoFocus
         maxLength={maxLength}
-        className={inputStyle}
+        className={inputStyle  }
       />
     </div>
   );

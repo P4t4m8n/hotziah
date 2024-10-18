@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "ui/components/QuestionnaireIndex/EditQuestion"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "ui/components/QuestionnaireIndex/EditQuestion,prisma/**/*.ts"],
   "exclude": ["node_modules"]
 }

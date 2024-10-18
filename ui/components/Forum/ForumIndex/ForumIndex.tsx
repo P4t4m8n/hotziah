@@ -1,9 +1,9 @@
-import { IForumDetails } from "@/service/models/forum.model";
 import ForumList from "./ForumList";
 import ForumIndexHeader from "./ForumIndexHeader";
+import { IForum } from "@/service/models/forum.model";
 
 interface Props {
-  forums: IForumDetails[];
+  forums: IForum[];
 }
 export default function ForumIndex({ forums }: Props) {
   return (

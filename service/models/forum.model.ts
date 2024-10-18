@@ -1,43 +1,80 @@
-import { ObjectId } from "mongodb";
-import { IDto, IFilter } from "./app.model";
-import { IUser } from "./user.model";
-import { IThreadDetails } from "./thread.model";
+import { IUserSmall, IUserSmallSelectSql } from "./user.model";
+import { IPost } from "./post.model";
+import { IEntity } from "./app.model";
+import { ForumSubject, ForumType } from "@prisma/client";
 
-interface IForumBase {
-  name: string;
+interface IForumBase extends IEntity {
+  title: string;
   description: string;
-  type: TForumType;
+  type: ForumType;
+  subjects: ForumSubject[];
+  createdAt?: Date;
 }
 
 export interface IForum extends IForumBase {
-  _id: string;
-  admins: IUser[];
+  admins: IUserSmall[];
+  posts: IPost[];
+  _count?: { posts: number }; //include in case only fetching forums for preview instead of fetching all the threads
 }
 
-export interface IForumDetails extends IForum {
-  threads: IThreadDetails[];
-  numOfThreads?: number; //include in case only fetching forums for preview instead of fetching all the threads
+export interface IForumDto extends IForumBase {
+  admins: string[];
+  updatedAt?: Date;
 }
 
-export interface IForumDto extends IForumBase, IDto {
-  _id?: ObjectId;
-  admins: ObjectId[];
-}
-
-export interface IForumFilter extends IFilter {
-  name?: string;
-  _id?: string;
+export interface IForumFilter extends IEntity {
+  title?: string;
   postName?: string;
-  threadName?: string;
-  type?: TForumType;
+  type?: ForumType;
+  subject?: ForumSubject[];
+  take?: number;
+  skip?: number;
 }
 
-export const FORUM_TYPE = [
-  "public",
-  "private",
-  "restricted",
-  "technical",
-  "social",
-] as const;
+export interface IForumSelectSql {
+  _count: {
+    select: {
+      posts: boolean;
+    };
+  };
+  id: boolean;
+  description: boolean;
+  admins: {
+    select: IUserSmallSelectSql;
+  };
+  type: boolean;
+  subjects: boolean;
+  title: boolean;
+  posts: {
+    select: {
+      id: boolean;
+      title: boolean;
+      content: boolean;
+      forumId: boolean;
+      author: {
+        select: {
+          id: boolean;
+          username: boolean;
+          imgUrl: boolean;
+        };
+      };
+      comments: {
+        orderBy: {
+          createdAt: "desc";
+        };
+        select: {
+          author: {
+            select: IUserSmallSelectSql;
+          };
+          content: boolean;
+          createdAt: boolean;
+          id: boolean;
+        };
+        take: 1;
+      };
+    };
+    take: 1;
+  };
+}
 
-export type TForumType = (typeof FORUM_TYPE)[number];
+export const FORUM_TYPE = Object.keys(ForumType);

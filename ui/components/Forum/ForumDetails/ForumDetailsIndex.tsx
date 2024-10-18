@@ -1,25 +1,25 @@
-import { IForumDetails } from "@/service/models/forum.model";
-
+import { IForum } from "@/service/models/forum.model";
 import ForumDetailsActions from "./ForumDetailsActions";
 import ForumDetailsHeader from "./ForumDetailsHeader";
-import ForumDetailsThreads from "./ForumDetailsThreads";
+import ForumDetailsPosts from "./ForumDetailsPosts";
 
 interface Props {
-  forum: IForumDetails;
+  forum: IForum;
 }
 
 export default function ForumDetailsIndex({ forum }: Props) {
-  const { name, description, threads, type, admins, _id } = forum;
+  const { title, description, posts, type, admins, id } = forum;
+  console.log("admins:", admins.length)
 
   return (
     <div className="p-8 h-full">
-      <ForumDetailsHeader name={name} type={type} />
+      <ForumDetailsHeader name={title} type={type} />
       <ForumDetailsActions
         description={description}
         admins={admins}
-        _id={_id}
+        id={id || ""}
       />
-      <ForumDetailsThreads threads={threads} />
+      <ForumDetailsPosts posts={posts} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-export const formatDateFromObjectId = (input?: string | Date): string => {
+export const formatDate = (input?: string | Date | undefined): string => {
   if (!input) {
     return "No activity yet";
   }

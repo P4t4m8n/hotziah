@@ -1,0 +1,217 @@
+enum Permission {
+  ADMIN
+  MODERATOR
+  USER
+}
+
+enum ForumType {
+  PUBLIC
+  PRIVATE
+  RESTRICTED
+  TECHNICAL
+}
+
+enum ForumSubject {
+  GENERAL
+  MENTAL_HEALTH
+  ADDICTION
+  RELATIONSHIPS
+  GRIEF
+  TRAUMA
+  ANXIETY
+  DEPRESSION
+  BIPOLAR
+  SCHIZOPHRENIA
+  PTSD
+  OCD
+  ADHD
+  AUTISM
+  ASPERGERS
+  EATING_DISORDERS
+  SUPPORT
+  THERAPY_SUPPORT
+}
+
+enum MeetingType {
+  IN_PERSON
+  VIDEO
+  PHONE
+}
+
+enum Languages {
+  ENGLISH
+  HEBREW
+  ARABIC
+  RUSSIAN
+  SPANISH
+  FRENCH
+  YIDDISH
+}
+
+enum Gender {
+  MAN
+  FEMALE
+  NON_BINARY
+}
+
+enum TherapistEducation {
+  PSYCHOLOGY
+  PSYCHIATRY
+  SOCIAL_WORK
+  COUNSELING
+  PSYCHOTHERAPY
+  BACHELOR
+  MASTER
+  PHD
+  MD
+  LCSW
+}
+
+enum QustionType {
+  TEXT
+  MULTIPLE_CHOICE
+  YES_NO
+  SCALE
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins", "omitApi"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String          @id @default(cuid())
+  email         String          @unique
+  username      String          @unique
+  firstName     String          @default("New User")
+  lastName      String          @default("New User")
+  password      String
+  imgUrl        String          @default("")
+  permission    Permission      @default(USER)
+  isTherapist   Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Forum         Forum[]
+  Post          Post[]
+  comments      Comment[]
+  Therapist     Therapist[]
+  Questionnaire Questionnaire[]
+  Article       Article[]
+}
+
+model Forum {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  type        ForumType
+  subjects    ForumSubject[]
+  admins      User[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  posts       Post[]
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  authorId  String
+  author    User      @relation(fields: [authorId], references: [id])
+  forumId   String
+  forum     Forum     @relation(fields: [forumId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comments  Comment[]
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      Post      @relation(fields: [postId], references: [id])
+  postId    String
+  parentId  String?
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[] @relation("CommentReplies")
+  createdAt DateTime  @default(now())
+}
+
+model Therapist {
+  id          String               @id @default(uuid())
+  subjects    String[]
+  languages   Languages[]
+  meetingType MeetingType[]
+  educations  TherapistEducation[]
+  gender      Gender
+  phone       String
+  userId      String
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  address     Address?             @relation("TherapistAddress")
+  addressId   String?
+}
+
+model Address {
+  id          String    @id @default(uuid())
+  city        String
+  street      String
+  number      Int?
+  therapist   Therapist @relation(fields: [therapistId], references: [id], onDelete: Cascade, name: "TherapistAddress")
+  therapistId String    @unique
+}
+
+model Questionnaire {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  subjects    String[]
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  rootQuestionId String?    @unique
+  rootQuestion   Question?  @relation("rootQuestion", fields: [rootQuestionId], references: [id])
+  questions      Question[] @relation("questionnaireQuestions")
+
+  createdAt DateTime @default(now())
+}
+
+model Question {
+  id              String         @id @default(cuid())
+  questionText    String
+  type            QustionType
+  questionnaireId String?        @unique
+  questionnaire   Questionnaire? @relation("questionnaireQuestions", fields: [questionnaireId], references: [id], onDelete: Cascade)
+
+  rootQuestionnaire Questionnaire? @relation("rootQuestion")
+
+  answer     Answer[] @relation("question")
+  nextAnswer Answer[] @relation("nextQuestion")
+}
+
+model Answer {
+  id         String @id @default(cuid())
+  answerText String
+
+  questionId String   @unique
+  question   Question @relation("question", fields: [questionId], references: [id], onDelete: Cascade)
+
+  nextQuestionId String?   @unique
+  nextQuestion   Question? @relation("nextQuestion", fields: [nextQuestionId], references: [id])
+}
+
+model Article {
+  id          String   @id @default(cuid())
+  title       String   @default("New Article")
+  description String   @default("New Article")
+  imgUrl      String
+  content     Json
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

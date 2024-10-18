@@ -1,6 +1,4 @@
-import { FORUM_TYPE, IForum } from "@/service/models/forum.model";
 import { IUser } from "@/service/models/user.model";
-import { saveForum } from "@/service/server/forum.server";
 import Input from "../../General/Input";
 import {
   IInputProps,
@@ -11,6 +9,8 @@ import ForumEditActions from "./ForumEditActions";
 import ForumEditAdmins from "./ForumEditAdmins";
 import TextArea from "../../General/TextArea";
 import SelectSingle from "../../General/SelectSingle";
+import { FORUM_TYPE, IForum } from "@/service/models/forum.model";
+import { ForumType } from "@prisma/client";
 
 interface Props {
   forum: IForum;
@@ -23,7 +23,7 @@ export default function ForumEditIndex({ forum, admins }: Props) {
     inputStyle: "bg-slate-100 rounded-lg p-1 px-6",
     labelText: "Forum Name",
     name: "name",
-    value: forum.name,
+    value: forum.title,
   };
 
   const textArea: ITtextAreaProps = {

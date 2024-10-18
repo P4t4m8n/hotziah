@@ -1,32 +1,30 @@
-export const COLLECTIONS = [
-  "articles",
-  "forums",
-  "users",
-  "therapists",
-  "questionnaires",
-  "posts",
-  "threads",
-  "sessions",
+export const TABLES = [
+  "article",
+  "forum",
+  "user",
+  "therapist",
+  "questionnaire",
+  "post",
 ] as const;
 
-export type TCollectionName = (typeof COLLECTIONS)[number];
-export type TModelCollectionName = Exclude<TCollectionName, "sessions">;
+export type TTableName = (typeof TABLES)[number];
 
-export interface IPipelineStage {
-  $match?: Record<string, unknown>;
-  $lookup?: {
-    from: string;
-    localField?: string;
-    foreignField?: string;
-    as: string;
-    let?: Record<string, unknown>;
-    pipeline?: Record<string, unknown>[];
+export interface ISelectSql {
+  id: boolean;
+}
+
+export interface IWhereSql {
+  where: {
+    id?: string;
   };
-  $addFields?: Record<string, unknown>;
-  $project?: Record<string, unknown>;
-  $regex?: Record<string, unknown>;
-  $unwind?: string|Record<string, unknown>;
-  $sort?: Record<string, unknown>;
-  $limit?: number;
-  $group?: Record<string, unknown>;
+}
+
+
+export interface IServiceConfig<T, DTO, SelectSql, SmallSelectSql> {
+  collectionName: TTableName;
+  toDTO: (entity: T) => DTO;
+  buildSql: () => SelectSql;
+  buildSmallSql?: () => SmallSelectSql;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getEmptyEntity?: (...args: any[]) => T;
 }

@@ -1,103 +1,434 @@
-12.10.2024, 13:57:51 - ERROR - Error signing up | User already exists
-12.10.2024, 14:01:00 - ERROR - Error signing up | User already exists
-12.10.2024, 14:02:04 - ERROR - Error getting entity by ID of type users | Entity not found
-12.10.2024, 14:02:04 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
-12.10.2024, 14:02:16 - ERROR - Error getting entity by ID of type users | Entity not found
-12.10.2024, 14:02:16 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
-12.10.2024, 14:02:39 - ERROR - Error getting entity by ID of type users | Entity not found
-12.10.2024, 14:02:39 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
-12.10.2024, 14:03:02 - ERROR - Error getting entity by ID of type users | Entity not found
-12.10.2024, 14:03:02 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
-12.10.2024, 14:03:23 - ERROR - Error signing up | Error getting entity by ID of type users: Entity not found
-12.10.2024, 14:03:23 - ERROR - Error getting entity by ID of type users | Entity not found
-12.10.2024, 14:26:56 - ERROR - Error signing up | Cannot read properties of undefined (reading 'toString')
-12.10.2024, 15:34:23 - ERROR - Error getting session user | User not found
-12.10.2024, 15:56:59 - ERROR - Error getting session user | User not found
-12.10.2024, 15:57:00 - ERROR - Error getting session user | User not found
-12.10.2024, 15:57:27 - ERROR - Error getting session user | User not found
-12.10.2024, 16:02:39 - ERROR - Error getting session user | User not found
-12.10.2024, 16:02:39 - ERROR - Error getting session user | User not found
-12.10.2024, 17:13:16 - ERROR - Error getting session user | User not found
-12.10.2024, 17:13:16 - ERROR - Error getting session user | User not found
-12.10.2024, 17:15:53 - ERROR - Error getting session user | User not found
-12.10.2024, 17:15:53 - ERROR - Error getting session user | User not found
-12.10.2024, 17:17:00 - ERROR - Error getting session user | User not found
-12.10.2024, 17:17:47 - ERROR - Error getting session user | User not found
-12.10.2024, 17:17:47 - ERROR - Error getting session user | User not found
-12.10.2024, 17:19:12 - ERROR - Error getting session user | User not found
-12.10.2024, 17:19:12 - ERROR - Error getting session user | User not found
-12.10.2024, 17:53:12 - ERROR - Error getting session user | User not found
-12.10.2024, 17:53:12 - ERROR - Error getting session user | User not found
-12.10.2024, 17:54:09 - ERROR - Error getting session user | User not found
-12.10.2024, 17:54:09 - ERROR - Error getting session user | User not found
-12.10.2024, 17:54:16 - ERROR - Error getting session user | User not found
-12.10.2024, 17:54:16 - ERROR - Error getting session user | User not found
-13.10.2024, 13:11:57 - ERROR - Error getting session user | User not found
-13.10.2024, 14:01:11 - ERROR - Error getting session user | User not found
-13.10.2024, 14:01:33 - ERROR - Error getting session user | User not found
-13.10.2024, 14:01:52 - ERROR - Error getting session user | User not found
-13.10.2024, 14:02:17 - ERROR - Error getting session user | User not found
-13.10.2024, 14:02:24 - ERROR - Error getting session user | User not found
-13.10.2024, 14:02:29 - ERROR - Error getting session user | User not found
-13.10.2024, 14:02:35 - ERROR - Error getting session user | User not found
-13.10.2024, 14:02:40 - ERROR - Error getting session user | User not found
-13.10.2024, 14:02:46 - ERROR - Error getting session user | User not found
-13.10.2024, 14:03:01 - ERROR - Error getting session user | User not found
-13.10.2024, 14:03:07 - ERROR - Error getting session user | User not found
-13.10.2024, 14:03:09 - ERROR - Error getting session user | User not found
-13.10.2024, 14:13:45 - ERROR - Error getting session user | User not found
-13.10.2024, 14:13:49 - ERROR - Error getting session user | User not found
-13.10.2024, 14:16:26 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:16:27 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:16:33 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:16:47 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:17:04 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:17:10 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:17:54 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:17:58 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:18:42 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:18:46 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:18:49 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:19:45 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:19:49 - ERROR - Error getting entity by ID of type forums | Invalid $addFields :: caused by :: Unrecognized expression '$lookup'
-13.10.2024, 14:21:17 - ERROR - Error getting session user | User not found
-13.10.2024, 14:25:37 - ERROR - Error getting session user | User not found
-13.10.2024, 14:25:47 - ERROR - Error getting session user | User not found
-13.10.2024, 14:26:31 - ERROR - Error getting session user | User not found
-13.10.2024, 14:27:06 - ERROR - Error getting session user | User not found
-13.10.2024, 14:37:55 - ERROR - Error getting session user | User not found
-13.10.2024, 14:48:29 - ERROR - Error getting session user | User not found
-13.10.2024, 14:50:24 - ERROR - Error getting session user | User not found
-13.10.2024, 15:39:12 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:39:12 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:39:14 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:39:30 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:39:42 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:39:44 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:39:48 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:39:48 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:39:58 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:40:00 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:40:00 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:40:01 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:40:01 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:40:03 - ERROR - Error getting entities of type undefined | No model config found for key undefined
-13.10.2024, 15:40:09 - ERROR - Error getting entities of type  | No model config found for key 
-13.10.2024, 17:23:33 - ERROR - Error getting entities of type forums | Invalid $addFields :: caused by :: specification contains two conflicting paths. Cannot specify both 'threads' and 'threads._id': { threads.forumId: { $toString: "$threads.forumId" }, threads._id: { $toString: "$threads._id" }, threads: { $map: { input: "$threads", as: "thread", in: { _id: { $toString: "$$thread._id" }, forumId: { $toString: "$$thread.forumId" }, author: { $arrayElemAt: [ "$authorDetails", 0 ] }, name: "$$thread.name", numOfPosts: "$$thread.numOfPosts" } } } }
-13.10.2024, 17:23:34 - ERROR - Error getting entities of type forums | Invalid $addFields :: caused by :: specification contains two conflicting paths. Cannot specify both 'threads' and 'threads._id': { threads.forumId: { $toString: "$threads.forumId" }, threads._id: { $toString: "$threads._id" }, threads: { $map: { input: "$threads", as: "thread", in: { _id: { $toString: "$$thread._id" }, forumId: { $toString: "$$thread.forumId" }, author: { $arrayElemAt: [ "$authorDetails", 0 ] }, name: "$$thread.name", numOfPosts: "$$thread.numOfPosts" } } } }
-13.10.2024, 17:23:41 - ERROR - Error getting entities of type forums | Invalid $addFields :: caused by :: specification contains two conflicting paths. Cannot specify both 'threads' and 'threads._id': { threads.forumId: { $toString: "$threads.forumId" }, threads._id: { $toString: "$threads._id" }, threads: { $map: { input: "$threads", as: "thread", in: { _id: { $toString: "$$thread._id" }, forumId: { $toString: "$$thread.forumId" }, author: { $arrayElemAt: [ "$authorDetails", 0 ] }, name: "$$thread.name", numOfPosts: "$$thread.numOfPosts" } } } }
-13.10.2024, 17:25:52 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: Unsupported conversion from array to string in $convert with no onError value
-13.10.2024, 17:25:56 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: Unsupported conversion from array to string in $convert with no onError value
-13.10.2024, 17:32:41 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object
-13.10.2024, 17:32:45 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object
-13.10.2024, 17:38:27 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: Unsupported conversion from array to string in $convert with no onError value
-13.10.2024, 17:38:31 - ERROR - Error getting entities of type forums | PlanExecutor error during aggregation :: caused by :: Unsupported conversion from array to string in $convert with no onError value
-14.10.2024, 13:05:32 - ERROR - Error getting entity by ID of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: null
-14.10.2024, 13:38:39 - ERROR - Error getting entity by ID of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: null
-14.10.2024, 13:41:56 - ERROR - Error getting entity by ID of type forums | PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: null
-14.10.2024, 13:58:23 - ERROR - Error getting entities of type forums | No model config found for key forums
-14.10.2024, 15:27:15 - ERROR - Error getting entity by ID of type forums | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
-14.10.2024, 15:27:26 - ERROR - Error getting entity by ID of type forums | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
-14.10.2024, 15:27:27 - ERROR - Error getting entity by ID of type forums | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
-14.10.2024, 16:43:07 - ERROR - Error getting entity by ID of type forums | Entity not found
-14.10.2024, 16:43:17 - ERROR - Error getting entity by ID of type forums | Entity not found
+15.10.2024, 18:17:55 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:18:48 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:19:37 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:19:54 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:20:24 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:20:37 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:22:12 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:22:58 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:23:13 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:24:04 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:24:20 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:25:39 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:26:54 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 18:27:33 - ERROR - Error saving entity of type posts | input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+15.10.2024, 19:16:03 - ERROR - Error getting entity by ID of type threads | Entity not found
+15.10.2024, 19:16:37 - ERROR - Error getting entity by ID of type threads | Entity not found
+15.10.2024, 19:16:46 - ERROR - Error getting entity by ID of type threads | Entity not found
+15.10.2024, 19:26:43 - ERROR - Error getting entity by ID of type threads | Entity not found
+15.10.2024, 19:27:01 - ERROR - Error getting entity by ID of type threads | No model config found for key threads
+15.10.2024, 19:27:08 - ERROR - Error getting entity by ID of type threads | Entity not found
+17.10.2024, 21:37:14 - ERROR - Error in getForum service | take is not defined
+17.10.2024, 21:40:44 - ERROR - Error in getForum service | numOfPosts is not defined
+17.10.2024, 21:42:01 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:42:03 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:42:11 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:42:12 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:42:19 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:42:30 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:42:40 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:42:52 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:42:54 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:43:04 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+17.10.2024, 21:43:04 - ERROR - Error in getForum service | 
+Invalid `prisma.forum.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 13:45:47 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+{
+  where: {
+    id: "cm2ekplmb0064pvb9k7sxbybt"
+  },
+  select: {
+?   id?: true,
+?   title?: true,
+?   content?: true,
+?   authorId?: true,
+?   forumId?: true,
+?   createdAt?: true,
+?   updatedAt?: true,
+?   author?: true,
+?   forum?: true,
+?   comments?: true,
+?   _count?: true
+  }
+}
+
+The `select` statement for type Post must not be empty. Available options are marked with ?.
+18.10.2024, 13:46:26 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+{
+  where: {
+    id: "cm2ekplmb0064pvb9k7sxbybt"
+  },
+  select: {
+    id: true,
+    title: true,
+    content: true,
+    forumId: true,
+    author: {
+      select: {
+?       id?: true,
+?       email?: true,
+?       username?: true,
+?       firstName?: true,
+?       lastName?: true,
+?       password?: true,
+?       imgUrl?: true,
+?       permission?: true,
+?       isTherapist?: true,
+?       createdAt?: true,
+?       updatedAt?: true,
+?       Forum?: true,
+?       Post?: true,
+?       comments?: true,
+?       Therapist?: true,
+?       Questionnaire?: true,
+?       Article?: true,
+?       _count?: true
+      }
+    }
+  }
+}
+
+The `select` statement for type User must not be empty. Available options are marked with ?.
+18.10.2024, 13:46:28 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+{
+  where: {
+    id: "cm2ekplmb0064pvb9k7sxbybt"
+  },
+  select: {
+    id: true,
+    title: true,
+    content: true,
+    forumId: true,
+    author: {
+      select: {
+?       id?: true,
+?       email?: true,
+?       username?: true,
+?       firstName?: true,
+?       lastName?: true,
+?       password?: true,
+?       imgUrl?: true,
+?       permission?: true,
+?       isTherapist?: true,
+?       createdAt?: true,
+?       updatedAt?: true,
+?       Forum?: true,
+?       Post?: true,
+?       comments?: true,
+?       Therapist?: true,
+?       Questionnaire?: true,
+?       Article?: true,
+?       _count?: true
+      }
+    }
+  }
+}
+
+The `select` statement for type User must not be empty. Available options are marked with ?.
+18.10.2024, 13:48:18 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+{
+  where: {
+    id: "cm2ekplmb0064pvb9k7sxbybt"
+  },
+  select: {
+    id: true,
+    title: true,
+    content: true,
+    forumId: true,
+    author: {
+      select: {
+        id: true,
+        username: true,
+        imgUrl: true
+      }
+    },
+    _count: {
+      select: {
+?       comments?: true
+      }
+    }
+  }
+}
+
+The `select` statement for type PostCountOutputType must not be empty. Available options are marked with ?.
+18.10.2024, 13:48:35 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+{
+  where: {
+    id: "cm2ekplmb0064pvb9k7sxbybt"
+  },
+  select: {
+    id: true,
+    title: true,
+    content: true,
+    forumId: true,
+    author: {
+      select: {
+        id: true,
+        username: true,
+        imgUrl: true
+      }
+    },
+    _count: {
+      select: {
+        comments: true
+      }
+    },
+    comments: {
+      select: {
+?       id?: true,
+?       content?: true,
+?       authorId?: true,
+?       postId?: true,
+?       parentId?: true,
+?       createdAt?: true,
+?       author?: true,
+?       post?: true,
+?       parent?: true,
+?       replies?: true,
+?       _count?: true
+      }
+    }
+  }
+}
+
+The `select` statement for type Comment must not be empty. Available options are marked with ?.
+18.10.2024, 13:49:01 - ERROR - Error getting post in post.server.ts | a is not defined
+18.10.2024, 13:49:10 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+{
+  where: {
+    id: "cm2ekplmb0064pvb9k7sxbybt"
+  },
+  select: {
+    id: true,
+    title: true,
+    content: true,
+    forumId: true,
+    author: {
+      select: {
+        id: true,
+        username: true,
+        imgUrl: true
+      }
+    },
+    _count: {
+      select: {
+        comments: true
+      }
+    },
+    comments: {
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+        author: {
+          select: {
+?           id?: true,
+?           email?: true,
+?           username?: true,
+?           firstName?: true,
+?           lastName?: true,
+?           password?: true,
+?           imgUrl?: true,
+?           permission?: true,
+?           isTherapist?: true,
+?           createdAt?: true,
+?           updatedAt?: true,
+?           Forum?: true,
+?           Post?: true,
+?           comments?: true,
+?           Therapist?: true,
+?           Questionnaire?: true,
+?           Article?: true,
+?           _count?: true
+          }
+        }
+      }
+    }
+  }
+}
+
+The `select` statement for type User must not be empty. Available options are marked with ?.
+18.10.2024, 13:49:28 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+{
+  where: {
+    id: "cm2ekplmb0064pvb9k7sxbybt"
+  },
+  select: {
+    id: true,
+    title: true,
+    content: true,
+    forumId: true,
+    author: {
+      select: {
+        id: true,
+        username: true,
+        imgUrl: true
+      }
+    },
+    _count: {
+      select: {
+        comments: true
+      }
+    },
+    comments: {
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+        author: {
+          select: {
+            id: true,
+            username: true,
+            imgUrl: true
+          }
+        },
+        _count: {
+          select: {
+?           replies?: true
+          }
+        }
+      }
+    }
+  }
+}
+
+The `select` statement for type CommentCountOutputType must not be empty. Available options are marked with ?.
+18.10.2024, 13:51:34 - ERROR - Error getting post in post.server.ts | fixedPost is not defined
+18.10.2024, 14:19:30 - ERROR - Error in getForum service | Forum not found
+18.10.2024, 14:19:38 - ERROR - Error in getForum service | Forum not found
+18.10.2024, 14:19:46 - ERROR - Error in getForum service | Forum not found
+18.10.2024, 14:19:49 - ERROR - Error in getForum service | Forum not found
+18.10.2024, 14:19:50 - ERROR - Error in getForum service | Forum not found
+18.10.2024, 14:20:12 - ERROR - Error in getForum service | Forum not found
+18.10.2024, 14:43:53 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:44:02 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:44:02 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:44:13 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:44:15 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:44:15 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:44:40 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:44:46 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:44:59 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:45:01 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:45:05 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:45:05 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:45:18 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:45:19 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+18.10.2024, 14:45:19 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
