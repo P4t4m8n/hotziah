@@ -29,7 +29,7 @@ export default function ForumDetailsActions({
         </Link>
         <Link
           className="bg-orange rounded-lg flex gap-2 h-12 w-32 p-2 items-center justify-center"
-          href={`/forum/${id}/new`}
+          href={`/forum/${id}/post/edit/new`}
         >
           <PlusSvg />
           <h4 className="text-xs font-bold text-blue">NEW THREAD</h4>

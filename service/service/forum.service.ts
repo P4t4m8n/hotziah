@@ -5,7 +5,7 @@ import {
   IForumSelectSql,
   IForumSmallSelectSql,
 } from "../models/forum.model";
-import { userService } from "../server/user.server";
+import { userService } from "./user.service";
 
 const toDTO = (forum: IForum): IForumDto => {
   const { admins, ...rest } = forum;

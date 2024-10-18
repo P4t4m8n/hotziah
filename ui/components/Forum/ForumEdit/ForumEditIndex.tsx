@@ -1,4 +1,4 @@
-import { IUser } from "@/service/models/user.model";
+import { IUserSmall } from "@/service/models/user.model";
 import Input from "../../General/Input";
 import {
   IInputProps,
@@ -9,20 +9,25 @@ import ForumEditActions from "./ForumEditActions";
 import ForumEditAdmins from "./ForumEditAdmins";
 import TextArea from "../../General/TextArea";
 import SelectSingle from "../../General/SelectSingle";
-import { FORUM_TYPE, IForum } from "@/service/models/forum.model";
-import { ForumType } from "@prisma/client";
+import {
+  FORUM_SUBJECTS,
+  FORUM_TYPE,
+  IForum,
+} from "@/service/models/forum.model";
+import { saveForum } from "@/service/server/forum.server";
+import ForumEditSubjects from "./ForumEditSubjects";
 
 interface Props {
   forum: IForum;
-  admins: IUser[];
+  admins: IUserSmall[];
 }
 export default function ForumEditIndex({ forum, admins }: Props) {
   const input: IInputProps = {
     divStyle: "flex flex-col gap-2 p-2 px-4",
     labelStyle: "font-medium",
     inputStyle: "bg-slate-100 rounded-lg p-1 px-6",
-    labelText: "Forum Name",
-    name: "name",
+    labelText: "Forum Title",
+    name: "title",
     value: forum.title,
   };
 
@@ -48,7 +53,7 @@ export default function ForumEditIndex({ forum, admins }: Props) {
 
   return (
     <form
-      className="flex flex-col gap-4 w-forum-edit h-full p-4 shadow-xl rounded-lg m-4 self-center"
+      className="flex flex-col gap-4 w-forum-edit h-post-edit-list overflow-auto no-scrollbar p-4 shadow-xl rounded-lg m-4 self-center"
       action={saveForum}
     >
       <h1 className="text-4xl font-semibold">Create Forum</h1>
@@ -58,6 +63,11 @@ export default function ForumEditIndex({ forum, admins }: Props) {
       <TextArea textAreaProps={textArea} />
 
       <SelectSingle textAreaProps={selectProps} />
+
+      <ForumEditSubjects
+        subjects={FORUM_SUBJECTS}
+        checkedSubjects={forum.subjects}
+      />
 
       <ForumEditAdmins admins={admins} forumAdmins={forum.admins} />
 

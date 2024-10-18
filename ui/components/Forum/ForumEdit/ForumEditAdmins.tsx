@@ -1,9 +1,9 @@
-import { IUser } from "@/service/models/user.model";
+import { IUserSmall } from "@/service/models/user.model";
 import Image from "next/image";
 
 interface Props {
-  admins: IUser[];
-  forumAdmins: IUser[];
+  admins: IUserSmall[];
+  forumAdmins: IUserSmall[];
 }
 export default function ForumEditAdmins({ admins, forumAdmins }: Props) {
   return (
@@ -11,21 +11,19 @@ export default function ForumEditAdmins({ admins, forumAdmins }: Props) {
       <label className="font-medium" htmlFor="admins">
         Select Admins
       </label>
-      <div className="flex flex-col h-48 overflow-auto gap-4 no-scrollbar">
+      <ul className="flex flex-col h-48 overflow-auto gap-4 ">
         {admins.map((user) => (
-          <div key={user._id} className="flex items-center gap-4">
+          <li key={user.id} className="flex items-center gap-4">
             <input
               type="checkbox"
-              id={`admin-${user._id}`}
+              id={`admin-${user.id}`}
               name="admins"
-              value={user._id}
-              defaultChecked={forumAdmins.some(
-                (admin) => admin._id === user._id
-              )}
+              value={user.id}
+              defaultChecked={forumAdmins.some((admin) => admin.id === user.id)}
               className="h-4 w-4"
             />
             <label
-              htmlFor={`admin-${user._id}`}
+              htmlFor={`admin-${user.id}`}
               className="flex items-center gap-2"
             >
               <Image
@@ -37,9 +35,9 @@ export default function ForumEditAdmins({ admins, forumAdmins }: Props) {
               />
               <span>{user.username}</span>
             </label>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

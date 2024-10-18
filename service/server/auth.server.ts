@@ -8,8 +8,8 @@ import { prisma } from "@/prisma/prismaClient";
 import { cookies } from "next/headers";
 
 import { handleError } from "../util/error.util";
-import { userServer, userService } from "./user.server";
 import { IUser, IUserDto } from "../models/user.model";
+import { userService } from "../service/user.service";
 
 export const login = async (userDto: IUserDto): Promise<IUser> => {
   try {
@@ -36,6 +36,20 @@ export const login = async (userDto: IUserDto): Promise<IUser> => {
     if (!match) {
       throw new Error("Invalid credentials");
     }
+
+    const token = jwt.sign(
+      { userId: user.id },
+      process.env.JWT_SECRET as string,
+      { expiresIn: "7d" }
+    );
+
+    cookies().set("session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60, // 24 hours
+    });
 
     delete (user as { password?: string }).password;
 
@@ -77,6 +91,22 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
       throw new Error("Error creating user");
     }
 
+    const token = jwt.sign(
+      { userId: user.id },
+      process.env.JWT_SECRET as string,
+      { expiresIn: "7d" }
+    );
+
+    cookies().set("session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60, // 24 hours
+    });
+
+    delete (user as { password?: string }).password;
+
     return user;
   } catch (error) {
     throw handleError(error, "Error signing up");
@@ -99,23 +129,25 @@ export const logout = async (): Promise<void> => {
 };
 
 export const getSessionUser = async (): Promise<IUser | null> => {
-  const token = cookies().get("session");
+  const token = cookies().get("session")?.value;
 
   if (!token) {
     return null;
   }
 
   try {
-    const decoded = jwt.decode(token.value) as { userId: string };
-    if (!decoded || !decoded.userId) return null;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+      userId: string;
+    };
 
-    const user = await userServer.get(decoded.userId);
-    if (!user) {
-      throw new Error("User not found");
-    }
+    // Fetch user from the database
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+    });
 
     return user;
   } catch (err) {
-    throw handleError(err, "Error getting session user");
+    handleError(err, "Error getting session user");
+    return null;
   }
 };

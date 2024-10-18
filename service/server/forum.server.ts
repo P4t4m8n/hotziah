@@ -5,6 +5,7 @@ import { IForum, IForumDto, IForumFilter } from "../models/forum.model";
 import { handleError } from "../util/error.util";
 import { ForumSubject, ForumType } from "@prisma/client";
 import { forumService } from "../service/forum.service";
+import { redirect } from "next/navigation";
 
 export const saveForum = async (formData: FormData): Promise<void> => {
   const forumToSave: IForumDto = {
@@ -21,6 +22,8 @@ export const saveForum = async (formData: FormData): Promise<void> => {
   } else {
     await createForum(forumToSave);
   }
+
+  redirect("/forum");
 };
 
 export const getForums = async (filter: IForumFilter): Promise<IForum[]> => {

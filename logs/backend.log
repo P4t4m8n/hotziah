@@ -463,3 +463,85 @@ Invalid `prisma.forum.findMany()` invocation:
 
 Too many database connections opened: FATAL: sorry, too many clients already
 18.10.2024, 17:47:19 - ERROR - Error querying forums in forum.server.ts | Cannot read properties of undefined (reading 'id')
+18.10.2024, 21:08:42 - ERROR - Error in createForum service | Cannot read properties of undefined (reading 'buildSmallSql')
+18.10.2024, 21:10:03 - ERROR - Error in createForum service | 
+Invalid `prisma.forum.create()` invocation:
+
+{
+  data: {
+    description: "test",
+    type: "PUBLIC",
+    subjects: [],
+    admins: {
+      connect: [
+        {
+          id: "cm2en13g50002m296qa3833q8"
+        },
+        {
+          id: "cm2en13ga0009m296br8pu3od"
+        },
+        {
+          id: "cm2en13gi000dm29632sn3inh"
+        },
+        {
+          id: "cm2en13gp000km296p3emg555"
+        }
+      ]
+    },
++   title: String
+  },
+  select: {
+    id: true,
+    description: true,
+    admins: {
+      select: {
+        id: true,
+        username: true,
+        imgUrl: true
+      }
+    },
+    type: true,
+    subjects: true,
+    title: true,
+    posts: {
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        forumId: true,
+        author: {
+          select: {
+            id: true,
+            username: true,
+            imgUrl: true
+          }
+        },
+        _count: {
+          select: {
+            comments: true
+          }
+        },
+        comments: {
+          orderBy: {
+            createdAt: "desc"
+          },
+          select: {
+            author: {
+              select: {
+                id: true,
+                username: true,
+                imgUrl: true
+              }
+            },
+            content: true,
+            createdAt: true,
+            id: true
+          },
+          take: 1
+        }
+      }
+    }
+  }
+}
+
+Argument `title` must not be null.

@@ -1,15 +1,9 @@
 import { prisma } from "@/prisma/prismaClient";
-import {
-  IUser,
-  IUserDto,
-  IUserFilter,
-  IUserSelectSql,
-  IUserSmallSelectSql,
-} from "../models/user.model";
+import { IUser, IUserDto, IUserFilter } from "../models/user.model";
 import { handleError } from "../util/error.util";
-import { IServiceConfig } from "../models/db.model";
+import { userService } from "../service/user.service";
 
-const query = async (filter: IUserFilter): Promise<IUser[]> => {
+export const getUsers = async (filter: IUserFilter): Promise<IUser[]> => {
   try {
     const selectSql = userService.buildSql();
 
@@ -34,7 +28,7 @@ const query = async (filter: IUserFilter): Promise<IUser[]> => {
   }
 };
 
-const get = async (id: string): Promise<IUser> => {
+export const getUserById = async (id: string): Promise<IUser> => {
   const selectSql = userService.buildSql();
 
   try {
@@ -53,7 +47,7 @@ const get = async (id: string): Promise<IUser> => {
   }
 };
 
-const update = async (user: IUserDto): Promise<IUser> => {
+export const updateUser = async (user: IUserDto): Promise<IUser> => {
   try {
     const updatedUser = await prisma.user.update({
       where: { id: user.id },
@@ -68,7 +62,7 @@ const update = async (user: IUserDto): Promise<IUser> => {
   }
 };
 
-const remove = async (id: string): Promise<boolean> => {
+export const removeUser = async (id: string): Promise<boolean> => {
   try {
     await prisma.user.delete({
       where: { id },
@@ -78,57 +72,4 @@ const remove = async (id: string): Promise<boolean> => {
   } catch (error) {
     throw handleError(error, "Error in removeUser service");
   }
-};
-
-const toDTO = (user: IUser): IUserDto => {
-  return {
-    id: user.id,
-    username: user.username,
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    permission: user.permission,
-    isTherapist: user.isTherapist,
-    imgUrl: user.imgUrl,
-  };
-};
-
-const buildSql = (): IUserSelectSql => {
-  return {
-    id: true,
-    username: true,
-    email: true,
-    firstName: true,
-    lastName: true,
-    permission: true,
-    isTherapist: true,
-    imgUrl: true,
-  };
-};
-
-const buildSmallSql = (): IUserSmallSelectSql => {
-  return {
-    id: true,
-    username: true,
-    imgUrl: true,
-  };
-};
-
-export const userService: IServiceConfig<
-  IUser,
-  IUserDto,
-  IUserSelectSql,
-  IUserSmallSelectSql
-> = {
-  collectionName: "user",
-  toDTO,
-  buildSql,
-  buildSmallSql,
-};
-
-export const userServer = {
-  query,
-  get,
-  update,
-  remove,
 };

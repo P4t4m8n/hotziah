@@ -53,7 +53,6 @@ export interface IForumSmallSelectSql extends ISelectSql {
       forumId: boolean;
       author: {
         select: IUserSmallSelectSql;
-
       };
       comments: {
         orderBy: {
@@ -74,52 +73,49 @@ export interface IForumSmallSelectSql extends ISelectSql {
   };
 }
 export interface IForumSelectSql extends ISelectSql {
-  
-    id: boolean,
-    description: boolean,
-    admins: {
-      select: IUserSmallSelectSql;
-
-    },
-    type: boolean,
-    subjects: boolean,
-    title: boolean,
-    posts: {
-      select: {
-        id: boolean,
-        title: boolean,
-        content: boolean,
-        forumId: boolean,
-        author: {
-          select: {
-            id: boolean,
-            username: boolean,
-            imgUrl: boolean,
-          },
-        },
-        _count: {
-          select: {
-            comments: boolean,
-          },
-        },
-        comments: {
-          orderBy: {
-            createdAt: "desc",
-          },
-          select: {
-            author: {
-              select: IUserSmallSelectSql;
-
-            },
-            content: boolean,
-            createdAt: boolean,
-            id: boolean,
-          },
-          take: 1,
-        },
-      },
-    },
-  
+  id: boolean;
+  description: boolean;
+  admins: {
+    select: IUserSmallSelectSql;
+  };
+  type: boolean;
+  subjects: boolean;
+  title: boolean;
+  posts: {
+    select: {
+      id: boolean;
+      title: boolean;
+      content: boolean;
+      forumId: boolean;
+      author: {
+        select: {
+          id: boolean;
+          username: boolean;
+          imgUrl: boolean;
+        };
+      };
+      _count: {
+        select: {
+          comments: boolean;
+        };
+      };
+      comments: {
+        orderBy: {
+          createdAt: "desc";
+        };
+        select: {
+          author: {
+            select: IUserSmallSelectSql;
+          };
+          content: boolean;
+          createdAt: boolean;
+          id: boolean;
+        };
+        take: 1;
+      };
+    };
+  };
 }
 
-export const FORUM_TYPE = Object.keys(ForumType);
+export const FORUM_TYPE: ForumType[] = Object.values(ForumType);
+export const FORUM_SUBJECTS: ForumSubject[] = Object.values(ForumSubject);
