@@ -9,8 +9,8 @@ interface ICommentBase extends IEntity {
 export interface IComment extends ICommentBase {
   author: IUserSmall;
   comments?: IComment[];
+  _count?: { replies: number };
 }
-
 
 export interface ICommentDto extends ICommentBase {
   postId: string;

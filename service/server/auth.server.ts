@@ -37,6 +37,8 @@ export const login = async (userDto: IUserDto): Promise<IUser> => {
       throw new Error("Invalid credentials");
     }
 
+    delete (user as { password?: string }).password;
+
     return user;
   } catch (error) {
     throw handleError(error, "Error logging in");

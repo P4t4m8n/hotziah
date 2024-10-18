@@ -15,6 +15,7 @@ export interface IUser extends IUserSmall {
   firstName: string;
   lastName: string;
   isTherapist: boolean;
+
 }
 
 export interface IUserDto extends IUser {
