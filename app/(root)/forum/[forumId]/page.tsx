@@ -1,4 +1,5 @@
 import { getForumById } from "@/service/server/forum.server";
+import { forumService } from "@/service/service/forum.service";
 import ForumDetailsIndex from "@/ui/components/Forum/ForumDetails/ForumDetailsIndex";
 
 export async function generateStaticParams() {
@@ -11,7 +12,8 @@ export default async function ForumDetailsServer({
   params: { forumId: string };
 }) {
   const { forumId } = params;
-  const forum = await getForumById(forumId);
+  let forum = forumService.getEmptyEntity();
+  if (forumId !== "1")  forum = await getForumById(forumId);
 
   return <ForumDetailsIndex forum={forum} />;
 }

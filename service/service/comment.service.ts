@@ -6,7 +6,7 @@ import {
 } from "../models/comments.model";
 import { IServiceConfig } from "../models/db.model";
 import { IUserSmall } from "../models/user.model";
-import { userService } from "../server/user.server";
+import { userService } from "./user.service";
 
 const buildSmallSql = (): ICommentSmallSelectSql => {
   return {

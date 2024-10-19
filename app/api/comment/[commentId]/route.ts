@@ -1,4 +1,6 @@
-import { getCommentById, getComments } from "@/service/server/comments.server";
+import {
+  getComments,
+} from "@/service/server/comments.server";
 import { handleError } from "@/service/util/error.util";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -27,3 +29,5 @@ export async function GET(
     );
   }
 }
+
+

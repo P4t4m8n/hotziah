@@ -27,7 +27,7 @@ export interface IPostFilter extends IEntity {
   limit?: number;
 }
 
-export interface IPostSelectSql extends ISelectSql {
+export interface IPostSmallSelectSql extends ISelectSql {
   id: boolean;
   title: boolean;
   content: boolean;
@@ -36,12 +36,32 @@ export interface IPostSelectSql extends ISelectSql {
     select: IUserSmallSelectSql;
   };
 }
-export interface IPostDetailedSelectSql extends IPostSelectSql {
+export interface IPostSelectSql extends IPostSmallSelectSql {
   _count: {
     select: {
       comments: boolean;
     };
   };
 
-  comments:{}
+  comments: {
+    where: { parentId: string | null };
+    select: {
+      id: boolean;
+      parentId: boolean;
+      content: boolean;
+      createdAt: boolean;
+      author: {
+        select: {
+          id: boolean;
+          username: boolean;
+          imgUrl: boolean;
+        };
+      };
+      _count: {
+        select: {
+          replies: boolean;
+        };
+      };
+    };
+  };
 }

@@ -13,10 +13,13 @@ export interface IInputProps {
   labelText?: string;
   name?: string;
   value?: string;
+  placeholder?: string;
 }
 
 export interface ITtextAreaProps extends IInputProps {
   maxLength?: number;
+  placeholder?: string;
+
 }
 
 export interface ISelectSingleProps extends IInputProps {
@@ -27,4 +30,10 @@ export interface IEntity {
   id?: string;
 }
 
+export interface FetchOptions<TBody> {
+  method?: "GET" | "POST" | "PUT" | "DELETE";
+  body?: TBody;
+  headers?: HeadersInit;
+  queryParams?: Record<string, string | number | boolean>;
+}
 

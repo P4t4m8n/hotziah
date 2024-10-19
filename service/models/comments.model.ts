@@ -60,3 +60,4 @@ export interface ICommentSelectSql extends ISelectSql {
     select: ICommentSmallSelectSql;
   };
 }
+

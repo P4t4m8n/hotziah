@@ -1,22 +1,35 @@
+"use client";
+
+import { login, signup } from "@/service/server/auth.server";
+import { useUser } from "@/ui/hooks/useUser";
 import Link from "next/link";
+import { useState } from "react";
 
 interface Props {
-  onSubmitForm: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   inputs: TInputUserForm[];
   isLogin: boolean;
-  isLoading: boolean;
 }
 
-export default function AuthForm({
-  onSubmitForm,
-  inputs,
-  isLogin,
-  isLoading,
-}: Props) {
+export default function AuthForm({ inputs, isLogin }: Props) {
+  const [isLoading, setIsLoading] = useState(false);
+  const { login,signUp } = useUser();
+
+  const onSubmit = async (formData: FormData) => {
+    try {
+      setIsLoading(true);
+      if (isLogin) await login(formData);
+      else await signUp(formData);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <form
       className="p4 bg-slate-600 p-4 flex flex-col gap-4 "
-      onSubmit={onSubmitForm}
+      action={onSubmit}
     >
       {inputs.map((input) => (
         <div key={input.name} className="flex">
@@ -32,15 +45,19 @@ export default function AuthForm({
         </div>
       ))}
       <div className="flex items-center  flex-col">
-        <button className="bg-slate-200 p-2 rounded-lg" disabled={isLoading} type="submit">
+        <button
+          className="bg-slate-200 p-2 rounded-lg"
+          disabled={isLoading}
+          type="submit"
+        >
           {!isLoading ? (
-            <span>{!isLogin ? "התחבר" : "הרשם"}</span>
+            <span>{!isLogin ? "Sign Up" : "Login"}</span>
           ) : (
             <span>...loading</span>
           )}
         </button>
         <Link className=" border-b-2" href={isLogin ? "/signup" : "/login"}>
-          <span>{isLogin ? "עבור להרשמה" : "עבור להתחברות"}</span>
+          <span>{isLogin ? "Go to Sign-up" : "Go to Login"}</span>
         </Link>
       </div>
     </form>

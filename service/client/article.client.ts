@@ -1,5 +1,5 @@
 import { IArticle } from "../models/article.model";
-import { apiClientService } from "../util/apiClient.service";
+import { apiClientService } from "./api.client";
 
 const create = async (article: IArticle): Promise<IArticle | undefined> => {
   try {

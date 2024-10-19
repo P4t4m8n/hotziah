@@ -40,7 +40,7 @@ export default function GeneralMenu({ menuItems }: Props) {
             alt={text || "menu button"}
           />
         )}
-        {text}
+        {text && text.charAt(0).toUpperCase() + text.slice(1)}
       </button>
       <ul className={`${isOpen ? "block" : "hidden"} ${menuItems.menuStyle}`}>
         {menuItems.items.map((item, idx) => (

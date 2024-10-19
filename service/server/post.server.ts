@@ -1,9 +1,8 @@
 "use server";
 
 import { prisma } from "@/prisma/prismaClient";
-import { IPost, IPostFilter } from "../models/post.model";
+import { IPost, IPostDto, IPostFilter } from "../models/post.model";
 import { handleError } from "../util/error.util";
-import { userService } from "./user.server";
 import { postService } from "../service/post.service";
 
 export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
@@ -23,7 +22,7 @@ export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
           ],
         },
       },
-      select: postService.buildSmallSql!(),
+      select: postService.buildSmallSql(),
       take: filter.limit,
       skip: filter.page,
     });
@@ -38,45 +37,7 @@ export const getPostBtId = async (id: string): Promise<IPost> => {
   try {
     const post = await prisma.post.findUnique({
       where: { id },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: {
-            id: true,
-            username: true,
-            imgUrl: true,
-          },
-        },
-        _count: {
-          select: {
-            comments: true,
-          },
-        },
-        comments: {
-          where: { parentId: null },
-          select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                replies: true,
-              },
-            },
-          },
-        },
-      },
+      select: postService.buildSql(),
     });
 
     if (!post) {
@@ -89,14 +50,23 @@ export const getPostBtId = async (id: string): Promise<IPost> => {
   }
 };
 
-export const createPost = async (post: IPost): Promise<IPost> => {
+export const savePost = async (post: IPost): Promise<IPost> => {
+  const dto = postService.toDTO(post);
+  if (post.id) {
+    return await updatePost(dto);
+  } else {
+    return await createPost(dto);
+  }
+};
+
+export const createPost = async (post: IPostDto): Promise<IPost> => {
   try {
     const newPost = await prisma.post.create({
       data: {
         title: post.title,
         content: post.content,
         forumId: post.forumId,
-        authorId: post.author.id!,
+        authorId: post.authorId,
       },
       select: postService.buildSql(),
     });
@@ -107,7 +77,7 @@ export const createPost = async (post: IPost): Promise<IPost> => {
   }
 };
 
-export const updatePost = async (post: IPost): Promise<IPost> => {
+export const updatePost = async (post: IPostDto): Promise<IPost> => {
   try {
     const updatedPost = await prisma.post.update({
       where: { id: post.id },

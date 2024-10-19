@@ -1,7 +1,5 @@
 /* cSpell:disable */
 
-import { ObjectId } from "mongodb";
-import { IDto, IFilter } from "./app.model";
 import { IUser } from "./user.model";
 
 interface TTherapistBase {
@@ -20,11 +18,11 @@ export interface ITherapist extends TTherapistBase {
   _id?: string;
 }
 
-export interface ITherapistDto extends TTherapistBase, IDto {
-  userId: ObjectId;
+export interface ITherapistDto extends TTherapistBase {
+  userId: string;
 }
 
-export interface ITherapistFilter extends IFilter {
+export interface ITherapistFilter  {
   subjects?: TTherapistSubject[];
   languages?: TTherapistLanguage[];
   meetingType?: TTherapistMeeting[];

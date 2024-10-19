@@ -10,6 +10,7 @@ import { cookies } from "next/headers";
 import { handleError } from "../util/error.util";
 import { IUser, IUserDto } from "../models/user.model";
 import { userService } from "../service/user.service";
+import { formDataToUserDTO } from "../util/auth.util";
 
 export const login = async (userDto: IUserDto): Promise<IUser> => {
   try {
@@ -40,7 +41,7 @@ export const login = async (userDto: IUserDto): Promise<IUser> => {
     const token = jwt.sign(
       { userId: user.id },
       process.env.JWT_SECRET as string,
-      { expiresIn: "7d" }
+      { expiresIn: "24H" }
     );
 
     cookies().set("session", token, {
@@ -117,7 +118,7 @@ export const logout = async (): Promise<void> => {
   try {
     const session = cookies().get("session");
     if (!session) {
-      throw new Error("No session found");
+      return;
     }
 
     cookies().set("session", "", {
@@ -140,9 +141,9 @@ export const getSessionUser = async (): Promise<IUser | null> => {
       userId: string;
     };
 
-    // Fetch user from the database
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
+      select: userService.buildSql(),
     });
 
     return user;

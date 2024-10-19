@@ -91,7 +91,7 @@ model User {
   firstName     String          @default("New User")
   lastName      String          @default("New User")
   password      String
-  imgUrl        String          @default("")
+  imgUrl        String          @default("/imgs/avatarDefault.svg")
   permission    Permission      @default(USER)
   isTherapist   Boolean         @default(false)
   createdAt     DateTime        @default(now())

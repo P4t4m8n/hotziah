@@ -1,87 +1,68 @@
-import { ITtextAreaProps } from "@/service/models/app.model";
-import { IPost } from "@/service/models/posts.model";
-import TextArea from "../../General/TextArea";
-import { useUser } from "@/ui/hooks/useUser";
-import { IUser } from "@/service/models/user.model";
-import { Dispatch, SetStateAction } from "react";
+import { IPost } from "@/service/models/post.model";
 import { savePost } from "@/service/server/post.server";
+import { handleError } from "@/service/util/error.util";
+import { redirect } from "next/navigation";
+import Input from "../../General/Input";
+import TextArea from "../../General/TextArea";
+import PostEditActions from "./PostEditActions";
 
 interface Props {
-  post?: IPost;
-  parentId?: string;
-  setCommentsState: Dispatch<SetStateAction<IPost[]>>;
-  setIsForumModelOpen: Dispatch<SetStateAction<boolean>>;
+  post: IPost;
 }
 
-export default function PostEdit({
-  post,
-  setCommentsState,
-  setIsForumModelOpen,
-  parentId,
-}: Props) {
-  const user = useUser().user;
-  const _post =
-    post ||
-    getEmptyPost(
-      {
-        _id: "670e47ce099ef5b0d6514c2a",
-        username: "Jared.Hermann3",
-        imgUrl: "https://avatars.githubusercontent.com/u/44423954",
-      },
-      parentId!
-    );
-
-  const textArea: ITtextAreaProps = {
-    divStyle: "flex flex-col gap-2 p-2 px-4",
-    labelStyle: "font-medium",
-    inputStyle: "bg-slate-100 rounded-lg p-2 py-4 px-6 h-80 resize-none",
-    labelText: "",
-    name: "content",
-    value: _post.content,
+export default function PostEdit({ post }: Props) {
+  const input = {
+    divStyle: "flex flex-col gap-2 p-2 px-4 text-3xl font-semibold",
+    labelStyle: "font-sm",
+    inputStyle:
+      " bg-inherit rounded-lg p-1 px-6 text-xl text-black placeholder:text-gray-800 border border-blue",
+    name: "title",
+    placeholder: "Subject",
+    value: post.title,
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+  const textArea = {
+    divStyle: "flex flex-col gap-2 p-2 px-4",
+    labelStyle: "font-medium",
+    inputStyle:
+      " bg-inherit rounded-lg font-semibold p-1 px-6 h-24 resize-none border border-blue",
+    name: "content",
+    value: post.content,
+    maxLength: 255,
+  };
 
-    // Call the server action to save the post
-    const savedPost = await savePost(formData, _post);
+  const onSubmit = async (formData: FormData) => {
+    "use server";
 
-    // You can now do something with the saved post, e.g., update state
-    setCommentsState((prevState) => [...prevState, savedPost]);
-    setIsForumModelOpen(false); // Close the modal after saving the post
+    const title = formData.get("title") as string;
+    const content = formData.get("content") as string;
+
+    const postToSave = {
+      ...post,
+      title,
+      content,
+    };
+
+    const _post = await savePost(postToSave);
+    if (_post) {
+      redirect(`/forum/${_post.forumId}/post/${_post.id}`);
+    } else {
+      handleError(_post, "Error saving post in post.edit.page.tsx");
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="h-post-edit-form w-full flex flex-col "
-    >
-      <TextArea textAreaProps={textArea} />
-      <div className="self-center mt-auto w-full flex gap-4 px-4 justify-end">
-        <button
-          onClick={() => setIsForumModelOpen(false)}
-          className="bg-platinum text-sm font-semibold rounded-md flex gap-2 h-6 w-20 p-2 px-4 items-center justify-center "
-        >
-          CANCEL
-        </button>
-        <button
-          type="submit"
-          className="bg-orange text-sm font-semibold rounded-md flex gap-2 h-6 w-28 p-2 px-4 items-center justify-center "
-        >
-          ADD POST
-        </button>
-      </div>
-    </form>
+    <div className=" w-full h-full p-4 flex gap-8 ">
+      <form
+        action={onSubmit}
+        className=" bg-dark-blue text-white h-full w-[55%] max-w-96 min-w-64 p-8 rounded-lg flex flex-col gap-8"
+      >
+        <Input inputProps={input} />
+
+        <TextArea textAreaProps={textArea} />
+
+        <PostEditActions forumId={post.forumId} postId={post.id} />
+      </form>
+    </div>
   );
 }
-
-const getEmptyPost = (author: IUser, parentId: string): IPost => {
-  return {
-    _id: "",
-    parentId,
-    content: "",
-    author,
-    comments: [],
-  };
-};

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { logout } from "@/service/server/auth.server";
 import { NextResponse } from "next/server";
 

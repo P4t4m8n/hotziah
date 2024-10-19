@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import UserMenu from "../User/UserMenu";
 
-export default function Header() {
+export default async function Header() {
   return (
     <header className=" flex w-full border-b-2 h-20 p-4 px-4">
       <Link className="w-12 h-12" href={"/"}>

@@ -6,3 +6,15 @@ export const handleError = (error: unknown, errorStr: string) => {
     `${errorStr}: ${error instanceof Error ? error.message : String(error)}`
   );
 };
+
+export const handleRouteError = (
+  errorStr: string,
+  errorCode: number,
+  error?: unknown,
+): Record<"message" | "status", string | number> => {
+  loggerService.error(errorStr, error as Error);
+  return {
+    message: `${errorStr}: ${error instanceof Error ? error : String(error)}`,
+    status: errorCode,
+  };
+};

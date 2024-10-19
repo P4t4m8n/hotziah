@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AuthProvider } from "@/service/context/UserContext";
+import { AuthProvider } from "@/service/context/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Hotziah",
-  description: "אתר לחיבור בין מטפלים למטופלים",
+  description: "Hotziah",
 };
 
 export default function RootLayout({

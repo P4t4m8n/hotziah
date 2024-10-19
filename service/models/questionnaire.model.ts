@@ -1,6 +1,4 @@
-import { ObjectId } from "mongodb";
 import { IUser } from "./user.model";
-import { IDto, IFilter } from "./app.model";
 
 interface IQuestionnaireBase {
   subjects: TQuestionnaireSubject[];
@@ -8,8 +6,8 @@ interface IQuestionnaireBase {
   description: string;
   question: IQuestion | null; // Root question
 }
-export interface IQuestionnaireDto extends IDto, IQuestionnaireBase {
-  authorId: ObjectId;
+export interface IQuestionnaireDto extends  IQuestionnaireBase {
+  authorId: string;
 }
 
 export interface IQuestionnaire extends IQuestionnaireBase {
@@ -17,7 +15,7 @@ export interface IQuestionnaire extends IQuestionnaireBase {
   author: IUser;
 }
 
-export interface IQuestionnaireFilter extends IFilter {
+export interface IQuestionnaireFilter  {
   subjects?: TQuestionnaireSubject[];
   title?: string;
   authorName?: string;

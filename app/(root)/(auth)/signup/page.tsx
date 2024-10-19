@@ -1,5 +1,5 @@
-import AuthIndexClient from "@/ui/components/AuthClient/AuthIndexClient";
+import AuthIndex from "@/ui/components/AuthClient/AuthIndexClient";
 
 export default function SignUpServer() {
-  return <AuthIndexClient isLogin={false} />;
+  return <AuthIndex isLogin={false} />;
 }

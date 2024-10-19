@@ -1,7 +1,12 @@
 import { IServiceConfig } from "../models/db.model";
-import { IPost, IPostDetailedSelectSql, IPostDto, IPostSelectSql } from "../models/post.model";
+import {
+  IPost,
+  IPostDto,
+  IPostSelectSql,
+  IPostSmallSelectSql,
+} from "../models/post.model";
 import { IUserSmall } from "../models/user.model";
-import { userService } from "../server/user.server";
+import { userService } from "./user.service";
 
 const toDTO = (post: IPost): IPostDto => {
   const { author, ...rest } = post;
@@ -20,25 +25,25 @@ const getEmptyPost = (author: IUserSmall, forumId: string): IPost => {
   };
 };
 
-const buildSmallSql = (): IPostSelectSql => {
+const buildSmallSql = (): IPostSmallSelectSql => {
   return {
     id: true,
     title: true,
     content: true,
     forumId: true,
     author: {
-      select: userService.buildSmallSql!(),
+      select: userService.buildSmallSql(),
     },
   };
 };
-const buildSql = (): IPostDetailedSelectSql => {
+const buildSql = (parentId?: string): IPostSelectSql => {
   return {
     id: true,
     title: true,
     content: true,
     forumId: true,
     author: {
-      select: userService.buildSmallSql!(),
+      select: userService.buildSmallSql(),
     },
     _count: {
       select: {
@@ -46,7 +51,7 @@ const buildSql = (): IPostDetailedSelectSql => {
       },
     },
     comments: {
-      where: { parentId: null },
+      where: { parentId: parentId || null },
       select: {
         id: true,
         parentId: true,
@@ -73,7 +78,7 @@ export const postService: IServiceConfig<
   IPost,
   IPostDto,
   IPostSelectSql,
-  IPostSelectSql
+  IPostSmallSelectSql
 > = {
   collectionName: "post",
   toDTO,

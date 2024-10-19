@@ -1,18 +1,21 @@
 "use client";
-import { useUser } from "@/ui/hooks/useUser";
+
 import GeneralMenu from "../Menus/GeneralMenu";
 import { IUser } from "@/service/models/user.model";
 import { IMenu, IMenuBtn } from "@/service/models/menu.model";
 import { AvatarSvg } from "@/ui/Icons/Svgs";
 import Link from "next/link";
+import { logout } from "@/service/server/auth.server";
+import { useUser } from "@/ui/hooks/useUser";
+import Image from "next/image";
 
 export default function UserMenu() {
   const { user, logout } = useUser();
-
   const getUserMenuItems = (user: IUser): IMenu => {
     const menuBtn: IMenuBtn = {
       text: user?.username || "Login",
-      style: "",
+      style:
+        "w-32 h-12 border  shadow-lg text-blue rounded-lg p-4 font-bold flex justify-between items-center flex-row-reverse text-base truncate ",
       imgUrl: user?.imgUrl || "",
     };
     if (!user?.imgUrl) {
@@ -36,10 +39,16 @@ export default function UserMenu() {
   if (!user) {
     return (
       <Link
-        className="w-16 h-12 bg-black text-white rounded-lg p-4 font-bold flex justify-center items-center"
+        className="w-32 h-12 border  shadow-lg text-blue rounded-lg p-4 font-bold flex justify-between items-center    "
         href="/login"
       >
-        Login
+        <span>Login</span>
+        <Image
+          src="/imgs/avatarDefault.svg"
+          width={32}
+          height={32}
+          alt="avatar"
+        />
       </Link>
     );
   }

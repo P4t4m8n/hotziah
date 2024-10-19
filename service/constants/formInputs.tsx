@@ -1,36 +1,36 @@
 export const LOGIN_INPUTS: TInputUserForm[] = [
   {
     type: "text",
-    placeHolder: "אימייל",
+    placeHolder: "Email",
     name: "email",
-    label: "אימייל",
+    label: "Email",
   },
   {
     type: "password",
-    placeHolder: "סיסמא",
+    placeHolder: "Password",
     name: "password",
-    label: "סיסמא",
+    label: "Password",
   },
 ];
 
 export const SIGN_UP_INPUTS: TInputUserForm[] = [
   {
     type: "text",
-    placeHolder: "שם משתמש",
+    placeHolder: "Username",
     name: "username",
-    label: "שם משתמש",
+    label: "Username",
   },
   {
     type: "text",
-    placeHolder: "שם פרטי",
+    placeHolder: "First name",
     name: "firstName",
-    label: "שם פרטי",
+    label: "First name",
   },
   {
     type: "text",
-    placeHolder: "שם משפחה",
+    placeHolder: "Last name",
     name: "lastName",
-    label: "שם משפחה",
+    label: "Last name",
   },
   ...LOGIN_INPUTS,
 ];
