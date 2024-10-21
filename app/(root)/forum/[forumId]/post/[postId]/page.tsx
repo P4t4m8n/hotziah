@@ -1,5 +1,5 @@
-import { IPost } from "@/service/models/post.model";
 import { getPostBtId } from "@/service/server/post.server";
+import { postService } from "@/service/service/post.service";
 import PostDetailsClient from "@/ui/components/Posts/PostDetails/PostDetailsClient";
 
 export async function generateStaticParams() {
@@ -12,7 +12,11 @@ export default async function PostDetailsServer({
   params: { postId: string };
 }) {
   const { postId } = params;
-  const post: IPost = await getPostBtId(postId);
+
+  //Get empty post to prevent props error
+  let post = postService.getEmptyEntity();
+  //Only fetch when there is a real ID. temp ID exist for SSG
+  if (postId !== "1") post = await getPostBtId(postId);
 
   return <PostDetailsClient post={post} />;
 }

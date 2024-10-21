@@ -13,6 +13,7 @@ export default function UserListIcons({ users, listName }: Props) {
       <h2 className="font-bold">{listName ? listName + ":" : ""}</h2>
       <ul
         className="avatars"
+        //Set avatar count for grid columns in globals css
         style={
           {
             "--avatar-count": avatarCount,

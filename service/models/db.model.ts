@@ -21,12 +21,21 @@ export interface IWhereSql {
   };
 }
 
-export interface IServiceConfig<T, DTO, SelectSql, SmallSelectSql> {
+export interface IServiceConfig<
+  T,
+  DTO,
+  SelectSql,
+  SmallSelectSql,
+  ToDTOArgs extends unknown[] = [],
+  SqlArgs extends unknown[] = [],
+  SmallSqlArgs extends unknown[] = [],
+  EmptyEntityArgs extends unknown[] = [],
+  EmptyDtoArgs extends unknown[] = []
+> {
   collectionName: TTableName;
-  toDTO: (entity: T, ...args: any[]) => DTO;
-  buildSql: (...args: any[]) => SelectSql;
-  buildSmallSql: (...args: any[]) => SmallSelectSql;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getEmptyEntity: (...args: any[]) => T;
-  getEmptyDto?: (...args: any[]) => DTO;
+  toDTO: (entity: T, ...args: ToDTOArgs) => DTO;
+  buildSql: (...args: SqlArgs) => SelectSql;
+  buildSmallSql: (...args: SmallSqlArgs) => SmallSelectSql;
+  getEmptyEntity: (...args: EmptyEntityArgs) => T;
+  getEmptyDto?: (...args: EmptyDtoArgs) => DTO;
 }

@@ -6,7 +6,6 @@ interface ICommentBase extends IEntity {
   content: string;
   createdAt: Date;
   postId: string;
-
   parentId?: string | null;
 }
 

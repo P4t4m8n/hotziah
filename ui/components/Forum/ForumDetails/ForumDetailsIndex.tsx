@@ -1,4 +1,5 @@
 import { IForum } from "@/service/models/forum.model";
+
 import ForumDetailsActions from "./ForumDetailsActions";
 import ForumDetailsHeader from "./ForumDetailsHeader";
 import ForumDetailsPosts from "./ForumDetailsPosts";

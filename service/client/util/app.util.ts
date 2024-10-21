@@ -1,3 +1,5 @@
+import {  IUserSmall } from "@/service/models/user.model";
+
 export const formatDate = (input?: string | Date | undefined): string => {
   if (!input) {
     return "No activity yet";
@@ -29,4 +31,12 @@ export const formatDate = (input?: string | Date | undefined): string => {
     const year = date.getFullYear().toString().substring(2);
     return `${day}/${month}/${year}`;
   }
+};
+
+export const cleanDuplicateUsers = (users?: IUserSmall[]): IUserSmall[] => {
+  return (
+    users?.filter(
+      (user, index, self) => index === self.findIndex((t) => t.id === user.id)
+    ) || []
+  );
 };

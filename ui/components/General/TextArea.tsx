@@ -4,28 +4,21 @@ interface Props {
   textAreaProps: ITtextAreaProps;
 }
 export default function TextArea({ textAreaProps }: Props) {
-  const {
-    divStyle,
-    labelStyle,
-    inputStyle,
-    labelText,
-    name,
-    value,
-    maxLength,
-  } = textAreaProps;
+  const { name } = textAreaProps;
   return (
-    <div className={divStyle }>
-      <label className={labelStyle} htmlFor={name}>
-        {labelText}
+    <div className={textAreaProps.divStyle}>
+      <label className={textAreaProps.labelStyle} htmlFor={name}>
+        {textAreaProps.labelText}
       </label>
       <textarea
         id={name}
         name={name}
-        defaultValue={value}
+        defaultValue={textAreaProps.value}
         required
-        autoFocus
-        maxLength={maxLength}
-        className={inputStyle}
+        autoFocus={true}
+        maxLength={textAreaProps.maxLength}
+        className={textAreaProps.inputStyle}
+        placeholder={textAreaProps.placeholder}
       />
     </div>
   );

@@ -1,37 +1,31 @@
 "use client";
 
 import { IComment } from "@/service/models/comments.model";
-import {
-  Dispatch,
-  FormEvent,
-  RefObject,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import FormBtn from "../../General/FormBtn";
-import TextArea from "../../General/TextArea";
+import { FormEvent, RefObject, useEffect, useState } from "react";
+
 import { BackSvg } from "@/ui/Icons/Svgs";
 
+import FormBtn from "../../General/FormBtn";
+import TextArea from "../../General/TextArea";
+
 interface Props {
+  submitComment: (comment: IComment) => void;
+  setIsCommentEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
   comment: IComment;
-  onSubmit: (comment: IComment) => void;
   isCommentEditOpen: boolean;
   modelRef: RefObject<HTMLFormElement>;
-  setIsCommentEditOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function CommentEdit({
-  comment,
-  onSubmit,
-  modelRef,
-  isCommentEditOpen,
+  submitComment,
   setIsCommentEditOpen,
+  comment,
+  isCommentEditOpen,
+  modelRef,
 }: Props) {
-  const checkboxRef = useRef<HTMLInputElement>(null);
+  //To prevent animation of first load
   const [hasInteracted, setHasInteracted] = useState(false);
-
+  
   useEffect(() => {
     if (isCommentEditOpen) {
       setHasInteracted(true);
@@ -50,22 +44,20 @@ export default function CommentEdit({
 
   const formBts = {
     containerStyle: "flex justify-between px-4",
-    cancelBtnStyle: "bg-platinum text-blue font-semibold  p-1 px-2 rounded-lg",
-    submitBtnStyle: "bg-orange text-blue font-semibold  p-1 px-2 rounded-lg",
-    cancelAction: () => {
-      if (checkboxRef.current) {
-        checkboxRef.current.checked = false;
-      }
-    },
+    cancelBtnStyle:
+      " bg-platinum text-sm font-semibold rounded-md flex gap-2 h-6 w-20 p-2 px-4 items-center justify-center",
+    submitBtnStyle:
+      "bg-orange text-sm font-semibold rounded-md flex text-black gap-2 h-6 w-28 p-2 px-4 items-center justify-center",
+    cancelAction: () => setIsCommentEditOpen(false),
   };
 
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const content = e.currentTarget.content.value;
+    const content = e.currentTarget.content.value || "";
 
-    onSubmit({ ...comment, content });
+    submitComment({ ...comment, content });
     setIsCommentEditOpen(false);
   };
 

@@ -1,45 +1,39 @@
 "use client";
 
-import { IPost } from "@/service/models/post.model";
-import CommentLIst from "../../Comments/CommentLIst";
-import PostInfo from "./PostInfo";
 import { useCallback, useState } from "react";
+
+import { IPost } from "@/service/models/post.model";
 import { IComment } from "@/service/models/comments.model";
+
 import { saveComment } from "@/service/client/comment.client";
+
+import PostCmp from "./Post/PostCmp";
+import CommentList from "../../Comments/CommentIndex/CommentList";
 
 interface props {
   post: IPost;
 }
 export default function PostDetailsClient({ post }: props) {
   const [comments, setComments] = useState(post.comments || []);
-   
 
-  const onSubmitComment = useCallback(
-    async (comment: IComment) => {
-      try {
-        const savedComment = await saveComment(comment);
-        if (comment.id) {
-          setComments((prev) =>
-            prev.map((c) => (c.id === savedComment.id ? savedComment : c))
-          );
-        } else {
-          setComments((prev) => [...prev, savedComment]);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
+  const submitComment = useCallback(async (comment: IComment) => {
+    try {
+      const savedComment = await saveComment(comment);
+      if (comment.id) {
+        setComments((prev) =>
+          prev.map((c) => (c.id === savedComment.id ? savedComment : c))
+        );
+      } else {
+        setComments((prev) => [...prev, savedComment]);
       }
-    },
-    [post]
-  );
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   return (
     <div className=" w-full h-full p-4 flex gap-8 ">
-      <PostInfo
-        post={post}
-        comments={comments}
-        onSubmitComment={onSubmitComment}
-      />
+      <PostCmp post={post} comments={comments} submitComment={submitComment} />
 
       <div className="flex flex-col gap-4 w-full">
         {!comments?.length && (
@@ -51,7 +45,9 @@ export default function PostDetailsClient({ post }: props) {
           </div>
         )}
 
-        {comments?.length && <CommentLIst comments={comments} onSubmitComment={onSubmitComment} />}
+        {comments?.length && (
+          <CommentList comments={comments} submitComment={submitComment} />
+        )}
       </div>
     </div>
   );

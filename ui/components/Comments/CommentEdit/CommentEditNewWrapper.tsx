@@ -7,7 +7,7 @@ import CommentEdit from "./CommentEdit";
 import { Dispatch, RefObject, SetStateAction } from "react";
 
 interface Props {
-  onSubmitComment: (comment: IComment) => void;
+  submitComment: (comment: IComment) => void;
   setIsCommentEditOpen: Dispatch<SetStateAction<boolean>>;
   isCommentEditOpen: boolean;
   modelRef: RefObject<HTMLFormElement>;
@@ -15,21 +15,21 @@ interface Props {
 }
 
 //Wrapper for new comment component
-export default function CommentEditNewClient({
-  onSubmitComment,
-  modelRef,
-  isCommentEditOpen,
-  postId,
+export default function CommentEditNewWrapper({
+  submitComment,
   setIsCommentEditOpen,
+  isCommentEditOpen,
+  modelRef,
+  postId,
 }: Props) {
   const user = useUser().user;
 
-  const newComment: IComment = commentService.getEmptyEntity(user, postId);
+  const newComment: IComment = commentService.getEmptyEntity(user!, postId);
   newComment.parentId = null;
   return (
     <CommentEdit
       comment={newComment}
-      onSubmit={onSubmitComment}
+      submitComment={submitComment}
       modelRef={modelRef}
       isCommentEditOpen={isCommentEditOpen}
       setIsCommentEditOpen={setIsCommentEditOpen}

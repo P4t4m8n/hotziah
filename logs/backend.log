@@ -1,0 +1,10 @@
+21.10.2024, 12:36:53 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+21.10.2024, 12:36:55 - ERROR - Error getting post in post.server.ts | 
+Invalid `prisma.post.findUnique()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already

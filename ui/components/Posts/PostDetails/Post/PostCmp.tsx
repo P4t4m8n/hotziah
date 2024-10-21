@@ -1,37 +1,31 @@
-import { formatDate } from "@/service/client/util/app.util";
-import { IPost } from "@/service/models/post.model";
-import Image from "next/image";
-import UserListIcons from "../../Forum/ForumDetails/AdminList";
-import { IComment } from "@/service/models/comments.model";
-import CommentItemActionsClient from "../../Comments/CommentItemActionsClient";
 import { useRef } from "react";
-import CommentEditNewClient from "../../Comments/CommentEdit/CommentEditNewClient";
+import Image from "next/image";
+
+import { IPost } from "@/service/models/post.model";
+import { IComment } from "@/service/models/comments.model";
+
 import { useModel } from "@/ui/hooks/useModel";
+import { cleanDuplicateUsers } from "@/service/client/util/app.util";
+
+import CommentItemActions from "../../../Comments/CommentIndex/CommentItemActions";
+import CommentEditNewWrapper from "../../../Comments/CommentEdit/CommentEditNewWrapper";
+import UserListIcons from "../../../Forum/ForumDetails/AdminList";
+import PostInfo from "./PostInfo";
 
 interface Props {
   post: IPost;
   comments?: IComment[];
-  onSubmitComment: (comment: IComment) => void;
+  submitComment: (comment: IComment) => void;
 }
-export default function PostInfo({ post, comments, onSubmitComment }: Props) {
+export default function PostCmp({ post, comments, submitComment }: Props) {
   const modelRef = useRef<HTMLFormElement>(null);
   const [isCommentEditOpen, setIsCommentEditOpen] = useModel(modelRef);
 
   const { title, author, content, _count } = post;
 
-  const postInfo = [
-    { title: "REPLIES", value: _count?.comments || 0 },
-    { title: "VIEWS", value: 15 },
-    { title: "LIKES", value: 200 },
-    { title: "LAST COMMENT ", value: formatDate(comments?.[0]?.createdAt) },
-  ];
-
   const authors = comments?.map((comment) => comment.author);
-  const cleanAuthorsDuplicate =
-    authors?.filter(
-      (author, index, self) =>
-        index === self.findIndex((t) => t.id === author.id)
-    ) || [];
+  const cleanAuthorsDuplicate = cleanDuplicateUsers(authors);
+
   return (
     <div className=" bg-dark-blue text-white h-full w-[55%] max-w-96 min-w-64 p-8 rounded-lg flex flex-col gap-8">
       <h1 className="text-3xl font-semibold">{title}</h1>
@@ -51,26 +45,20 @@ export default function PostInfo({ post, comments, onSubmitComment }: Props) {
         {content}
       </article>
 
-      <CommentItemActionsClient setIsCommentEditOpen={setIsCommentEditOpen} />
+      <CommentItemActions setIsCommentEditOpen={setIsCommentEditOpen} />
 
-      <CommentEditNewClient
-        onSubmitComment={onSubmitComment}
+      <CommentEditNewWrapper
+        submitComment={submitComment}
         setIsCommentEditOpen={setIsCommentEditOpen}
         isCommentEditOpen={isCommentEditOpen}
         modelRef={modelRef}
         postId={post.id!}
       />
 
-      <ul className="flex justify-between">
-        {postInfo.map((info) => (
-          <li key={info.title}>
-            <h2 className="text-font-size-12 text-platinum font-semibold">
-              {info.title}
-            </h2>
-            <span className="text-font-size-14">{info.value}</span>
-          </li>
-        ))}
-      </ul>
+      <PostInfo
+        numOfComments={_count?.comments || 0}
+        lastCommentData={comments?.[0]?.createdAt}
+      />
 
       {authors?.length ? (
         <div>

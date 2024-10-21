@@ -99,7 +99,12 @@ export const commentService: IServiceConfig<
   IComment,
   ICommentDto,
   ICommentSelectSql,
-  ICommentSmallSelectSql
+  ICommentSmallSelectSql,
+  [IComment],
+  [string],
+  [],
+  [IUserSmall, string],
+  [string, string]
 > = {
   collectionName: "comment",
   toDTO,
