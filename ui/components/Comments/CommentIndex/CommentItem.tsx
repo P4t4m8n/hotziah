@@ -13,22 +13,26 @@ import { ArrowSvg } from "@/ui/Icons/Svgs";
 
 import CommentList from "./CommentList";
 import CommentEditNewWrapper from "../CommentEdit/CommentEditNewWrapper";
-// import CommentItemActions from "./CommentItemActions";
+import CommentItemActions from "./CommentItemActions";
 import CommentEditWrapper from "../CommentEdit/CommentEditWrapper";
+import { likeService } from "@/service/service/like.service";
 
 interface Props {
   comment: IComment;
   submitComment: (comment: IComment) => void;
 }
 export default function CommentItem({ comment, submitComment }: Props) {
-  const { content, author, createdAt } = comment;
+  const { content, author, createdAt, likes, _count, id } = comment;
 
   const [replies, setReplies] = useState<IComment[]>([]);
   const replayModel = useRef<HTMLFormElement>(null);
   const [isCommentReplayOpen, setIsCommentReplayOpen] = useModel(replayModel);
 
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
-  const { _count } = comment;
+
+  const _like = likes?.length
+    ? likes[0]
+    : likeService.createLikeDto("", { commentId: id });
 
   const fetchReplies = async (ev: MouseEvent) => {
     ev.preventDefault();
@@ -64,7 +68,8 @@ export default function CommentItem({ comment, submitComment }: Props) {
             prev.map((c) => (c.id === savedReplay.id ? savedReplay : c))
           );
       } else {
-        comment._count!.replies++;
+        //TODO move to state?
+        comment._count!.comments!++;
         if (replies) setReplies((prev) => [...prev, savedReplay]);
       }
     } catch (error) {
@@ -95,11 +100,15 @@ export default function CommentItem({ comment, submitComment }: Props) {
         <CommentEditWrapper comment={comment} submitComment={submitComment} />
 
         <button onClick={fetchReplies} className="flex gap-1 items-center">
-          <span className="font-semibold text-sm">{_count?.replies || 0}</span>
+          <span className="font-semibold text-sm">{_count?.comments || 0}</span>
           <ArrowSvg isFlip={isRepliesOpen} />
         </button>
 
-        {/* <CommentItemActions setIsCommentEditOpen={setIsCommentReplayOpen} /> */}
+        <CommentItemActions
+          setIsCommentEditOpen={setIsCommentReplayOpen}
+          like={_like}
+          numOfLikes={_count?.likes || 0}
+        />
       </div>
 
       {isRepliesOpen && replies.length > 0 && (

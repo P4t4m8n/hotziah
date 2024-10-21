@@ -68,15 +68,26 @@ export const getPostBtId = async (
             },
           },
         },
-
         comments: {
-          where: { parentId: id || null },
+          where: { parentId: null },
           select: {
             id: true,
             parentId: true,
             content: true,
             createdAt: true,
             postId: true,
+            likes: {
+              where: { userId: userId || "" },
+              select: {
+                id: true,
+                userId: true,
+                commentId: true,
+                createdAt: true,
+                user: {
+                  select: userService.buildSmallSql(),
+                },
+              },
+            },
             author: {
               select: {
                 id: true,
@@ -115,6 +126,7 @@ export const savePost = async (post: IPost): Promise<IPost> => {
 };
 
 export const createPost = async (post: IPostDto): Promise<IPost> => {
+  //TODO: add the likes and comments likes as empty array instead of the DB query
   try {
     const newPost = await prisma.post.create({
       data: {
@@ -144,6 +156,19 @@ export const createPost = async (post: IPostDto): Promise<IPost> => {
             content: true,
             createdAt: true,
             postId: true,
+            likes: {
+              where: { userId: "" },
+              select: {
+                id: true,
+                userId: true,
+                postId: true,
+                createdAt: true,
+                articleId: true,
+                user: {
+                  select: userService.buildSmallSql(),
+                },
+              },
+            },
             author: {
               select: {
                 id: true,
@@ -154,6 +179,7 @@ export const createPost = async (post: IPostDto): Promise<IPost> => {
             _count: {
               select: {
                 replies: true,
+                likes: true,
               },
             },
           },
@@ -186,6 +212,7 @@ export const updatePost = async (post: IPostDto): Promise<IPost> => {
         _count: {
           select: {
             comments: true,
+            likes: true,
           },
         },
         comments: {
@@ -195,6 +222,19 @@ export const updatePost = async (post: IPostDto): Promise<IPost> => {
             content: true,
             createdAt: true,
             postId: true,
+            likes: {
+              where: { userId: "" },
+              select: {
+                id: true,
+                userId: true,
+                postId: true,
+                createdAt: true,
+                articleId: true,
+                user: {
+                  select: userService.buildSmallSql(),
+                },
+              },
+            },
             author: {
               select: {
                 id: true,
@@ -205,6 +245,7 @@ export const updatePost = async (post: IPostDto): Promise<IPost> => {
             _count: {
               select: {
                 replies: true,
+                likes: true,
               },
             },
           },
@@ -218,48 +259,13 @@ export const updatePost = async (post: IPostDto): Promise<IPost> => {
   }
 };
 
-export const removePost = async (id: string): Promise<IPost> => {
+export const removePost = async (id: string): Promise<boolean> => {
   try {
-    const post = await prisma.post.delete({
+    await prisma.post.delete({
       where: { id },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: userService.buildSmallSql(),
-        },
-        _count: {
-          select: {
-            comments: true,
-          },
-        },
-        comments: {
-          select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            postId: true,
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                replies: true,
-              },
-            },
-          },
-        },
-      },
     });
 
-    return post;
+    return true;
   } catch (error) {
     throw handleError(error, "Error deleting post in post.server.ts");
   }
