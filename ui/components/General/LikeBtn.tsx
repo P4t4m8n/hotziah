@@ -14,7 +14,6 @@ interface Props {
 export default function LikeBtn({ like, numOfLikes }: Props) {
   const getCurrentUserNoRender = useUser().getCurrentUserNoRender;
   const [likeState, setLikeState] = useState<Partial<ILike> | null>(like);
-  console.log("likeState:", likeState)
   const numOfLikesRef = useRef(numOfLikes);
 
   const onLike = async (ev: MouseEvent) => {

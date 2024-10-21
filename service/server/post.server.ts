@@ -38,7 +38,6 @@ export const getPostBtId = async (
   id: string,
   userId?: string
 ): Promise<IPost> => {
-  console.log("userId:", userId);
   try {
     const post = await prisma.post.findUnique({
       where: { id },

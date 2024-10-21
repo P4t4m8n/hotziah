@@ -25,9 +25,8 @@ const create = async (
 
 const remove = async (likeId: string): Promise<void> => {
   try {
-    const x = await apiClientService.delete(`like/${likeId}`);
+    await apiClientService.delete(`like/${likeId}`);
     return;
-    console.log("x:", x)
   } catch (error) {
     console.error("Error removing like:", error);
   }
