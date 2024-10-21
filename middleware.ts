@@ -5,6 +5,8 @@ import { getUserById } from "./service/server/user.server";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("session")?.value;
+  const { pathname } = req.nextUrl;
+  const referer = req.headers.get("referer");
 
   let user = null;
 
@@ -21,7 +23,17 @@ export async function middleware(req: NextRequest) {
       console.error("Error decoding token:", error);
     }
   }
-  
+
+  if (pathname.startsWith("/api")) {
+    //TODO: Add middleware for API routes
+  }
+
+  if (
+    pathname.startsWith("/forum/edit/new") &&
+    (!user || user.permission !== "ADMIN")
+  ) {
+    return NextResponse.redirect(referer || new URL("/login", req.url));
+  }
 
   console.log("user:", user);
 
