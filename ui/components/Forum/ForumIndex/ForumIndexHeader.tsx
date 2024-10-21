@@ -1,5 +1,5 @@
-import { PlusSvg, SearchSvg } from "@/ui/Icons/Svgs";
-import Link from "next/link";
+import { SearchSvg } from "@/ui/Icons/Svgs";
+import NewForumBtn from "./NewForumBtn";
 
 export default function ForumIndexHeader() {
   return (
@@ -11,13 +11,7 @@ export default function ForumIndexHeader() {
           <SearchSvg />
         </button>
       </div>
-      <Link
-        className="bg-orange rounded-lg flex gap-2 h-12 w-32 p-2 items-center justify-center"
-        href={`/forum/edit/new`}
-      >
-        <PlusSvg />
-        <h4 className="text-xs font-bold text-blue">NEW TOPIC</h4>
-      </Link>
+      <NewForumBtn />
     </header>
   );
 }

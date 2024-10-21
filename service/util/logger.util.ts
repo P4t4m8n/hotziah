@@ -1,5 +1,6 @@
 import fs from "fs";
 
+
 export type LogLevel = "DEBUG" | "INFO" | "WARN" | "ERROR";
 
 export type LogArgument = string | number | boolean | object | Error;

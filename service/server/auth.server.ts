@@ -10,7 +10,7 @@ import { cookies } from "next/headers";
 import { handleError } from "../util/error.util";
 import { IUser, IUserDto } from "../models/user.model";
 import { userService } from "../service/user.service";
-import { formDataToUserDTO } from "../util/auth.util";
+import { getUserById } from "./user.server";
 
 export const login = async (userDto: IUserDto): Promise<IUser> => {
   try {
@@ -130,25 +130,28 @@ export const logout = async (): Promise<void> => {
 };
 
 export const getSessionUser = async (): Promise<IUser | null> => {
-  const token = cookies().get("session")?.value;
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
-      userId: string;
-    };
+    const token = cookies().get("session")?.value;
 
-    const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
-      select: userService.buildSql(),
-    });
+    if (!token) {
+      return null;
+    }
+    const decoded = decodeToken(token);
+    if (!decoded.userId) {
+      return null;
+    }
+
+    const user = getUserById(decoded.userId);
 
     return user;
   } catch (err) {
     handleError(err, "Error getting session user");
     return null;
   }
+};
+
+export const decodeToken = (token: string) => {
+  return jwt.verify(token, process.env.JWT_SECRET as string) as {
+    userId: string;
+  };
 };

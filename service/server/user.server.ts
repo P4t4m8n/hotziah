@@ -1,6 +1,5 @@
 import { prisma } from "@/prisma/prismaClient";
 import { IUser, IUserDto, IUserFilter } from "../models/user.model";
-import { handleError } from "../util/error.util";
 import { userService } from "../service/user.service";
 
 export const getUsers = async (filter: IUserFilter): Promise<IUser[]> => {
@@ -24,11 +23,12 @@ export const getUsers = async (filter: IUserFilter): Promise<IUser[]> => {
 
     return users;
   } catch (error) {
-    throw handleError(error, "Error in getUsers service");
+    throw new Error(`Error in getUsers service: ${error}`);
   }
 };
 
 export const getUserById = async (id: string): Promise<IUser> => {
+  console.log("id:", id);
   const selectSql = userService.buildSql();
 
   try {
@@ -43,7 +43,7 @@ export const getUserById = async (id: string): Promise<IUser> => {
 
     return user;
   } catch (error) {
-    throw handleError(error, "Error in getUser service");
+    throw new Error(`Error in getUserById service: ${error}`);
   }
 };
 
@@ -58,7 +58,7 @@ export const updateUser = async (user: IUserDto): Promise<IUser> => {
 
     return updatedUser;
   } catch (error) {
-    throw handleError(error, "Error in updateUser service");
+    throw new Error(`Error in updateUser service: ${error}`);
   }
 };
 
@@ -70,6 +70,6 @@ export const removeUser = async (id: string): Promise<boolean> => {
 
     return true;
   } catch (error) {
-    throw handleError(error, "Error in removeUser service");
+    throw new Error(`Error in removeUser service: ${error}`);
   }
 };

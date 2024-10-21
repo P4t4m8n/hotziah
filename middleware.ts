@@ -1,43 +1,29 @@
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-
 import type { NextRequest } from "next/server";
+import jwt from "jsonwebtoken";
+import { getUserById } from "./service/server/user.server";
 
 export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
-  const token = req.cookies.get("session");
-  // // const { pathname, searchParams } = req.nextUrl;
-  // // const id = searchParams.get("_id");
-  // let user: {
-  //   userId: string;
-  //   iat: number;
-  //   exp: number;
-  // } | null = null;
-  // if (token) {
-  //   user = jwt.decode(token.value) as {
-  //     userId: string;
-  //     iat: number;
-  //     exp: number;
-  //   };
-  // }
+  const token = req.cookies.get("session")?.value;
 
-  // if (pathname.includes()) {
-  //   if (!id || !user || user.userId !== id) {
+  let user = null;
 
-  //     const returnUrl = req.nextUrl.clone();
-  //     returnUrl.pathname = "/";
-  //     returnUrl.searchParams.delete("_id");
-  //     return NextResponse.redirect(returnUrl);
-  //   }
-  // }
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+        userId: string;
+      };
 
-  // if (pathname === "/login") {
-  //   const returnUrl = req.nextUrl.clone();
-  //   returnUrl.pathname = "/";
-  //   returnUrl.searchParams.set("showDialog", "y");
+      if (decoded.userId) {
+        user = await getUserById(decoded.userId);
+      }
+    } catch (error) {
+      console.error("Error decoding token:", error);
+    }
+  }
+  
 
-  //   return NextResponse.redirect(returnUrl);
-  // }
+  console.log("user:", user);
 
-  return res;
+  return NextResponse.next();
 }
