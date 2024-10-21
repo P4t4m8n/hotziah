@@ -13,7 +13,7 @@ import { ArrowSvg } from "@/ui/Icons/Svgs";
 
 import CommentList from "./CommentList";
 import CommentEditNewWrapper from "../CommentEdit/CommentEditNewWrapper";
-import CommentItemActions from "./CommentItemActions";
+// import CommentItemActions from "./CommentItemActions";
 import CommentEditWrapper from "../CommentEdit/CommentEditWrapper";
 
 interface Props {
@@ -99,7 +99,7 @@ export default function CommentItem({ comment, submitComment }: Props) {
           <ArrowSvg isFlip={isRepliesOpen} />
         </button>
 
-        <CommentItemActions setIsCommentEditOpen={setIsCommentReplayOpen} />
+        {/* <CommentItemActions setIsCommentEditOpen={setIsCommentReplayOpen} /> */}
       </div>
 
       {isRepliesOpen && replies.length > 0 && (

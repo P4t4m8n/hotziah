@@ -1,7 +1,5 @@
-import { redirect } from "next/navigation";
-
 import { IPost } from "@/service/models/post.model";
-import { IUser } from "@/service/models/user.model";
+export const dynamic = "force-dynamic";
 
 import { getSessionUser } from "@/service/server/auth.server";
 import { getPostBtId } from "@/service/server/post.server";
@@ -12,6 +10,8 @@ import PostEdit from "@/ui/components/Posts/PostEdit/PostEdit";
 export async function generateStaticParams() {
   return [{ postId: "new", forumId: "1" }];
 }
+
+//TODO:find a way to make this page SSG
 export default async function PostEditServer({
   params,
 }: {
@@ -19,14 +19,11 @@ export default async function PostEditServer({
 }) {
   const { postId, forumId } = params;
 
-  //Fetch session user for author object
-  //TODO redirect will be moved to middleware with permission level check
-  const user: IUser | null = await getSessionUser();
-  if (!user) return redirect("/login");
-
   let post: IPost;
   if (postId === "new") {
-    post = postService.getEmptyEntity(user, forumId);
+    //Fetch session user for author object
+    const user = await getSessionUser();
+    post = postService.getEmptyEntity(user!, forumId);
   } else {
     post = await getPostBtId(postId);
   }
