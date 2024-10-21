@@ -13,7 +13,6 @@ const toDTO = (post: IPost): IPostDto => {
 
   return { ...rest, authorId: author.id! };
 };
-
 const getEmptyPost = (author: IUserSmall, forumId: string): IPost => {
   return {
     id: "",
@@ -24,7 +23,6 @@ const getEmptyPost = (author: IUserSmall, forumId: string): IPost => {
     comments: [],
   };
 };
-
 const buildSmallSql = (): IPostSmallSelectSql => {
   return {
     id: true,
@@ -79,7 +77,11 @@ export const postService: IServiceConfig<
   IPost,
   IPostDto,
   IPostSelectSql,
-  IPostSmallSelectSql
+  IPostSmallSelectSql,
+  [],
+  [string],
+  [],
+  [IUserSmall, string]
 > = {
   collectionName: "post",
   toDTO,

@@ -100,7 +100,7 @@ export const commentService: IServiceConfig<
   ICommentDto,
   ICommentSelectSql,
   ICommentSmallSelectSql,
-  [IComment],
+  [],
   [string],
   [],
   [IUserSmall, string],

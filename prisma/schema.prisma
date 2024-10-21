@@ -102,6 +102,7 @@ model User {
   Therapist     Therapist[]
   Questionnaire Questionnaire[]
   Article       Article[]
+  likes          Like[]
 }
 
 model Forum {
@@ -127,6 +128,7 @@ model Post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   comments  Comment[]
+  likes      Like[]
 }
 
 model Comment {
@@ -140,6 +142,7 @@ model Comment {
   parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
   replies   Comment[] @relation("CommentReplies")
   createdAt DateTime  @default(now())
+  likes      Like[]
 }
 
 model Therapist {
@@ -214,4 +217,22 @@ model Article {
   author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  likes        Like[]
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  postId    String?
+  post      Post?    @relation(fields: [postId], references: [id])
+  commentId String?
+  comment   Comment? @relation(fields: [commentId], references: [id])
+  articleId String?
+  article   Article? @relation(fields: [articleId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+  @@unique([userId, commentId])
+  @@unique([userId, articleId])
 }

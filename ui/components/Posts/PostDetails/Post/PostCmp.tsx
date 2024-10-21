@@ -11,6 +11,7 @@ import CommentItemActions from "../../../Comments/CommentIndex/CommentItemAction
 import CommentEditNewWrapper from "../../../Comments/CommentEdit/CommentEditNewWrapper";
 import UserListIcons from "../../../Forum/ForumDetails/AdminList";
 import PostInfo from "./PostInfo";
+import { likeService } from "@/service/service/like.service";
 
 interface Props {
   post: IPost;
@@ -21,10 +22,14 @@ export default function PostCmp({ post, comments, submitComment }: Props) {
   const modelRef = useRef<HTMLFormElement>(null);
   const [isCommentEditOpen, setIsCommentEditOpen] = useModel(modelRef);
 
-  const { title, author, content, _count } = post;
+  const { title, author, content, _count, likes } = post;
 
   const authors = comments?.map((comment) => comment.author);
   const cleanAuthorsDuplicate = cleanDuplicateUsers(authors);
+
+  const _like = likes?.length
+    ? likes[0]
+    : likeService.createLikeDto("", { postId: post.id });
 
   return (
     <div className=" bg-dark-blue text-white h-full w-[55%] max-w-96 min-w-64 p-8 rounded-lg flex flex-col gap-8">
@@ -45,7 +50,11 @@ export default function PostCmp({ post, comments, submitComment }: Props) {
         {content}
       </article>
 
-      <CommentItemActions setIsCommentEditOpen={setIsCommentEditOpen} />
+      <CommentItemActions
+        setIsCommentEditOpen={setIsCommentEditOpen}
+        like={_like}
+        numOfLikes={_count?.likes || 0}
+      />
 
       <CommentEditNewWrapper
         submitComment={submitComment}

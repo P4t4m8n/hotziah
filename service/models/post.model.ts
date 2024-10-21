@@ -1,6 +1,7 @@
 import { IEntity } from "./app.model";
 import { IComment } from "./comments.model";
 import { ISelectSql } from "./db.model";
+import { ILike } from "./like.model";
 import { IUserSmall, IUserSmallSelectSql } from "./user.model";
 
 interface IPostBase extends IEntity {
@@ -11,7 +12,8 @@ interface IPostBase extends IEntity {
 export interface IPost extends IPostBase {
   author: IUserSmall;
   comments?: IComment[];
-  _count?: { comments: number };
+  _count?: { comments?: number; likes?: number };
+  likes?: ILike[];
 }
 
 export interface IPostDto extends IPostBase {

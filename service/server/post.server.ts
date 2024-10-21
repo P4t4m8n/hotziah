@@ -4,6 +4,7 @@ import { prisma } from "@/prisma/prismaClient";
 import { IPost, IPostDto, IPostFilter } from "../models/post.model";
 import { handleError } from "../util/error.util";
 import { postService } from "../service/post.service";
+import { userService } from "../service/user.service";
 
 export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
   try {
@@ -33,11 +34,65 @@ export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
   }
 };
 
-export const getPostBtId = async (id: string): Promise<IPost> => {
+export const getPostBtId = async (
+  id: string,
+  userId?: string
+): Promise<IPost> => {
   try {
     const post = await prisma.post.findUnique({
       where: { id },
-      select: postService.buildSql(),
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        forumId: true,
+        author: {
+          select: userService.buildSmallSql(),
+        },
+        _count: {
+          select: {
+            comments: true,
+            likes: true,
+          },
+        },
+        likes: {
+          where: { userId },
+          select: {
+            id: true,
+            userId: true,
+            postId: true,
+            createdAt: true,
+            articleId: true,
+            user: {
+              select: userService.buildSmallSql(),
+            },
+          },
+        },
+
+        comments: {
+          where: { parentId: id || null },
+          select: {
+            id: true,
+            parentId: true,
+            content: true,
+            createdAt: true,
+            postId: true,
+            author: {
+              select: {
+                id: true,
+                username: true,
+                imgUrl: true,
+              },
+            },
+            _count: {
+              select: {
+                replies: true,
+                likes: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!post) {
@@ -68,7 +123,42 @@ export const createPost = async (post: IPostDto): Promise<IPost> => {
         forumId: post.forumId,
         authorId: post.authorId,
       },
-      select: postService.buildSql(),
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        forumId: true,
+        author: {
+          select: userService.buildSmallSql(),
+        },
+        _count: {
+          select: {
+            comments: true,
+            likes: true,
+          },
+        },
+        comments: {
+          select: {
+            id: true,
+            parentId: true,
+            content: true,
+            createdAt: true,
+            postId: true,
+            author: {
+              select: {
+                id: true,
+                username: true,
+                imgUrl: true,
+              },
+            },
+            _count: {
+              select: {
+                replies: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return newPost;
@@ -85,7 +175,41 @@ export const updatePost = async (post: IPostDto): Promise<IPost> => {
         title: post.title,
         content: post.content,
       },
-      select: postService.buildSql(),
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        forumId: true,
+        author: {
+          select: userService.buildSmallSql(),
+        },
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
+        comments: {
+          select: {
+            id: true,
+            parentId: true,
+            content: true,
+            createdAt: true,
+            postId: true,
+            author: {
+              select: {
+                id: true,
+                username: true,
+                imgUrl: true,
+              },
+            },
+            _count: {
+              select: {
+                replies: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return updatedPost;
@@ -98,7 +222,41 @@ export const removePost = async (id: string): Promise<IPost> => {
   try {
     const post = await prisma.post.delete({
       where: { id },
-      select: postService.buildSql(),
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        forumId: true,
+        author: {
+          select: userService.buildSmallSql(),
+        },
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
+        comments: {
+          select: {
+            id: true,
+            parentId: true,
+            content: true,
+            createdAt: true,
+            postId: true,
+            author: {
+              select: {
+                id: true,
+                username: true,
+                imgUrl: true,
+              },
+            },
+            _count: {
+              select: {
+                replies: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return post;

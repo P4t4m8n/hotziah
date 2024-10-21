@@ -11,6 +11,11 @@ export const TABLES = [
 
 export type TTableName = (typeof TABLES)[number];
 
+export type TLikeTableName = Extract<
+  TTableName,
+  "article" | "post" | "comment"
+>;
+
 export interface ISelectSql {
   id: boolean;
 }
