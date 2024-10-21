@@ -38,6 +38,7 @@ export const getPostBtId = async (
   id: string,
   userId?: string
 ): Promise<IPost> => {
+  console.log("userId:", userId);
   try {
     const post = await prisma.post.findUnique({
       where: { id },
@@ -56,7 +57,7 @@ export const getPostBtId = async (
           },
         },
         likes: {
-          where: { userId },
+          where: { userId: userId || "" },
           select: {
             id: true,
             userId: true,

@@ -22,6 +22,7 @@ export default async function PostDetailsServer({
   //Only fetch when there is a real ID. temp ID exist for SSG
   if (postId !== "1") {
     const user = await getSessionUser();
+    console.log("user:", user)
     post = await getPostBtId(postId, user?.id);
   }
 
