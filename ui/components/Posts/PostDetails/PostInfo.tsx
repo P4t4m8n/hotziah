@@ -3,12 +3,20 @@ import { IPost } from "@/service/models/post.model";
 import Image from "next/image";
 import UserListIcons from "../../Forum/ForumDetails/AdminList";
 import { IComment } from "@/service/models/comments.model";
+import CommentItemActionsClient from "../../Comments/CommentItemActionsClient";
+import { useRef } from "react";
+import CommentEditNewClient from "../../Comments/CommentEdit/CommentEditNewClient";
+import { useModel } from "@/ui/hooks/useModel";
 
 interface Props {
   post: IPost;
   comments?: IComment[];
+  onSubmitComment: (comment: IComment) => void;
 }
-export default function PostInfo({ post, comments }: Props) {
+export default function PostInfo({ post, comments, onSubmitComment }: Props) {
+  const modelRef = useRef<HTMLFormElement>(null);
+  const [isCommentEditOpen, setIsCommentEditOpen] = useModel(modelRef);
+
   const { title, author, content, _count } = post;
 
   const postInfo = [
@@ -42,6 +50,16 @@ export default function PostInfo({ post, comments }: Props) {
       <article className="text-pretty text-font-size-14 text-slate-200 h-2/3 overflow-auto no-scrollBar">
         {content}
       </article>
+
+      <CommentItemActionsClient setIsCommentEditOpen={setIsCommentEditOpen} />
+
+      <CommentEditNewClient
+        onSubmitComment={onSubmitComment}
+        setIsCommentEditOpen={setIsCommentEditOpen}
+        isCommentEditOpen={isCommentEditOpen}
+        modelRef={modelRef}
+        postId={post.id!}
+      />
 
       <ul className="flex justify-between">
         {postInfo.map((info) => (

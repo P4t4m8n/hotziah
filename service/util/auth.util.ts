@@ -18,7 +18,6 @@ export const formDataToUserDTO = (formData: FormData): IUserDto => {
   const password = formData.get("password") as string;
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
-  console.log("lastName:", lastName)
 
   const returnedData: IUserDto = {
     email,

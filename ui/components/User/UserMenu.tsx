@@ -5,7 +5,6 @@ import { IUser } from "@/service/models/user.model";
 import { IMenu, IMenuBtn } from "@/service/models/menu.model";
 import { AvatarSvg } from "@/ui/Icons/Svgs";
 import Link from "next/link";
-import { logout } from "@/service/server/auth.server";
 import { useUser } from "@/ui/hooks/useUser";
 import Image from "next/image";
 
@@ -15,7 +14,7 @@ export default function UserMenu() {
     const menuBtn: IMenuBtn = {
       text: user?.username || "Login",
       style:
-        "w-32 h-12 border  shadow-lg text-blue rounded-lg p-4 font-bold flex justify-between items-center flex-row-reverse text-base truncate ",
+        "w-32 h-12 border shadow-lg text-blue rounded-lg px-4 font-bold flex justify-center gap-4 items-center flex-row-reverse text-base truncate ",
       imgUrl: user?.imgUrl || "",
     };
     if (!user?.imgUrl) {
@@ -39,7 +38,7 @@ export default function UserMenu() {
   if (!user) {
     return (
       <Link
-        className="w-32 h-12 border  shadow-lg text-blue rounded-lg p-4 font-bold flex justify-between items-center    "
+        className="w-36 h-12 border shadow-lg text-blue rounded-lg px-4 font-bold flex justify-center gap-4 items-center    "
         href="/login"
       >
         <span>Login</span>

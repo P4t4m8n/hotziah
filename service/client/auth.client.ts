@@ -1,4 +1,4 @@
-import { IUser, IUserDto } from "../models/user.model";
+import { IUser } from "../models/user.model";
 import { formDataToUserDTO } from "../util/auth.util";
 import { apiClientService } from "./api.client";
 
@@ -7,13 +7,9 @@ const BASE_URL = "auth/";
 //TODO: Add validation for user object
 const login = async (formData: FormData): Promise<IUser> => {
   try {
-
     const dto = formDataToUserDTO(formData);
 
-    const user = await apiClientService.post<IUser>(
-      BASE_URL + "login",
-      dto
-    );
+    const user = await apiClientService.post<IUser>(BASE_URL + "login", dto);
     if (!user) {
       throw new Error("No user returned from login");
     }

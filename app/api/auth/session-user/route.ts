@@ -1,6 +1,8 @@
+
+export const dynamic = "force-dynamic";
+
 import { getSessionUser } from "@/service/server/auth.server";
 import { NextResponse } from "next/server";
-export const runtime = "nodejs";
 
 export async function GET() {
   try {

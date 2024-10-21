@@ -65,6 +65,7 @@ export interface IForumSmallSelectSql extends ISelectSql {
           content: boolean;
           createdAt: boolean;
           id: boolean;
+          postId: boolean;
         };
         take: 1;
       };
@@ -110,6 +111,7 @@ export interface IForumSelectSql extends ISelectSql {
           content: boolean;
           createdAt: boolean;
           id: boolean;
+          postId: boolean;
         };
         take: 1;
       };

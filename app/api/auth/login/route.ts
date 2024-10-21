@@ -7,7 +7,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    console.log("******************");
     const userDto: IUserDto = await req.json();
 
     const user = await login(userDto);

@@ -1,17 +1,18 @@
-import {
-  getComments,
-} from "@/service/server/comments.server";
+import { getComments } from "@/service/server/comments.server";
 import { handleError } from "@/service/util/error.util";
 import { NextRequest, NextResponse } from "next/server";
 
+//Get comments based on the parentId
+//ParentId of dirent comments to a post have null as parentId
+
 export async function GET(
   req: NextRequest,
-  { params }: { params: { commentId: string } }
+  { params }: { params: { parentId: string } }
 ) {
-  const { commentId } = params;
+  const { parentId } = params;
 
   try {
-    const comments = await getComments({ parentId: commentId });
+    const comments = await getComments({ parentId });
     if (!comments) {
       return NextResponse.json(
         { message: "Comments not found" },
@@ -29,5 +30,3 @@ export async function GET(
     );
   }
 }
-
-

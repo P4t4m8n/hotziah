@@ -22,7 +22,7 @@ export default function GeneralMenu({ menuItems }: Props) {
 
   const { iconSvg, imgUrl, text, style } = menuItems.menuBtn;
   return (
-    <div className=" relative w-fit" ref={modelRef}>
+    <div className=" relative" ref={modelRef}>
       <button
         className={style}
         onClick={(e) => {
@@ -40,7 +40,7 @@ export default function GeneralMenu({ menuItems }: Props) {
             alt={text || "menu button"}
           />
         )}
-        {text && text.charAt(0).toUpperCase() + text.slice(1)}
+        <span>{text && text.charAt(0).toUpperCase() + text.slice(1)}</span>
       </button>
       <ul className={`${isOpen ? "block" : "hidden"} ${menuItems.menuStyle}`}>
         {menuItems.items.map((item, idx) => (

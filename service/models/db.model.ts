@@ -28,4 +28,5 @@ export interface IServiceConfig<T, DTO, SelectSql, SmallSelectSql> {
   buildSmallSql: (...args: any[]) => SmallSelectSql;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getEmptyEntity: (...args: any[]) => T;
+  getEmptyDto?: (...args: any[]) => DTO;
 }

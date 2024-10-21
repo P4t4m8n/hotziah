@@ -1,6 +1,5 @@
 "use client";
 
-import { login, signup } from "@/service/server/auth.server";
 import { useUser } from "@/ui/hooks/useUser";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,7 +11,7 @@ interface Props {
 
 export default function AuthForm({ inputs, isLogin }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const { login,signUp } = useUser();
+  const { login, signUp } = useUser();
 
   const onSubmit = async (formData: FormData) => {
     try {

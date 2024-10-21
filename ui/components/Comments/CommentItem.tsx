@@ -5,8 +5,9 @@ import CommentItemClient from "./CommentItemClient";
 
 interface Props {
   comment: IComment;
+  onSubmitComment: (comment: IComment) => void;
 }
-export default function CommentItem({ comment }: Props) {
+export default function CommentItem({ comment,onSubmitComment }: Props) {
   const { content, author, createdAt } = comment;
   return (
     <li className=" p-2 rounded-lg flex flex-col gap-2 w-full">
@@ -26,7 +27,7 @@ export default function CommentItem({ comment }: Props) {
 
       <article className="text-xs text-black p-4 max-h-24  ">{content}</article>
 
-      <CommentItemClient comment={comment} />
+      <CommentItemClient onSubmitComment={onSubmitComment} comment={comment}  />
     </li>
   );
 }

@@ -57,6 +57,7 @@ const buildSql = (parentId?: string): IPostSelectSql => {
         parentId: true,
         content: true,
         createdAt: true,
+        postId: true,
         author: {
           select: {
             id: true,

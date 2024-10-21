@@ -1,23 +1,51 @@
 "use client";
 
 import { IComment } from "@/service/models/comments.model";
-import { FormEvent, useRef } from "react";
-import Input from "../../General/Input";
+import {
+  Dispatch,
+  FormEvent,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import FormBtn from "../../General/FormBtn";
+import TextArea from "../../General/TextArea";
+import { BackSvg } from "@/ui/Icons/Svgs";
 
 interface Props {
   comment: IComment;
   onSubmit: (comment: IComment) => void;
+  isCommentEditOpen: boolean;
+  modelRef: RefObject<HTMLFormElement>;
+  setIsCommentEditOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function CommentEdit({ comment, onSubmit }: Props) {
+export default function CommentEdit({
+  comment,
+  onSubmit,
+  modelRef,
+  isCommentEditOpen,
+  setIsCommentEditOpen,
+}: Props) {
   const checkboxRef = useRef<HTMLInputElement>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-  const input = {
-    divStyle: "flex flex-col gap-2 p-2 px-4",
-    inputStyle: "bg-slate-100 rounded-lg p-1 px-6",
+  useEffect(() => {
+    if (isCommentEditOpen) {
+      setHasInteracted(true);
+    }
+  }, [isCommentEditOpen]);
+
+  const textArea = {
+    divStyle: "flex flex-col gap-2 p-2 px-4 h-2/3",
+    inputStyle:
+      "bg-slate-100 rounded-lg p-2 px-6 resize-none h-full text-black  ",
     name: "content",
     value: comment.content,
+    maxLength: 255,
+    placeholder: "Add a comment",
   };
 
   const formBts = {
@@ -36,27 +64,37 @@ export default function CommentEdit({ comment, onSubmit }: Props) {
     e.stopPropagation();
 
     const content = e.currentTarget.content.value;
+
     onSubmit({ ...comment, content });
+    setIsCommentEditOpen(false);
   };
 
   return (
-    <div>
-      <label
-        htmlFor="comment-toggle"
-        className="cursor-pointer bg-blue-500 text-white p-2 rounded-lg"
-      >
-        Add a comment
-      </label>
-      <input
-        type="checkbox"
-        id="comment-toggle"
-        ref={checkboxRef}
-        className="sr-only peer"
-      />
-      <form onSubmit={onSubmitForm} className="mt-4 hidden peer-checked:block">
-        <Input inputProps={input} />
-        <FormBtn {...formBts} />
-      </form>
-    </div>
+    <>
+      {hasInteracted && (
+        <form
+          ref={modelRef}
+          onSubmit={onSubmitForm}
+          className={` bg-slate-400 fixed right-0 top-20 w-[35vw]  h-main-height p-4 ${
+            isCommentEditOpen ? "animate-slideInRight" : "animate-slideOutRight"
+          }`}
+        >
+          <header className="flex gap-4 items-center">
+            <button
+              onClick={(ev) => {
+                ev.stopPropagation();
+                ev.preventDefault();
+                setIsCommentEditOpen(false);
+              }}
+            >
+              <BackSvg />
+            </button>
+            <h2 className="text-blue font-bold text-lg">Add a comment</h2>
+          </header>
+          <TextArea textAreaProps={textArea} />
+          <FormBtn {...formBts} />
+        </form>
+      )}
+    </>
   );
 }

@@ -5,6 +5,9 @@ import { IUserSmall, IUserSmallSelectSql } from "./user.model";
 interface ICommentBase extends IEntity {
   content: string;
   createdAt: Date;
+  postId: string;
+
+  parentId?: string | null;
 }
 
 export interface IComment extends ICommentBase {
@@ -14,8 +17,6 @@ export interface IComment extends ICommentBase {
 }
 
 export interface ICommentDto extends ICommentBase {
-  postId: string;
-  parentId?: string;
   authorId: string;
 }
 
@@ -31,6 +32,7 @@ export interface ICommentSmallSelectSql extends ISelectSql {
   content: boolean;
   createdAt: boolean;
   parentId: boolean;
+  postId: boolean;
   author: {
     select: {
       imgUrl: boolean;
@@ -49,6 +51,7 @@ export interface ICommentSelectSql extends ISelectSql {
   content: boolean;
   createdAt: boolean;
   parentId: boolean;
+  postId: boolean;
 
   author: {
     select: IUserSmallSelectSql;
@@ -60,4 +63,3 @@ export interface ICommentSelectSql extends ISelectSql {
     select: ICommentSmallSelectSql;
   };
 }
-

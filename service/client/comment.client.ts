@@ -1,32 +1,22 @@
-import { IComment } from "../models/comments.model";
+import { IComment, ICommentDto } from "../models/comments.model";
+import { commentService } from "../service/comment.service";
 import { apiClientService } from "./api.client";
 
-export const saveComment = async (
-  comment: IComment,
-  forumId?: string,
-  postId?: string
-): Promise<IComment> => {
+export const saveComment = async (comment: IComment): Promise<IComment> => {
+  const dto = commentService.toDTO(comment);
   if (comment.id) {
-    return await updateComment(comment);
+    return await updateComment(dto);
   } else {
-    return await createComment(comment, forumId, postId);
+    return await createComment(dto);
   }
 };
 
-const createComment = async (
-  comment: IComment,
-  forumId?: string,
-  postId?: string
-): Promise<IComment> => {
-  return await apiClientService.post<IComment>(
-    `${forumId}/post/${postId}/comment`,
-    {
-      comment,
-      forumId,
-    }
-  );
+const createComment = async (comment: ICommentDto): Promise<IComment> => {
+  return await apiClientService.post<IComment>(`comment`, {
+    comment,
+  });
 };
 
-const updateComment = async (comment: IComment): Promise<IComment> => {
+const updateComment = async (comment: ICommentDto): Promise<IComment> => {
   return await apiClientService.put<IComment>(`comment/${comment.id}`, comment);
 };

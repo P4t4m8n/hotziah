@@ -8,6 +8,7 @@ import {
 } from "../models/comments.model";
 import { handleError } from "../util/error.util";
 import { commentService } from "../service/comment.service";
+import { userService } from "../service/user.service";
 
 export const getComments = async (
   filter: ICommentFilter
@@ -45,7 +46,22 @@ export const getComments = async (
           },
         ],
       },
-      select: commentService.buildSql(),
+      select: {
+        id: true,
+        parentId: true,
+        content: true,
+        createdAt: true,
+        postId: true,
+        author: {
+          select: userService.buildSmallSql(),
+        },
+        _count:{
+          select:{
+            replies:true
+          }
+        }
+       
+      },
     });
 
     return comments;

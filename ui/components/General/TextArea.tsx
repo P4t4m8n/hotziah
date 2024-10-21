@@ -14,7 +14,7 @@ export default function TextArea({ textAreaProps }: Props) {
     maxLength,
   } = textAreaProps;
   return (
-    <div className={divStyle}>
+    <div className={divStyle }>
       <label className={labelStyle} htmlFor={name}>
         {labelText}
       </label>
@@ -25,7 +25,7 @@ export default function TextArea({ textAreaProps }: Props) {
         required
         autoFocus
         maxLength={maxLength}
-        className={inputStyle  }
+        className={inputStyle}
       />
     </div>
   );

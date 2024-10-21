@@ -50,6 +50,7 @@ export interface IPostSelectSql extends IPostSmallSelectSql {
       parentId: boolean;
       content: boolean;
       createdAt: boolean;
+      postId: boolean;
       author: {
         select: {
           id: boolean;

@@ -17,7 +17,6 @@ export default async function ArticleEditPage({
   // let article;
   if (id !== "new") {
     // article = await getArticle(id);
-    console.log(id);
   }
   // return <TextEditor article={article} />;
 }

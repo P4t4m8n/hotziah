@@ -14,6 +14,7 @@ const buildSmallSql = (): ICommentSmallSelectSql => {
     content: true,
     createdAt: true,
     parentId: true,
+    postId: true,
     author: {
       select: userService.buildSmallSql(),
     },
@@ -31,6 +32,7 @@ const buildSql = (commentId: string): ICommentSelectSql => {
     parentId: true,
     content: true,
     createdAt: true,
+    postId: true,
     author: {
       select: userService.buildSmallSql!(),
     },
@@ -38,33 +40,58 @@ const buildSql = (commentId: string): ICommentSelectSql => {
       where: {
         parentId: commentId,
       },
-      select: buildSmallSql(),
+      select: {
+        id: true,
+        parentId: true,
+        content: true,
+        createdAt: true,
+        postId: true,
+        author: {
+          select: {
+            id: true,
+            username: true,
+            imgUrl: true,
+          },
+        },
+        _count: {
+          select: {
+            replies: true,
+          },
+        },
+      },
     },
   };
 };
 
-const toDTO = (
-  comment: IComment,
-  postId: string,
-  parentId?: string
-): ICommentDto => {
+const toDTO = (comment: IComment): ICommentDto => {
   const dto: ICommentDto = {
     id: comment.id,
     content: comment.content,
     createdAt: comment.createdAt,
-    postId,
-    parentId: parentId,
+    postId: comment.postId,
+    parentId: comment.parentId,
     authorId: comment.author.id!,
   };
   return dto;
 };
 
-const getEmptyComment = (author: IUserSmall): IComment => {
+const getEmptyComment = (author: IUserSmall, postId: string): IComment => {
   return {
     id: "",
     content: "",
     createdAt: new Date(),
     author,
+    postId,
+  };
+};
+
+const getEmptyCommentDto = (authorId: string, postId: string): ICommentDto => {
+  return {
+    id: "",
+    content: "",
+    createdAt: new Date(),
+    authorId,
+    postId,
   };
 };
 
@@ -79,4 +106,5 @@ export const commentService: IServiceConfig<
   buildSql,
   buildSmallSql,
   getEmptyEntity: getEmptyComment,
+  getEmptyDto: getEmptyCommentDto,
 };
