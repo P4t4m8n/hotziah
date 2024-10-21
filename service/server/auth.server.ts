@@ -1,12 +1,10 @@
 "use server";
 
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { SignJWT, jwtVerify } from "jose";
 
 import { prisma } from "@/prisma/prismaClient";
-
 import { cookies } from "next/headers";
-
 import { handleError } from "../util/error.util";
 import { IUser, IUserDto } from "../models/user.model";
 import { userService } from "../service/user.service";
@@ -38,11 +36,7 @@ export const login = async (userDto: IUserDto): Promise<IUser> => {
       throw new Error("Invalid credentials");
     }
 
-    const token = jwt.sign(
-      { userId: user.id },
-      process.env.JWT_SECRET as string,
-      { expiresIn: "24H" }
-    );
+    const token = await createJWT(user.id, user.permission);
 
     cookies().set("session", token, {
       httpOnly: true,
@@ -65,7 +59,7 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
     const saltRounds = 10;
 
     if (!userDto.email || !userDto.password || !userDto.username) {
-      throw new Error(" Email, password and username are required");
+      throw new Error("Email, password, and username are required");
     }
     const users = await prisma.user.findMany({
       where: {
@@ -92,11 +86,7 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
       throw new Error("Error creating user");
     }
 
-    const token = jwt.sign(
-      { userId: user.id },
-      process.env.JWT_SECRET as string,
-      { expiresIn: "7d" }
-    );
+    const token = await createJWT(user.id, user.permission);
 
     cookies().set("session", token, {
       httpOnly: true,
@@ -116,12 +106,11 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
 
 export const logout = async (): Promise<void> => {
   try {
-    const session = cookies().get("session");
-    if (!session) {
-      return;
-    }
-
     cookies().set("session", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      sameSite: "lax",
       expires: new Date(0),
     });
   } catch (error) {
@@ -136,22 +125,24 @@ export const getSessionUser = async (): Promise<IUser | null> => {
     if (!token) {
       return null;
     }
-    const decoded = decodeToken(token);
-    if (!decoded.userId) {
-      return null;
-    }
 
-    const user = getUserById(decoded.userId);
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const { payload } = await jwtVerify(token, secret);
+
+    const user = await getUserById(payload.userId as string);
 
     return user;
-  } catch (err) {
-    handleError(err, "Error getting session user");
+  } catch (error) {
+    console.error("Error decoding token:", error);
     return null;
   }
 };
 
-export const decodeToken = (token: string) => {
-  return jwt.verify(token, process.env.JWT_SECRET as string) as {
-    userId: string;
-  };
-};
+async function createJWT(userId: string, permission: string) {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+
+  return new SignJWT({ userId, permission })
+    .setProtectedHeader({ alg: "HS256" })
+    .setExpirationTime("24h")
+    .sign(secret);
+}

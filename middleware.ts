@@ -1,24 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import jwt from "jsonwebtoken";
-import { getUserById } from "./service/server/user.server";
+import { jwtVerify } from "jose";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("session")?.value;
   const { pathname } = req.nextUrl;
   const referer = req.headers.get("referer");
 
-  let user = null;
+  let userPermission = null;
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
-        userId: string;
-      };
+      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+      const { payload } = await jwtVerify(token, secret);
 
-      if (decoded.userId) {
-        user = await getUserById(decoded.userId);
-      }
+
+      userPermission = payload.permission;
     } catch (error) {
       console.error("Error decoding token:", error);
     }
@@ -28,14 +25,10 @@ export async function middleware(req: NextRequest) {
     //TODO: Add middleware for API routes
   }
 
-  if (
-    pathname.startsWith("/forum/edit/new") &&
-    (!user || user.permission !== "ADMIN")
-  ) {
+  if (pathname.startsWith("/forum/edit") && userPermission !== "ADMIN") {
     return NextResponse.redirect(referer || new URL("/login", req.url));
   }
 
-  console.log("user:", user);
 
   return NextResponse.next();
 }

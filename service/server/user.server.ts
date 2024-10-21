@@ -28,7 +28,6 @@ export const getUsers = async (filter: IUserFilter): Promise<IUser[]> => {
 };
 
 export const getUserById = async (id: string): Promise<IUser> => {
-  console.log("id:", id);
   const selectSql = userService.buildSql();
 
   try {

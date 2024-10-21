@@ -17,10 +17,10 @@ export const authContext = createContext<Props | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<IUser | null>(null);
+  const router = useRouter();
+
   //Access the state value without causing a re-render
   const userRef = useRef<IUser | null>(null);
-
-  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -44,7 +44,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       userRef.current = user;
       setUser(user);
-      router.push("/");
+      // Check if the user is on a page that can be navigated back to
+      redirect();
     } catch (error) {
       console.error("Error logging in:", error);
       setUser(null);
@@ -59,6 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       userRef.current = user;
       setUser(user);
+      redirect();
     } catch (error) {
       console.error("Error signing up:", error);
       setUser(null);
@@ -77,6 +79,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const getCurrentUserNoRender = () => userRef.current;
+
+  const redirect = () => {
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
 
   return (
     <authContext.Provider

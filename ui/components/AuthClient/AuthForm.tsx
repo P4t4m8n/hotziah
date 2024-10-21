@@ -2,7 +2,7 @@
 
 import { useUser } from "@/ui/hooks/useUser";
 import Link from "next/link";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 interface Props {
   inputs: TInputUserForm[];
@@ -13,8 +13,11 @@ export default function AuthForm({ inputs, isLogin }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const { login, signUp } = useUser();
 
-  const onSubmit = async (formData: FormData) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
     try {
+      const formData = new FormData(e.target as HTMLFormElement);
       setIsLoading(true);
       if (isLogin) await login(formData);
       else await signUp(formData);
@@ -28,7 +31,7 @@ export default function AuthForm({ inputs, isLogin }: Props) {
   return (
     <form
       className="p4 bg-slate-600 p-4 flex flex-col gap-4 "
-      action={onSubmit}
+      onSubmit={onSubmit}
     >
       {inputs.map((input) => (
         <div key={input.name} className="flex">

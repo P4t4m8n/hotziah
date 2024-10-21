@@ -697,3 +697,14 @@ Invalid `prisma.like.create()` invocation:
 }
 
 Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
+21.10.2024, 20:51:47 - ERROR - Error logging in | User not found
+21.10.2024, 20:54:01 - ERROR - Error logging in | User not found
+21.10.2024, 21:03:46 - ERROR - Error logging in | User not found
+21.10.2024, 21:04:26 - ERROR - Error logging in | User not found
+21.10.2024, 21:04:33 - ERROR - Error logging in | Email and password are required
+21.10.2024, 21:05:37 - ERROR - Error logging in | Email and password are required
+21.10.2024, 21:05:58 - ERROR - Error logging in | Email and password are required
+21.10.2024, 21:09:19 - ERROR - Error logging in | Email and password are required
+21.10.2024, 21:09:31 - ERROR - Error logging in | Email and password are required
+21.10.2024, 21:09:39 - ERROR - Error logging in | Email and password are required
+21.10.2024, 21:13:21 - ERROR - Error logging in | Email and password are required

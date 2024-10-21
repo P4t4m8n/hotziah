@@ -19,5 +19,6 @@ export default async function ForumDetailsServer({
   //Only fetch when there is a real ID. temp ID exist for SSG
   if (forumId !== "1") forum = await getForumById(forumId);
 
+  
   return <ForumDetailsIndex forum={forum} />;
 }
