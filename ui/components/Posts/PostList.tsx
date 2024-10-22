@@ -5,7 +5,7 @@ interface Props {
 }
 export default function PostsList({ posts }: Props) {
   return (
-    <nav className=" h-forum-details-list w-full test no-scrollbar">
+    <nav className=" h-forum-details-list w-full no-scrollbar">
       {posts.map((post) => (
         <PostPreview post={post} key={post.id} />
       ))}

@@ -46,7 +46,7 @@ export const getUserById = async (id: string): Promise<IUser> => {
   }
 };
 
-export const updateUser = async (user: IUserDto): Promise<IUser> => {
+export const updateUser = async (user: Partial<IUserDto>): Promise<IUser> => {
   try {
     const updatedUser = await prisma.user.update({
       where: { id: user.id },

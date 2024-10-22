@@ -11,6 +11,7 @@ export default async function UserDashboard({
 }: {
   searchParams: IUserFilter | null;
 }) {
+
   const filter: IUserFilter | null = searchParams && Object.keys(searchParams).length > 0
   ? {
     username: typeof searchParams.username === 'string' ? searchParams.username : undefined,
@@ -26,11 +27,9 @@ export default async function UserDashboard({
   }
   : null;
   let users: IUser[] = [];
-  console.log("filter:", filter)
 
   if (filter) {
     users = await getUsers(filter);
-    console.log("users:", users);
   }
   return <UserDashboardIndex users={users}  />;
 }

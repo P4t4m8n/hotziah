@@ -476,3 +476,14 @@
 .after-border-grow:hover::after {
   width: 100%;
 }
+
+.heightOne {
+  transition: height 1.3s;
+  height: 4rem;
+}
+.heightTwo {
+  background-color: black;
+
+  transition: height 1.3s;
+
+}

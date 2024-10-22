@@ -10,7 +10,7 @@ import { IForum } from "@/service/models/forum.model";
 
 const prisma = new PrismaClient();
 
-const NUM_USERS = 10;
+const NUM_USERS = 50;
 const NUM_FORUMS = 12;
 
 async function createUsers() {
@@ -108,9 +108,9 @@ const getRandomNumber = (min: number, max: number) => {
 
 export async function seed() {
   const usersData = await createUsers();
-  const users = usersData.filter((user) => user.permission === Permission.ADMIN);
-  const forums = await createForums(users);
-  await createPostsAndComments(users, forums);
+  // const users = usersData.filter((user) => user.permission === Permission.ADMIN);
+  // const forums = await createForums(users);
+  // await createPostsAndComments(users, forums);
 
   console.info("Database seeded successfully");
 }

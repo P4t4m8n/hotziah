@@ -5,7 +5,7 @@ export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <section className="p-4">
+    <section className="p-4 h-full">
       <Nav
         links={ADMIN_DASHBOARD_LINKS}
         navStyle="flex justify-around items-center px-[5%]"

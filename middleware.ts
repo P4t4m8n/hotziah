@@ -14,7 +14,6 @@ export async function middleware(req: NextRequest) {
       const secret = new TextEncoder().encode(process.env.JWT_SECRET);
       const { payload } = await jwtVerify(token, secret);
 
-
       userPermission = payload.permission;
     } catch (error) {
       console.error("Error decoding token:", error);
@@ -25,10 +24,12 @@ export async function middleware(req: NextRequest) {
     //TODO: Add middleware for API routes
   }
 
-  if (pathname.startsWith("/forum/edit") && userPermission !== "ADMIN") {
+  if (
+    (pathname.startsWith("/forum/edit") || pathname.startsWith("/admin")) &&
+    userPermission !== "ADMIN"
+  ) {
     return NextResponse.redirect(referer || new URL("/login", req.url));
   }
-
 
   return NextResponse.next();
 }

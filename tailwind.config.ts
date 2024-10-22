@@ -25,6 +25,8 @@ const config: Config = {
         "forum-details-list": "calc(100% - 5rem)",
         "post-edit": "calc(100% - 11rem)",
         "post-edit-form": "calc(100% - 2.5rem)",
+        "user-list": "calc(100% - 8rem)",
+        "user-dashboard": "calc(100% - 1.75rem)",
       },
       width: {
         "title-bar": "50ch",
