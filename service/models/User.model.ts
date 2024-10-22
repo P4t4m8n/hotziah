@@ -56,7 +56,6 @@ export interface IUserSelectSql extends IUserSmallSelectSql {
   lastName: boolean;
   permission: boolean;
   isTherapist: boolean;
-  password?: boolean;
 }
 
 export interface IUserSmallSelectSql extends ISelectSql {

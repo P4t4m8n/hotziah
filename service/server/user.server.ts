@@ -1,9 +1,45 @@
 import { prisma } from "@/prisma/prismaClient";
 import { IUser, IUserDto, IUserFilter } from "../models/user.model";
 import { userService } from "../service/user.service";
+import { handleError } from "./util/error.util";
 
+/**
+ * Saves a user to the database.
+ *
+ * @param userDto The user data transfer object.
+ * @returns A promise that resolves to the saved user object.
+ * @throws An error if there is an issue saving the user.
+ */
 export const getUsers = async (filter: IUserFilter): Promise<IUser[]> => {
   try {
+    //TODO:move sanitization logic to service
+    if (!filter || typeof filter !== "object") {
+      throw new Error("Invalid filter object");
+    }
+    const {
+      id,
+      isTherapist,
+      username,
+      email,
+      permission,
+      firstName,
+      lastName,
+      page,
+      amount,
+    } = filter;
+    if (
+      typeof id !== "string" ||
+      typeof isTherapist !== "boolean" ||
+      typeof username !== "string" ||
+      typeof email !== "string" ||
+      typeof permission !== "string" ||
+      typeof firstName !== "string" ||
+      typeof lastName !== "string" ||
+      typeof page !== "number" ||
+      typeof amount !== "number"
+    ) {
+      throw new Error("Invalid filter properties");
+    }
     const selectSql = userService.buildSql();
 
     const users = await prisma.user.findMany({
@@ -17,16 +53,23 @@ export const getUsers = async (filter: IUserFilter): Promise<IUser[]> => {
         lastName: { contains: filter.lastName },
       },
       take: filter.amount,
-      skip: filter.page,
+      skip: ((filter?.page || 1) - 1) * (filter?.amount || 10),
       select: selectSql,
     });
 
     return users;
   } catch (error) {
-    throw new Error(`Error in getUsers service: ${error}`);
+    const err = handleError(error, "Error getting users");
+    throw err;
   }
 };
-
+/**
+ * Retrieves a user by their ID from the database.
+ *
+ * @param id - The ID of the user to retrieve.
+ * @returns A Promise that resolves to the user object.
+ * @throws Error if the user is not found or if there is an error in the retrieval process.
+ */
 export const getUserById = async (id: string): Promise<IUser> => {
   const selectSql = userService.buildSql();
 
@@ -42,10 +85,17 @@ export const getUserById = async (id: string): Promise<IUser> => {
 
     return user;
   } catch (error) {
-    throw new Error(`Error in getUserById service: ${error}`);
+    const err = handleError(error, "Error getting user by id");
+    throw err;
   }
 };
-
+/**
+ * Updates a user's information in the database.
+ *
+ * @param user - The partial user object containing the updated information.
+ * @returns The updated user object.
+ * @throws Error if there is an issue updating the user.
+ */
 export const updateUser = async (user: Partial<IUserDto>): Promise<IUser> => {
   try {
     const updatedUser = await prisma.user.update({
@@ -57,10 +107,17 @@ export const updateUser = async (user: Partial<IUserDto>): Promise<IUser> => {
 
     return updatedUser;
   } catch (error) {
-    throw new Error(`Error in updateUser service: ${error}`);
+    const err = handleError(error, "Error updating user");
+    throw err;
   }
 };
 
+/**
+ * Asynchronously removes a user from the database.
+ *
+ * @param id - The ID of the user to be removed.
+ * @returns A Promise that resolves to true if the user is successfully removed, or rejects with an error.
+ */
 export const removeUser = async (id: string): Promise<boolean> => {
   try {
     await prisma.user.delete({
@@ -69,6 +126,7 @@ export const removeUser = async (id: string): Promise<boolean> => {
 
     return true;
   } catch (error) {
-    throw new Error(`Error in removeUser service: ${error}`);
+    const err = handleError(error, "Error removing user");
+    throw err;
   }
 };

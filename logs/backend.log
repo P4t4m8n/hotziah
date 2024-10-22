@@ -1,711 +1,5939 @@
-21.10.2024, 12:36:53 - ERROR - Error getting post in post.server.ts | 
-Invalid `prisma.post.findUnique()` invocation:
-
-
-Too many database connections opened: FATAL: sorry, too many clients already
-21.10.2024, 12:36:55 - ERROR - Error getting post in post.server.ts | 
-Invalid `prisma.post.findUnique()` invocation:
-
-
-Too many database connections opened: FATAL: sorry, too many clients already
-21.10.2024, 14:06:03 - ERROR - Error getting post in post.server.ts | userService is not defined
-21.10.2024, 14:06:10 - ERROR - Error getting post in post.server.ts | parentId is not defined
-21.10.2024, 14:06:27 - ERROR - Error getting post in post.server.ts | is is not defined
-21.10.2024, 16:53:10 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
+22.10.2024, 23:25:22 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
 
 {
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
   select: {
     id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
       select: {
         id: true,
-        username: true,
-        imgUrl: true
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
       }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:53:10 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:55:35 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:55:35 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:56:51 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:56:51 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:59:07 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:59:07 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:59:41 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 16:59:41 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:01:05 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:01:05 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:01:14 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:01:14 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:02:36 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:02:36 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:02:58 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:02:58 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
-    user: {
-      select: {
-        id: true,
-        username: true,
-        imgUrl: true
-      }
-    }
-  },
-+ data: LikeCreateInput | LikeUncheckedCreateInput
-}
-
-Argument `data` is missing.
-21.10.2024, 17:37:09 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-
-Unique constraint failed on the fields: (`userId`,`postId`)
-21.10.2024, 17:37:09 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-
-Unique constraint failed on the fields: (`userId`,`postId`)
-21.10.2024, 17:37:11 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-
-Unique constraint failed on the fields: (`userId`,`postId`)
-21.10.2024, 17:37:11 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
-
-
-Unique constraint failed on the fields: (`userId`,`postId`)
-21.10.2024, 17:38:31 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
-
-{
-  data: {
-    id: "cm2j4ehai0001gfvx49db1deu",
-    userId: "cm2g4y4mj0000i9w9vm2oagll",
-    ~~~~~~
-    postId: "cm2huk765000j1l2uwjva92rk",
-    createdAt: "2024-10-21T14:37:06.186Z",
-    articleId: null,
-    user: {
-      id: "cm2g4y4mj0000i9w9vm2oagll",
-      username: "test",
-      imgUrl: "/imgs/avatarDefault.svg"
     },
-?   post?: PostCreateNestedOneWithoutLikesInput,
-?   comment?: CommentCreateNestedOneWithoutLikesInput,
-?   article?: ArticleCreateNestedOneWithoutLikesInput
-  },
-  select: {
-    id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
     user: {
       select: {
         id: true,
         username: true,
-        imgUrl: true
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
       }
     }
   }
 }
 
-Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
-21.10.2024, 17:38:31 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:26:51 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
 
 {
-  data: {
-    id: "cm2j4ehai0001gfvx49db1deu",
-    userId: "cm2g4y4mj0000i9w9vm2oagll",
-    ~~~~~~
-    postId: "cm2huk765000j1l2uwjva92rk",
-    createdAt: "2024-10-21T14:37:06.186Z",
-    articleId: null,
-    user: {
-      id: "cm2g4y4mj0000i9w9vm2oagll",
-      username: "test",
-      imgUrl: "/imgs/avatarDefault.svg"
-    },
-?   post?: PostCreateNestedOneWithoutLikesInput,
-?   comment?: CommentCreateNestedOneWithoutLikesInput,
-?   article?: ArticleCreateNestedOneWithoutLikesInput
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
   },
   select: {
     id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
     user: {
       select: {
         id: true,
         username: true,
-        imgUrl: true
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
       }
     }
   }
 }
 
-Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
-21.10.2024, 17:38:34 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:26:54 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
 
 {
-  data: {
-    id: "cm2j4ehai0001gfvx49db1deu",
-    userId: "cm2g4y4mj0000i9w9vm2oagll",
-    ~~~~~~
-    postId: "cm2huk765000j1l2uwjva92rk",
-    createdAt: "2024-10-21T14:37:06.186Z",
-    articleId: null,
-    user: {
-      id: "cm2g4y4mj0000i9w9vm2oagll",
-      username: "test",
-      imgUrl: "/imgs/avatarDefault.svg"
-    },
-?   post?: PostCreateNestedOneWithoutLikesInput,
-?   comment?: CommentCreateNestedOneWithoutLikesInput,
-?   article?: ArticleCreateNestedOneWithoutLikesInput
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
   },
   select: {
     id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
     user: {
       select: {
         id: true,
         username: true,
-        imgUrl: true
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
       }
     }
   }
 }
 
-Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
-21.10.2024, 17:38:34 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:26:57 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
 
 {
-  data: {
-    id: "cm2j4ehai0001gfvx49db1deu",
-    userId: "cm2g4y4mj0000i9w9vm2oagll",
-    ~~~~~~
-    postId: "cm2huk765000j1l2uwjva92rk",
-    createdAt: "2024-10-21T14:37:06.186Z",
-    articleId: null,
-    user: {
-      id: "cm2g4y4mj0000i9w9vm2oagll",
-      username: "test",
-      imgUrl: "/imgs/avatarDefault.svg"
-    },
-?   post?: PostCreateNestedOneWithoutLikesInput,
-?   comment?: CommentCreateNestedOneWithoutLikesInput,
-?   article?: ArticleCreateNestedOneWithoutLikesInput
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
   },
   select: {
     id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
     user: {
       select: {
         id: true,
         username: true,
-        imgUrl: true
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
       }
     }
   }
 }
 
-Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
-21.10.2024, 17:40:09 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:27:04 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
 
 {
-  data: {
-    id: "cm2j4h75h0007gfvxgqlfh1rv",
-    userId: "cm2g4y4mj0000i9w9vm2oagll",
-    ~~~~~~
-    postId: "cm2huk765000j1l2uwjva92rk",
-    createdAt: "2024-10-21T14:39:13.013Z",
-    articleId: null,
-    user: {
-      id: "cm2g4y4mj0000i9w9vm2oagll",
-      username: "test",
-      imgUrl: "/imgs/avatarDefault.svg"
-    },
-?   post?: PostCreateNestedOneWithoutLikesInput,
-?   comment?: CommentCreateNestedOneWithoutLikesInput,
-?   article?: ArticleCreateNestedOneWithoutLikesInput
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
   },
   select: {
     id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
     user: {
       select: {
         id: true,
         username: true,
-        imgUrl: true
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
       }
     }
   }
 }
 
-Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
-21.10.2024, 17:40:09 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:27:07 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
 
 {
-  data: {
-    id: "cm2j4h75h0007gfvxgqlfh1rv",
-    userId: "cm2g4y4mj0000i9w9vm2oagll",
-    ~~~~~~
-    postId: "cm2huk765000j1l2uwjva92rk",
-    createdAt: "2024-10-21T14:39:13.013Z",
-    articleId: null,
-    user: {
-      id: "cm2g4y4mj0000i9w9vm2oagll",
-      username: "test",
-      imgUrl: "/imgs/avatarDefault.svg"
-    },
-?   post?: PostCreateNestedOneWithoutLikesInput,
-?   comment?: CommentCreateNestedOneWithoutLikesInput,
-?   article?: ArticleCreateNestedOneWithoutLikesInput
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
   },
   select: {
     id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
     user: {
       select: {
         id: true,
         username: true,
-        imgUrl: true
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
       }
     }
   }
 }
 
-Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
-21.10.2024, 17:40:10 - ERROR - Failed to create like |  An error occurred while creating a like: 
-Invalid `prisma.like.create()` invocation:
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:27:08 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
 
 {
-  data: {
-    id: "cm2j4h75h0007gfvxgqlfh1rv",
-    userId: "cm2g4y4mj0000i9w9vm2oagll",
-    ~~~~~~
-    postId: "cm2huk765000j1l2uwjva92rk",
-    createdAt: "2024-10-21T14:39:13.013Z",
-    articleId: null,
-    user: {
-      id: "cm2g4y4mj0000i9w9vm2oagll",
-      username: "test",
-      imgUrl: "/imgs/avatarDefault.svg"
-    },
-?   post?: PostCreateNestedOneWithoutLikesInput,
-?   comment?: CommentCreateNestedOneWithoutLikesInput,
-?   article?: ArticleCreateNestedOneWithoutLikesInput
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
   },
   select: {
     id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
     user: {
       select: {
         id: true,
         username: true,
-        imgUrl: true
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
       }
     }
   }
 }
 
-Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
-21.10.2024, 17:40:10 - ERROR -  An error occurred while creating a like | 
-Invalid `prisma.like.create()` invocation:
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:27:10 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
 
 {
-  data: {
-    id: "cm2j4h75h0007gfvxgqlfh1rv",
-    userId: "cm2g4y4mj0000i9w9vm2oagll",
-    ~~~~~~
-    postId: "cm2huk765000j1l2uwjva92rk",
-    createdAt: "2024-10-21T14:39:13.013Z",
-    articleId: null,
-    user: {
-      id: "cm2g4y4mj0000i9w9vm2oagll",
-      username: "test",
-      imgUrl: "/imgs/avatarDefault.svg"
-    },
-?   post?: PostCreateNestedOneWithoutLikesInput,
-?   comment?: CommentCreateNestedOneWithoutLikesInput,
-?   article?: ArticleCreateNestedOneWithoutLikesInput
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
   },
   select: {
     id: true,
-    articleId: true,
-    postId: true,
-    commentId: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
     user: {
       select: {
         id: true,
         username: true,
-        imgUrl: true
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
       }
     }
   }
 }
 
-Unknown argument `userId`. Did you mean `user`? Available options are marked with ?.
-21.10.2024, 20:51:47 - ERROR - Error logging in | User not found
-21.10.2024, 20:54:01 - ERROR - Error logging in | User not found
-21.10.2024, 21:03:46 - ERROR - Error logging in | User not found
-21.10.2024, 21:04:26 - ERROR - Error logging in | User not found
-21.10.2024, 21:04:33 - ERROR - Error logging in | Email and password are required
-21.10.2024, 21:05:37 - ERROR - Error logging in | Email and password are required
-21.10.2024, 21:05:58 - ERROR - Error logging in | Email and password are required
-21.10.2024, 21:09:19 - ERROR - Error logging in | Email and password are required
-21.10.2024, 21:09:31 - ERROR - Error logging in | Email and password are required
-21.10.2024, 21:09:39 - ERROR - Error logging in | Email and password are required
-21.10.2024, 21:13:21 - ERROR - Error logging in | Email and password are required
-22.10.2024, 16:34:54 - ERROR - Unauthorized | 
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:27:13 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:27:58 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:28:51 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:28:55 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:29:00 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:29:07 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:29:09 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:29:10 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:29:12 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:29:15 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:29:28 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: undefined
+        }
+      },
+      {
+        languages: {
+          hasSome: undefined
+        }
+      },
+      {
+        meetingType: {
+          hasSome: undefined
+        }
+      },
+      {
+        user: {
+          firstName: undefined
+        }
+      },
+      {
+        user: {
+          lastName: undefined
+        }
+      },
+      {
+        gender: undefined
+      },
+      {
+        address: {
+          city: undefined
+        }
+      },
+      {
+        education: {
+          hasSome: undefined
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Argument `subjects` of type StringNullableListFilter needs at least one argument. Available options are marked with ?.
+22.10.2024, 23:30:37 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: []
+        }
+      },
+      {
+        languages: {
+          hasSome: []
+        }
+      },
+      {
+        meetingType: {
+          hasSome: []
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: "MAN"
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected TherapistEducation.
+22.10.2024, 23:32:20 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:33:53 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:04 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:09 - ERROR - Error getting therapists | OR is not defined
+22.10.2024, 23:34:12 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:14 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:25 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:39 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:42 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:49 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:53 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:56 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:34:57 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:35:11 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:35:27 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:35:35 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:35:36 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:35:37 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:35:46 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:35:56 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:35:58 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:02 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:06 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:08 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:10 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:19 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:21 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:31 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:46 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:36:59 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:37:28 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:37:37 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:37:40 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:37:43 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:07 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:08 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:09 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:27 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:32 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:34 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:35 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:43 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:49 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:38:57 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:39:11 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:39:26 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:39:39 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:39:40 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        user: {
+          firstName: ""
+        }
+      },
+      {
+        user: {
+          lastName: ""
+        }
+      },
+      {
+        gender: ""
+      },
+      {
+        address: {
+          city: ""
+        }
+      },
+      {
+        education: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:41:47 - ERROR - Error getting therapists | 
+Invalid `prisma.therapist.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        subjects: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        languages: {
+          hasSome: [
+            ""
+          ]
+        }
+      },
+      {
+        meetingType: {
+          hasSome: [
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  select: {
+    id: true,
+    subjects: true,
+    languages: true,
+    meetingType: true,
+    gender: true,
+    phone: true,
+    education: true,
+    address: {
+      select: {
+        id: true,
+        city: true,
+        street: true,
+        isAccessible: true,
+        number: true,
+        zipCode: true,
+        floor: true,
+        entrance: true
+      }
+    },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        imgUrl: true,
+        permission: true,
+        isTherapist: true
+      }
+    }
+  }
+}
+
+Invalid value for argument `hasSome`. Expected Languages.
+22.10.2024, 23:47:56 - ERROR - Error getting therapists | OR is not iterable

@@ -9,7 +9,7 @@ import {
 import { IUser } from "./user.model";
 import { IEntity } from "./app.model";
 
-interface TTherapistBase {
+interface TTherapistBase extends IEntity {
   subjects: string[];
   languages: Languages[];
   meetingType: MeetingType[];
@@ -26,17 +26,18 @@ export interface ITherapist extends TTherapistBase {
 
 export interface ITherapistDto extends TTherapistBase {
   userId: string;
-  adressId: string;
+  addressId: string;
 }
 
 export interface ITherapistFilter {
-  subjects?: TTherapistSubject[];
-  languages?: TTherapistLanguage[];
-  meetingType?: TTherapistMeeting[];
-  fullName?: string;
-  gender?: TTherapistGender;
+  subjects?: string[];
+  languages?: Languages[];
+  meetingType?: MeetingType[];
+  firstName?: string;
+  lastName?: string;
+  gender?: Gender;
   city?: string;
-  education?: TTherapistEducation;
+  education?: TherapistEducation[];
 }
 
 export const THERAPIST_SUBJECTS = [
@@ -89,7 +90,7 @@ export interface IAddressDto extends IEntity {
   street?: string;
   number?: string;
   zipCode?: string;
-  enrance?: string;
+  entrance?: string;
   floor?: string;
   isAccessible: boolean;
 }

@@ -14,6 +14,7 @@ import {
   ITherapist,
   ITherapistDto,
 } from "../models/therapists.model";
+import { therapistService } from "../service/therapist.service";
 
 export const login = async (userDto: IUserDto): Promise<IUser> => {
   try {
@@ -151,27 +152,7 @@ export const therapistSignup = async (
       select: {
         ...userSql,
         therapist: {
-          select: {
-            id: true,
-            subjects: true,
-            languages: true,
-            meetingType: true,
-            address: {
-              select: {
-                id: true,
-                city: true,
-                street: true,
-                isAccessible: true,
-                number: true,
-                zipCode: true,
-                floor: true,
-                entrance: true,
-              },
-            },
-            gender: true,
-            phone: true,
-            education: true,
-          },
+          select: therapistService.buildSql(),
         },
       },
     });
