@@ -463,3 +463,16 @@
     transform: translateX(1);
   }
 }
+
+.after-border-grow::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  background-color: gray;
+  transition: width 0.3s;
+}
+
+.after-border-grow:hover::after {
+  width: 100%;
+}

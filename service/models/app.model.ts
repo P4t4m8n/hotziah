@@ -1,4 +1,3 @@
-
 export type TInputUserFormKeys =
   | "email"
   | "username"
@@ -6,20 +5,26 @@ export type TInputUserFormKeys =
   | "firstName"
   | "lastName";
 
-export interface IInputProps {
+interface IInputBase {
   divStyle?: string;
   labelStyle?: string;
   inputStyle?: string;
   labelText?: string;
   name?: string;
+  required?: boolean;
+}
+
+export interface IInputProps extends IInputBase {
   value?: string;
   placeholder?: string;
+}
+export interface ICheckBoxProps extends IInputBase {
+  value?: boolean;
 }
 
 export interface ITtextAreaProps extends IInputProps {
   maxLength?: number;
   placeholder?: string;
-
 }
 
 export interface ISelectSingleProps extends IInputProps {
@@ -37,3 +42,9 @@ export interface FetchOptions<TBody> {
   queryParams?: Record<string, string | number | boolean>;
 }
 
+export interface INavLinksProps {
+  link: string;
+  text?: string;
+  svg?: React.ReactNode;
+  linkStyle: string;
+}

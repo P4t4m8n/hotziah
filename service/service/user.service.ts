@@ -1,4 +1,3 @@
-import { IServiceConfig } from "../models/db.model";
 import {
   IUser,
   IUserDto,
@@ -51,15 +50,13 @@ const getEmptyUser = (): IUser => {
     imgUrl: "",
   };
 };
-export const userService: IServiceConfig<
-  IUser,
-  IUserDto,
-  IUserSelectSql,
-  IUserSmallSelectSql
-> = {
+
+
+
+export const userService = {
   collectionName: "user",
   toDTO,
   buildSql,
   buildSmallSql,
-  getEmptyEntity: getEmptyUser,
+  getEmptyUser,
 };

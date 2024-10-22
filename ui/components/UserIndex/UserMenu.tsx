@@ -49,7 +49,7 @@ export default function UserMenu() {
     return {
       menuBtn,
       items,
-      menuStyle: "",
+      menuStyle: "bg-white shadow-md flex-col p-4  rounded-md w-full absolute",
     };
   };
 

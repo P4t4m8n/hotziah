@@ -42,11 +42,7 @@ export default function GeneralMenu({ menuItems }: Props) {
         )}
         <span>{text && text.charAt(0).toUpperCase() + text.slice(1)}</span>
       </button>
-      <ul
-        className={`${isOpen ? "flex" : "hidden"} ${
-          menuItems.menuStyle
-        } bg-white shadow-md flex-col p-4 right-2/3 rounded-md w-full absolute`}
-      >
+      <ul className={`${isOpen ? "flex" : "hidden"} ${menuItems.menuStyle} `}>
         {menuItems.items.map((item, idx) => (
           <li key={idx}>
             {item.onClick && (

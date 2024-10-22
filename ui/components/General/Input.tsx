@@ -11,6 +11,7 @@ export default function Input({ inputProps }: Props) {
     labelText,
     name,
     value,
+    required,
     placeholder,
   } = inputProps;
   return (
@@ -23,7 +24,7 @@ export default function Input({ inputProps }: Props) {
         type="text"
         name={name}
         defaultValue={value}
-        required
+        required={required}
         className={inputStyle}
         placeholder={placeholder}
       />
