@@ -58,6 +58,7 @@ export const getComments = async (
         _count: {
           select: {
             replies: true,
+            likes: true,
           },
         },
       },
@@ -105,6 +106,7 @@ export const getCommentById = async (commentId: string): Promise<IComment> => {
             _count: {
               select: {
                 replies: true,
+                likes: true,
               },
             },
           },
@@ -168,6 +170,7 @@ export const createComment = async (
             _count: {
               select: {
                 replies: true,
+                likes: true,
               },
             },
           },
@@ -216,6 +219,7 @@ export const updateComment = async (
             _count: {
               select: {
                 replies: true,
+                likes: true,
               },
             },
           },

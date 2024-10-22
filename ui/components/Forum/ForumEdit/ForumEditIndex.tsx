@@ -62,7 +62,7 @@ export default function ForumEditIndex({ forum, admins }: Props) {
 
       <TextArea textAreaProps={textArea} />
 
-      <SelectSingle textAreaProps={selectProps} />
+      <SelectSingle selectProps={selectProps} />
 
       <ForumEditSubjects
         subjects={FORUM_SUBJECTS}
