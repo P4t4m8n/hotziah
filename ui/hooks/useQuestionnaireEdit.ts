@@ -7,7 +7,7 @@ import {
 import { ChangeEvent, useState } from "react";
 import _ from "lodash";
 import { useUser } from "./useUser";
-import { getEmptyQuestionnaire } from "@/service/util/questionnaire.util";
+import { getEmptyQuestionnaire } from "@/service/service/questionnaire.service";
 import { apiClientService } from "@/service/client/api.client";
 
 export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {

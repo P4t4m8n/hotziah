@@ -6,7 +6,7 @@ import {
   ICommentDto,
   ICommentFilter,
 } from "../models/comments.model";
-import { handleError } from "../util/error.util";
+import { handleError } from "./util/error.util";
 import { commentService } from "../service/comment.service";
 import { userService } from "../service/user.service";
 

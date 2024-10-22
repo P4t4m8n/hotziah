@@ -5,10 +5,15 @@ import { SignJWT, jwtVerify } from "jose";
 
 import { prisma } from "@/prisma/prismaClient";
 import { cookies } from "next/headers";
-import { handleError } from "../util/error.util";
+import { handleError } from "./util/error.util";
 import { IUser, IUserDto } from "../models/user.model";
 import { userService } from "../service/user.service";
 import { getUserById } from "./user.server";
+import {
+  IAddressDto,
+  ITherapist,
+  ITherapistDto,
+} from "../models/therapists.model";
 
 export const login = async (userDto: IUserDto): Promise<IUser> => {
   try {
@@ -99,6 +104,82 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
     delete (user as { password?: string }).password;
 
     return user;
+  } catch (error) {
+    throw handleError(error, "Error signing up");
+  }
+};
+
+export const therapistSignup = async (
+  userDto: IUserDto,
+  therapistDto: ITherapistDto,
+  address: IAddressDto
+): Promise<{ user: IUser; therapist: ITherapist }> => {
+  try {
+    const saltRounds = 10;
+
+    if (!userDto.email || !userDto.password || !userDto.username) {
+      throw new Error("Email, password, and username are required");
+    }
+    const users = await prisma.user.findMany({
+      where: {
+        email: userDto.email,
+        username: userDto.username,
+      },
+    });
+    if (users.length) {
+      throw new Error("User already exists");
+    }
+
+    const hash = await bcrypt.hash(userDto.password, saltRounds);
+    const userSql = userService.buildSql();
+
+    const data = await prisma.user.create({
+      data: {
+        ...userDto,
+        password: hash,
+        therapist: {
+          create: {
+            ...therapistDto,
+            address: {
+              create: {
+                ...address,
+              },
+            },
+          },
+        },
+      },
+      select: {
+        ...userSql,
+        therapist: {
+          select: {
+            id: true,
+            subjects: true,
+            languages: true,
+            meetingType: true,
+            address: {
+              select: {
+                id: true,
+                city: true,
+                street: true,
+                isAccessible: true,
+                number: true,
+                zipCode: true,
+                floor: true,
+                entrance: true,
+              },
+            },
+            gender: true,
+            phone: true,
+            education: true,
+          },
+        },
+      },
+    });
+    const therapist: ITherapist = data.therapist!;
+    delete (data as unknown as { therapist?: ITherapist }).therapist;
+    const user: IUser = { ...data };
+
+    return { user, therapist };
   } catch (error) {
     throw handleError(error, "Error signing up");
   }

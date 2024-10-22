@@ -1,4 +1,3 @@
-import { IServiceConfig } from "../models/db.model";
 import {
   IPost,
   IPostDto,
@@ -13,7 +12,7 @@ const toDTO = (post: IPost): IPostDto => {
 
   return { ...rest, authorId: author.id! };
 };
-const getEmptyPost = (author: IUserSmall, forumId: string): IPost => {
+const getEmpty = (author: IUserSmall, forumId: string): IPost => {
   return {
     id: "",
     content: "",
@@ -73,19 +72,10 @@ const buildSql = (parentId?: string): IPostSelectSql => {
   };
 };
 
-export const postService: IServiceConfig<
-  IPost,
-  IPostDto,
-  IPostSelectSql,
-  IPostSmallSelectSql,
-  [],
-  [string],
-  [],
-  [IUserSmall, string]
-> = {
+export const postService = {
   collectionName: "post",
   toDTO,
   buildSql,
   buildSmallSql,
-  getEmptyEntity: getEmptyPost,
+  getEmpty,
 };

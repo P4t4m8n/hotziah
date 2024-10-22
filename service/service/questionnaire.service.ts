@@ -7,17 +7,17 @@ import {
 import { IUser } from "../models/user.model";
 import { v4 as uuidv4 } from "uuid";
 
-export const getEmptyQuestionnaire = (author: IUser): IQuestionnaire => {
+const getEmptyQuestionnaire = (author: IUser): IQuestionnaire => {
   return {
     author,
     subjects: [],
-    title: "שאלון חדש",
+    title: "New Questionnaire",
     question: getEmptyQuestion(),
     description: "",
   };
 };
 
-export const getEmptyQuestion = (): IQuestion => {
+const getEmptyQuestion = (): IQuestion => {
   const question: IQuestion = {
     questionText: "",
     answers: [],
@@ -27,11 +27,17 @@ export const getEmptyQuestion = (): IQuestion => {
   return question;
 };
 
-export const getEmptyAnswer = (type: TQuestionType): IAnswer => {
+const getEmptyAnswer = (type: TQuestionType): IAnswer => {
   return {
     answerText: "",
     nextQuestion: null,
     value: uuidv4(),
     type,
   };
+};
+
+export const questionnaireService = {
+  getEmptyQuestionnaire,
+  getEmptyQuestion,
+  getEmptyAnswer,
 };

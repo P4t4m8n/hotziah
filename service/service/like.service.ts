@@ -2,7 +2,11 @@ import { ILike, ILikeDto } from "../models/like.model";
 
 const createLikeDto = (
   userId: string,
-  itemId: { articleId?: string|null; postId?: string|null; commentId?: string|null }
+  itemId: {
+    articleId?: string | null;
+    postId?: string | null;
+    commentId?: string | null;
+  }
 ): ILikeDto => {
   return {
     ...itemId,

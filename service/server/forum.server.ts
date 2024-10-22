@@ -2,7 +2,7 @@
 
 import { prisma } from "@/prisma/prismaClient";
 import { IForum, IForumDto, IForumFilter } from "../models/forum.model";
-import { handleError } from "../util/error.util";
+import { handleError } from "./util/error.util";
 import { ForumSubject, ForumType } from "@prisma/client";
 import { forumService } from "../service/forum.service";
 import { redirect } from "next/navigation";

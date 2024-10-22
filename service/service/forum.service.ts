@@ -1,4 +1,3 @@
-import { IServiceConfig } from "../models/db.model";
 import {
   IForum,
   IForumDto,
@@ -16,7 +15,7 @@ const toDTO = (forum: IForum): IForumDto => {
   };
 };
 
-const getEmptyForum = (): IForum => {
+const getEmpty = (): IForum => {
   return {
     title: "",
     description: "",
@@ -120,15 +119,10 @@ const buildSql = (): IForumSelectSql => {
   };
 };
 
-export const forumService: IServiceConfig<
-  IForum,
-  IForumDto,
-  IForumSelectSql,
-  IForumSmallSelectSql
-> = {
+export const forumService = {
   collectionName: "forum",
   toDTO,
   buildSql,
   buildSmallSql,
-  getEmptyEntity: getEmptyForum,
+  getEmpty,
 };

@@ -1,6 +1,6 @@
 import { ICommentDto } from "@/service/models/comments.model";
 import { createComment } from "@/service/server/comments.server";
-import { handleRouteError } from "@/service/util/error.util";
+import { handleRouteError } from "@/service/server/util/error.util";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {

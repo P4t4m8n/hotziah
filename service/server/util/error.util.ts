@@ -10,7 +10,7 @@ export const handleError = (error: unknown, errorStr: string) => {
 export const handleRouteError = (
   errorStr: string,
   errorCode: number,
-  error?: unknown,
+  error?: unknown
 ): Record<"message" | "status", string | number> => {
   loggerService.error(errorStr, error as Error);
   return {

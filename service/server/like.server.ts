@@ -2,7 +2,7 @@
 
 import { prisma } from "@/prisma/prismaClient";
 import { ILike, ILikeDto } from "../models/like.model";
-import { handleError } from "../util/error.util";
+import { handleError } from "./util/error.util";
 import { userService } from "../service/user.service";
 
 export const createLike = async (likeDto: ILikeDto): Promise<ILike> => {

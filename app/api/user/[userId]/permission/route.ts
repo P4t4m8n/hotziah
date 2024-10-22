@@ -1,6 +1,6 @@
 import { getSessionUser } from "@/service/server/auth.server";
 import { updateUser } from "@/service/server/user.server";
-import { handleRouteError } from "@/service/util/error.util";
+import { handleRouteError } from "@/service/server/util/error.util";
 import { Permission } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,9 +12,9 @@ export async function PUT(
     const { userId } = params;
     const { permission }: { permission: Permission } = await req.json();
     const admin = await getSessionUser();
-    console.log("userId:", userId)
-    console.log("permission:", permission)
-    console.log("admin:", admin)
+    console.log("userId:", userId);
+    console.log("permission:", permission);
+    console.log("admin:", admin);
 
     if (!admin || admin.permission !== "ADMIN") {
       const err = handleRouteError("Unauthorized", 401);

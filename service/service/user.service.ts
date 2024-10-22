@@ -51,8 +51,6 @@ const getEmptyUser = (): IUser => {
   };
 };
 
-
-
 export const userService = {
   collectionName: "user",
   toDTO,

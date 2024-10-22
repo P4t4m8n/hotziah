@@ -1,5 +1,5 @@
 import { deleteLike } from "@/service/server/like.server";
-import { handleRouteError } from "@/service/util/error.util";
+import { handleRouteError } from "@/service/server/util/error.util";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(

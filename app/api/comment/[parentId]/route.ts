@@ -1,5 +1,5 @@
 import { getComments } from "@/service/server/comments.server";
-import { handleError } from "@/service/util/error.util";
+import { handleError } from "@/service/server/util/error.util";
 import { NextRequest, NextResponse } from "next/server";
 
 //Get comments based on the parentId

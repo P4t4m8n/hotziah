@@ -14,7 +14,7 @@ import { IMenu } from "@/service/models/menu.model";
 import {
   getEmptyAnswer,
   getEmptyQuestion,
-} from "@/service/util/questionnaire.util";
+} from "@/service/service/questionnaire.service";
 
 interface Props {
   saveQuestion: (question: IQuestion, parentAnswerValue?: string) => void;

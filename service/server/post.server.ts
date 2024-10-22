@@ -2,7 +2,7 @@
 
 import { prisma } from "@/prisma/prismaClient";
 import { IPost, IPostDto, IPostFilter } from "../models/post.model";
-import { handleError } from "../util/error.util";
+import { handleError } from "./util/error.util";
 import { postService } from "../service/post.service";
 import { userService } from "../service/user.service";
 

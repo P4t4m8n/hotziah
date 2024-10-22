@@ -4,7 +4,6 @@ import {
   ICommentSelectSql,
   ICommentSmallSelectSql,
 } from "../models/comments.model";
-import { IServiceConfig } from "../models/db.model";
 import { IUserSmall } from "../models/user.model";
 import { userService } from "./user.service";
 
@@ -75,7 +74,7 @@ const toDTO = (comment: IComment): ICommentDto => {
   return dto;
 };
 
-const getEmptyComment = (author: IUserSmall, postId: string): IComment => {
+const getEmpty = (author: IUserSmall, postId: string): IComment => {
   return {
     id: "",
     content: "",
@@ -85,7 +84,7 @@ const getEmptyComment = (author: IUserSmall, postId: string): IComment => {
   };
 };
 
-const getEmptyCommentDto = (authorId: string, postId: string): ICommentDto => {
+const getEmptyDto = (authorId: string, postId: string): ICommentDto => {
   return {
     id: "",
     content: "",
@@ -95,21 +94,11 @@ const getEmptyCommentDto = (authorId: string, postId: string): ICommentDto => {
   };
 };
 
-export const commentService: IServiceConfig<
-  IComment,
-  ICommentDto,
-  ICommentSelectSql,
-  ICommentSmallSelectSql,
-  [],
-  [string],
-  [],
-  [IUserSmall, string],
-  [string, string]
-> = {
+export const commentService = {
   collectionName: "comment",
   toDTO,
   buildSql,
   buildSmallSql,
-  getEmptyEntity: getEmptyComment,
-  getEmptyDto: getEmptyCommentDto,
+  getEmpty,
+  getEmptyDto,
 };

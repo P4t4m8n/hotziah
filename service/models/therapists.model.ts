@@ -1,28 +1,35 @@
 /* cSpell:disable */
 
+import {
+  Gender,
+  Languages,
+  MeetingType,
+  TherapistEducation,
+} from "@prisma/client";
 import { IUser } from "./user.model";
+import { IEntity } from "./app.model";
 
 interface TTherapistBase {
-  subjects: TTherapistSubject[];
-  languages: TTherapistLanguage[];
-  meetingType: TTherapistMeeting[];
-  gender: TTherapistGender;
+  subjects: string[];
+  languages: Languages[];
+  meetingType: MeetingType[];
+  gender: Gender;
   phone: string;
-  address: TAddress;
-  fullName: string;
-  eduction: TTherapistEducation;
+  address?: IAddress | null;
+  education: TherapistEducation[];
 }
 
 export interface ITherapist extends TTherapistBase {
-  user: IUser;
+  user?: IUser;
   _id?: string;
 }
 
 export interface ITherapistDto extends TTherapistBase {
   userId: string;
+  adressId: string;
 }
 
-export interface ITherapistFilter  {
+export interface ITherapistFilter {
   subjects?: TTherapistSubject[];
   languages?: TTherapistLanguage[];
   meetingType?: TTherapistMeeting[];
@@ -77,12 +84,21 @@ export const THERAPIST_EDUCATION = [
 ] as const;
 export type TTherapistEducation = (typeof THERAPIST_EDUCATION)[number];
 
-type TAddress = {
+export interface IAddressDto extends IEntity {
   city: string;
   street?: string;
-  number?: number;
-  zipCode: number;
+  number?: string;
+  zipCode?: string;
   enrance?: string;
-  floor?: number;
+  floor?: string;
   isAccessible: boolean;
-};
+}
+export interface IAddress extends IEntity {
+  city: string;
+  street?: string | null;
+  number?: string | null;
+  zipCode?: string | null;
+  enrance?: string | null;
+  floor?: string | null;
+  isAccessible: boolean;
+}

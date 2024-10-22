@@ -1,6 +1,6 @@
-import { LOGIN_INPUTS } from "../constants/formInputs";
-import { TInputUserFormKeys } from "../models/app.model";
-import { IUserDto } from "../models/user.model";
+import { LOGIN_INPUTS } from "../../constants/formInputs";
+import { TInputUserFormKeys } from "../../models/app.model";
+import { IUserDto } from "../../models/user.model";
 
 export const getLoginInputs = (
   isLogin: boolean,

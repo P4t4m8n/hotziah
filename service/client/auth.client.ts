@@ -1,5 +1,5 @@
 import { IUser } from "../models/user.model";
-import { formDataToUserDTO } from "../util/auth.util";
+import { formDataToUserDTO } from "./util/auth.util";
 import { apiClientService } from "./api.client";
 
 const BASE_URL = "auth/";

@@ -96,13 +96,13 @@ model User {
   isTherapist   Boolean         @default(false)
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  Forum         Forum[]
-  Post          Post[]
+  forum         Forum[]
+  post          Post[]
   comments      Comment[]
-  Therapist     Therapist[]
-  Questionnaire Questionnaire[]
-  Article       Article[]
-  likes          Like[]
+  therapist     Therapist?
+  questionnaire Questionnaire[]
+  article       Article[]
+  likes         Like[]
 }
 
 model Forum {
@@ -128,7 +128,7 @@ model Post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   comments  Comment[]
-  likes      Like[]
+  likes     Like[]
 }
 
 model Comment {
@@ -142,7 +142,7 @@ model Comment {
   parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
   replies   Comment[] @relation("CommentReplies")
   createdAt DateTime  @default(now())
-  likes      Like[]
+  likes     Like[]
 }
 
 model Therapist {
@@ -150,22 +150,26 @@ model Therapist {
   subjects    String[]
   languages   Languages[]
   meetingType MeetingType[]
-  educations  TherapistEducation[]
+  education   TherapistEducation[]
   gender      Gender
   phone       String
-  userId      String
+  userId      String               @unique
   user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   address     Address?             @relation("TherapistAddress")
   addressId   String?
 }
 
 model Address {
-  id          String    @id @default(uuid())
-  city        String
-  street      String
-  number      Int?
-  therapist   Therapist @relation(fields: [therapistId], references: [id], onDelete: Cascade, name: "TherapistAddress")
-  therapistId String    @unique
+  id           String    @id @default(uuid())
+  city         String
+  street       String?   @default("")
+  number       String?   @default("")
+  zipCode      String?   @default("")
+  entrance     String?   @default("")
+  floor        String?   @default("")
+  isAccessible Boolean
+  therapist    Therapist @relation(fields: [therapistId], references: [id], onDelete: Cascade, name: "TherapistAddress")
+  therapistId  String    @unique
 }
 
 model Questionnaire {
@@ -217,7 +221,7 @@ model Article {
   author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  likes        Like[]
+  likes       Like[]
 }
 
 model Like {

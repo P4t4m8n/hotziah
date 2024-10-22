@@ -1,6 +1,6 @@
 import { IPost } from "@/service/models/post.model";
 import { savePost } from "@/service/server/post.server";
-import { handleError } from "@/service/util/error.util";
+import { handleError } from "@/service/server/util/error.util";
 import { redirect } from "next/navigation";
 import Input from "../../General/Input";
 import TextArea from "../../General/TextArea";
