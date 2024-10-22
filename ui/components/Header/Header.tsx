@@ -2,7 +2,7 @@ import { APP_LINKS } from "@/service/constants/Links";
 import { LogoSvg } from "@/ui/Icons/Svgs";
 import Link from "next/link";
 
-import UserMenu from "../User/UserMenu";
+import UserMenu from "../UserIndex/UserMenu";
 
 export default async function Header() {
   return (

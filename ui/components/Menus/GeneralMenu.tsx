@@ -42,7 +42,11 @@ export default function GeneralMenu({ menuItems }: Props) {
         )}
         <span>{text && text.charAt(0).toUpperCase() + text.slice(1)}</span>
       </button>
-      <ul className={`${isOpen ? "block" : "hidden"} ${menuItems.menuStyle}`}>
+      <ul
+        className={`${isOpen ? "flex" : "hidden"} ${
+          menuItems.menuStyle
+        } bg-white shadow-md flex-col p-4 right-2/3 rounded-md w-full absolute`}
+      >
         {menuItems.items.map((item, idx) => (
           <li key={idx}>
             {item.onClick && (
@@ -50,6 +54,7 @@ export default function GeneralMenu({ menuItems }: Props) {
                 className={item.style}
                 onClick={(e) => handleClick(e, item.onClick!)}
               >
+                <span>{item.text}</span>
                 {item.iconSvg && item.iconSvg}
                 {item.imgUrl && (
                   <Image
@@ -59,11 +64,11 @@ export default function GeneralMenu({ menuItems }: Props) {
                     alt={item.text || "menu function"}
                   />
                 )}
-                {item.text}
               </button>
             )}
             {item.link && (
-              <Link href={item.link}>
+              <Link href={item.link} className={item.style}>
+                <span>{item.text}</span>
                 {item.iconSvg && item.iconSvg}
                 {item.imgUrl && (
                   <Image
@@ -73,7 +78,6 @@ export default function GeneralMenu({ menuItems }: Props) {
                     alt={item.text || "menu link"}
                   />
                 )}
-                {item.text}
               </Link>
             )}
           </li>
