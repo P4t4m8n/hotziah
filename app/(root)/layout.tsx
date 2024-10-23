@@ -10,8 +10,11 @@ export default function MainLayout({
   return (
     <main className="grid ">
       <Header />
-      <section className="h-main-height flex flex-col">{children}</section>
-      <Footer />
+      <section className="flex flex-col ">
+        {children}
+
+        <Footer />
+      </section>
     </main>
   );
 }

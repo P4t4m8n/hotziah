@@ -12,6 +12,7 @@ interface IInputBase {
   labelText?: string;
   name?: string;
   required?: boolean;
+  hidden?: boolean;
 }
 
 export interface IInputProps extends IInputBase {

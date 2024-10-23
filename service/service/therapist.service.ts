@@ -15,6 +15,7 @@ const buildSql = () => {
     gender: true,
     phone: true,
     education: true,
+    summary: true,
     address: {
       select: {
         id: true,

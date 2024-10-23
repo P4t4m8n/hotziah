@@ -17,6 +17,7 @@ interface TTherapistBase extends IEntity {
   phone: string;
   address?: IAddress | null;
   education: TherapistEducation[];
+  summary: string;
 }
 
 export interface ITherapist extends TTherapistBase {
@@ -38,6 +39,8 @@ export interface ITherapistFilter {
   gender?: Gender;
   city?: string;
   education?: TherapistEducation[];
+  take?: number;
+  page?: number;
 }
 
 export const THERAPIST_SUBJECTS = [

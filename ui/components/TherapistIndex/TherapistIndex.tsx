@@ -1,4 +1,14 @@
+import { ITherapist } from "@/service/models/therapists.model";
+import TherapistList from "./TherapistList";
 
-export default function TherapistIndex() {
-  return <div>TherapistIndex</div>;
+interface Props {
+  therapists: ITherapist[];
+}
+
+export default function TherapistIndex({ therapists }: Props) {
+  return (
+    <div>
+      <TherapistList therapists={therapists} />
+    </div>
+  );
 }

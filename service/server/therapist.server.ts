@@ -122,10 +122,11 @@ export const getTherapists = async (
 
     const where = OR.OR.length > 0 ? { OR: OR.OR } : {};
 
-  
     const therapists: ITherapist[] = await prisma.therapist.findMany({
       where: where,
       select: therapistService.buildSql(),
+      take: filter.take,
+      skip: ((filter?.page || 1) - 1) * (filter?.take || 10),
     });
 
     return therapists;

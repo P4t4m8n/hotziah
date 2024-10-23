@@ -148,6 +148,7 @@ model Comment {
 model Therapist {
   id          String               @id @default(uuid())
   subjects    String[]
+  summary     String               @default("")
   languages   Languages[]
   meetingType MeetingType[]
   education   TherapistEducation[]

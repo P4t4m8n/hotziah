@@ -12,8 +12,9 @@ export default function CheckBox({ checkBoxProps }: Props) {
         name={checkBoxProps.name}
         defaultChecked={checkBoxProps.value}
         className={checkBoxProps.inputStyle}
+        hidden={checkBoxProps.hidden}
       />
-      <label htmlFor={checkBoxProps.name}>{checkBoxProps.labelText}</label>
+      <label className={checkBoxProps.labelStyle} htmlFor={checkBoxProps.name}>{checkBoxProps.labelText}</label>
     </div>
   );
 }
