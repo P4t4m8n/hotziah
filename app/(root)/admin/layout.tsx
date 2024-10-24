@@ -1,4 +1,4 @@
-import { ADMIN_DASHBOARD_LINKS } from "@/service/constants/Links";
+import { ADMIN_DASHBOARD_LINKS } from "@/service/constants/links";
 import Nav from "@/ui/components/General/Nav";
 
 export default function AdminLayout({

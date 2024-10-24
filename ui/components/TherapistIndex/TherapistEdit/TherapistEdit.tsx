@@ -15,8 +15,7 @@ export default function TherapistEdit({ therapist }: Props) {
 
   if (!address) address = addressService.getEmpty();
 
-  const { subjects, languages, meetingType, gender, education } =
-    therapist;
+  const { subjects, languages, meetingType, gender, education } = therapist;
 
   const subjectDemo = [
     "Psychology",

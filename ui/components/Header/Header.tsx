@@ -1,4 +1,4 @@
-import { APP_LINKS } from "@/service/constants/Links";
+import { APP_LINKS } from "@/service/constants/links";
 import { LogoSvg } from "@/ui/Icons/Svgs";
 import Link from "next/link";
 
