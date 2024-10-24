@@ -1,5 +1,5 @@
 import { ITherapist } from "@/service/models/therapists.model";
-import TherapistPreview from "./TherapistPreview/TherapistPreview";
+import TherapistPreview from "./TherapistPreview";
 
 interface Props {
   therapists: ITherapist[];

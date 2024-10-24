@@ -15,7 +15,7 @@ export default async function ForumDetailsServer({
   const { forumId } = params;
   
   //Get empty forum to prevent props error
-  let forum = forumService.getEmptyEntity();
+  let forum = forumService.getEmpty();
   //Only fetch when there is a real ID. temp ID exist for SSG
   if (forumId !== "1") forum = await getForumById(forumId);
 

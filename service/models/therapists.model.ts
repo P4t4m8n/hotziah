@@ -22,7 +22,6 @@ interface TTherapistBase extends IEntity {
 
 export interface ITherapist extends TTherapistBase {
   user?: IUser;
-  _id?: string;
 }
 
 export interface ITherapistDto extends TTherapistBase {

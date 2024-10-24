@@ -28,10 +28,14 @@ const config: Config = {
         "user-list": "calc(100% - 8rem)",
         "user-dashboard": "calc(100% - 1.75rem)",
       },
+      minHeight: {
+        "main-height": "calc(100vh - 9rem)",
+      },
       width: {
         "title-bar": "50ch",
         "description-bar": "255ch",
         "forum-edit": "clamp(20rem, 100%,40rem)",
+        "therapist-details": "30rem",
       },
       boxShadow: {
         model: "0px 10px 3000px 1500px rgba(0, 0, 0, 0.5)",

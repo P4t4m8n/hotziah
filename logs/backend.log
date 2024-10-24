@@ -93,3 +93,13 @@ Invalid `prisma.therapist.findMany()` invocation:
 
 
 Too many database connections opened: FATAL: sorry, too many clients already
+24.10.2024, 13:23:19 - ERROR - Error getting therapist by id | 
+Invalid `prisma.therapist.findUniqueOrThrow()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already
+24.10.2024, 13:39:27 - ERROR - Error getting therapist by id | 
+Invalid `prisma.therapist.findUniqueOrThrow()` invocation:
+
+
+Too many database connections opened: FATAL: sorry, too many clients already

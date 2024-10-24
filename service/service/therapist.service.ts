@@ -4,7 +4,7 @@ import {
   MeetingType,
   TherapistEducation,
 } from "@prisma/client";
-import { ITherapistFilter } from "../models/therapists.model";
+import { ITherapist, ITherapistFilter } from "../models/therapists.model";
 
 const buildSql = () => {
   return {
@@ -56,7 +56,27 @@ const getEmptyFilter = (): ITherapistFilter => {
   };
 };
 
+const getEmpty = (): ITherapist => {
+  return {
+    subjects: [""],
+    languages: ["HEBREW"],
+    meetingType: ["IN_PERSON"],
+    gender: "FEMALE",
+    phone: "",
+    address: {
+      city: "",
+      street: "",
+      isAccessible: false,
+      number: "",
+      zipCode: "",
+      floor: "",
+    },
+    education: ["BACHELOR"],
+    summary: "",
+  };
+};
 export const therapistService = {
   buildSql,
   getEmptyFilter,
+  getEmpty,
 };

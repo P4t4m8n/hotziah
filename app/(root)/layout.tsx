@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <main className="grid ">
       <Header />
-      <section className="flex flex-col ">
+      <section className="flex flex-col min-h-main-height min-w-full">
         {children}
 
         <Footer />
