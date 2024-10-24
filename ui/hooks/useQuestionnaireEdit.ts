@@ -7,13 +7,13 @@ import {
 import { ChangeEvent, useState } from "react";
 import _ from "lodash";
 import { useUser } from "./useUser";
-import { getEmptyQuestionnaire } from "@/service/service/questionnaire.service";
 import { apiClientService } from "@/service/client/api.client";
+import { questionnaireService } from "@/service/service/questionnaire.service";
 
 export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
   const user = useUser().user;
   const [questionnaireToEdit, setQuestionnaireToEdit] =
-    useState<IQuestionnaire>(questionnaire || getEmptyQuestionnaire(user!));
+    useState<IQuestionnaire>(questionnaire || questionnaireService.getEmptyQuestionnaire(user!));
 
   const onSaveQuestionnaire = async () => {
     try {

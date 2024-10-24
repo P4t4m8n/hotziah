@@ -15,7 +15,6 @@ export interface IUser extends IUserSmall {
   firstName: string;
   lastName: string;
   isTherapist: boolean;
-
 }
 
 export interface IUserDto extends IUser {
@@ -29,8 +28,8 @@ export interface IUserFilter extends IEntity {
   permission?: Permission;
   id?: string;
   email?: string;
+  take?: number;
   page?: number;
-  amount?: number;
   isTherapist?: boolean;
   firstName?: string;
   lastName?: string;

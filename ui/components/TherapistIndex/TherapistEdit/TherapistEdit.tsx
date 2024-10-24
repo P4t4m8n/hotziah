@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function TherapistEdit({ therapist }: Props) {
-  console.log("therapist:", therapist);
   let { address } = therapist;
 
   if (!address) address = addressService.getEmpty();

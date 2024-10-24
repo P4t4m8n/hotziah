@@ -1,4 +1,3 @@
-import { IForum } from "@/service/models/forum.model";
 import { getForumById } from "@/service/server/forum.server";
 import { getUsers } from "@/service/server/user.server";
 import { forumService } from "@/service/service/forum.service";
@@ -16,7 +15,7 @@ export default async function ForumEditServer({
 }) {
   const { forumId } = params;
 
-  let forum: IForum;
+  let forum;
 
   if (forumId === "new") {
     forum = forumService.getEmpty();

@@ -15,10 +15,7 @@ export default async function PostDetailsServer({
   const { postId } = params;
 
   //Get empty post to prevent props error
-  let post = postService.getEmptyEntity(
-    { id: "", username: "", imgUrl: "" },
-    "1"
-  );
+  let post = postService.getEmpty({ id: "", username: "", imgUrl: "" }, "1");
   //Only fetch when there is a real ID. temp ID exist for SSG
   if (postId !== "1") {
     const user = await getSessionUser();

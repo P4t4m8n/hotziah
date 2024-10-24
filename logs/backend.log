@@ -103,3 +103,15 @@ Invalid `prisma.therapist.findUniqueOrThrow()` invocation:
 
 
 Too many database connections opened: FATAL: sorry, too many clients already
+24.10.2024, 16:54:07 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 16:54:07 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:06:56 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:06:56 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:09:39 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:09:39 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:11:01 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:11:01 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:11:39 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:11:39 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:14:36 - ERROR - Error getting users | Invalid filter properties
+24.10.2024, 17:14:36 - ERROR - Error getting users | Invalid filter properties

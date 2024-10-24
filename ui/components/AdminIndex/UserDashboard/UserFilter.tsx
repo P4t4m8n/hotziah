@@ -26,7 +26,7 @@ export default function UserFilter() {
     page: searchParams.get("page")
       ? parseInt(searchParams.get("page")!)
       : undefined,
-    amount: searchParams.get("amount")
+    take: searchParams.get("take")
       ? parseInt(searchParams.get("amount")!)
       : undefined,
     isTherapist: searchParams.get("isTherapist")

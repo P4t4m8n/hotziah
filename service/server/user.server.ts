@@ -16,30 +16,7 @@ export const getUsers = async (filter: IUserFilter): Promise<IUser[]> => {
     if (!filter || typeof filter !== "object") {
       throw new Error("Invalid filter object");
     }
-    const {
-      id,
-      isTherapist,
-      username,
-      email,
-      permission,
-      firstName,
-      lastName,
-      page,
-      amount,
-    } = filter;
-    if (
-      typeof id !== "string" ||
-      typeof isTherapist !== "boolean" ||
-      typeof username !== "string" ||
-      typeof email !== "string" ||
-      typeof permission !== "string" ||
-      typeof firstName !== "string" ||
-      typeof lastName !== "string" ||
-      typeof page !== "number" ||
-      typeof amount !== "number"
-    ) {
-      throw new Error("Invalid filter properties");
-    }
+
     const selectSql = userService.buildSql();
 
     const users = await prisma.user.findMany({
@@ -52,8 +29,8 @@ export const getUsers = async (filter: IUserFilter): Promise<IUser[]> => {
         firstName: { contains: filter.firstName },
         lastName: { contains: filter.lastName },
       },
-      take: filter.amount,
-      skip: ((filter?.page || 1) - 1) * (filter?.amount || 10),
+      take: filter.take,
+      skip: ((filter?.page || 1) - 1) * (filter?.take || 10),
       select: selectSql,
     });
 

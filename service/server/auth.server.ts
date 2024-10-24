@@ -6,7 +6,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { prisma } from "@/prisma/prismaClient";
 import { cookies } from "next/headers";
 import { handleError } from "./util/error.util";
-import { IUser, IUserDto } from "../models/user.model";
+import { IUser, IUserDto, IUserSelectSql } from "../models/user.model";
 import { userService } from "../service/user.service";
 import { getUserById } from "./user.server";
 import {
@@ -23,7 +23,10 @@ export const login = async (userDto: IUserDto): Promise<IUser> => {
       throw new Error("Email and password are required");
     }
 
-    const userSql = userService.buildSql();
+    const userSql = userService.buildSql() as IUserSelectSql & {
+      password: boolean;
+    };
+
     userSql.password = true;
 
     const user = await prisma.user.findUnique({

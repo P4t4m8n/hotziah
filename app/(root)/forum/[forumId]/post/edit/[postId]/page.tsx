@@ -23,7 +23,7 @@ export default async function PostEditServer({
   if (postId === "new") {
     //Fetch session user for author object
     const user = await getSessionUser();
-    post = postService.getEmptyEntity(user!, forumId);
+    post = postService.getEmpty(user!, forumId);
   } else {
     post = await getPostBtId(postId);
   }

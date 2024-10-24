@@ -11,10 +11,8 @@ import { ChangeEvent, useRef, useState } from "react";
 
 import GeneralMenu from "../../../Menus/GeneralMenu";
 import { IMenu } from "@/service/models/menu.model";
-import {
-  getEmptyAnswer,
-  getEmptyQuestion,
-} from "@/service/service/questionnaire.service";
+import { questionnaireService } from "@/service/service/questionnaire.service";
+
 
 interface Props {
   saveQuestion: (question: IQuestion, parentAnswerValue?: string) => void;
@@ -35,7 +33,7 @@ export default function EditQuestionModel({
 
   function onSaveQuestion() {
     saveQuestion(questionToEdit, answer?.value);
-    if (isNew) setQuestionToEdit(getEmptyQuestion());
+    if (isNew) setQuestionToEdit(questionnaireService.getEmptyQuestion());
     setIsOpen(false);
   }
 
@@ -59,7 +57,7 @@ export default function EditQuestionModel({
   };
 
   const addAnswer = (type: TQuestionType = "בחירה") => {
-    const answer = getEmptyAnswer(type);
+    const answer = questionnaireService.getEmptyAnswer(type);
     setQuestionToEdit((prev) => ({
       ...prev,
       answers: [...prev.answers, answer],

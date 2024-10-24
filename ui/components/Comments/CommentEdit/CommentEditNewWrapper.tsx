@@ -24,7 +24,7 @@ export default function CommentEditNewWrapper({
 }: Props) {
   const user = useUser().user;
 
-  const newComment: IComment = commentService.getEmptyEntity(user!, postId);
+  const newComment: IComment = commentService.getEmpty(user!, postId);
   newComment.parentId = null;
   return (
     <CommentEdit

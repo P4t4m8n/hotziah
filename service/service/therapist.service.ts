@@ -6,6 +6,7 @@ import {
 } from "@prisma/client";
 import { ITherapist, ITherapistFilter } from "../models/therapists.model";
 import { addressService } from "./address.service";
+import { userService } from "./user.service";
 
 const buildSql = () => {
   return {
@@ -67,6 +68,7 @@ const getEmpty = (): ITherapist => {
     address: addressService.getEmpty(),
     education: ["BACHELOR"],
     summary: "",
+    user:userService.getEmptyUser()
   };
 };
 

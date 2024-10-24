@@ -11,40 +11,40 @@ export default async function UserDashboard({
     searchParams && Object.keys(searchParams).length > 0
       ? {
           username:
-            typeof searchParams.username === "string"
+            typeof searchParams?.username === "string"
               ? searchParams.username
               : undefined,
           email:
-            typeof searchParams.email === "string"
+            typeof searchParams?.email === "string"
               ? searchParams.email
               : undefined,
           permission:
-            typeof searchParams.permission === "string"
+            typeof searchParams?.permission === "string"
               ? searchParams.permission
               : undefined,
           id: typeof searchParams.id === "string" ? searchParams.id : undefined,
           page:
-            typeof searchParams.page === "string"
+            typeof searchParams?.page === "string"
               ? parseInt(searchParams.page)
-              : undefined,
-          amount:
-            typeof searchParams.amount === "string"
-              ? parseInt(searchParams.amount)
-              : undefined,
+              : 1,
+          take:
+            typeof searchParams?.take === "string"
+              ? parseInt(searchParams.take)
+              : 10,
           isTherapist:
-            typeof searchParams.isTherapist === "string"
+            typeof searchParams?.isTherapist === "string"
               ? searchParams.isTherapist === "true"
               : undefined,
           firstName:
-            typeof searchParams.firstName === "string"
+            typeof searchParams?.firstName === "string"
               ? searchParams.firstName
               : undefined,
           lastName:
-            typeof searchParams.lastName === "string"
+            typeof searchParams?.lastName === "string"
               ? searchParams.lastName
               : undefined,
         }
-      : null;
+      : { take: 10, page: 1 };
   let users: IUser[] = [];
 
   if (filter) {

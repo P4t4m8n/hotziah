@@ -1,7 +1,7 @@
 import { IAnswer, IQuestion } from "@/service/models/questionnaire.model";
 import EditQuestionModel from "./EditQuestionModel";
 import QuestionPreview from "./QuestionPreview";
-import { getEmptyQuestion } from "@/service/service/questionnaire.service";
+import { questionnaireService } from "@/service/service/questionnaire.service";
 
 interface Props {
   answer: IAnswer;
@@ -17,7 +17,7 @@ export default function AnswerPreview({
   const { answerText, value, nextQuestion } = answer;
 
   const addFollowUpQuestion = () => {
-    const newQuestion = getEmptyQuestion();
+    const newQuestion = questionnaireService.getEmptyQuestion();
     saveQuestion(newQuestion, value); // Pass the parentAnswerValue
   };
 
@@ -26,7 +26,7 @@ export default function AnswerPreview({
       <div className="bg-orange-600 p-4 rounded-lg">
         <h3>תשובה: {answerText}</h3>
         <EditQuestionModel
-          question={nextQuestion || getEmptyQuestion()}
+          question={nextQuestion || questionnaireService.getEmptyQuestion()}
           isNew={!nextQuestion}
           answer={answer}
           saveQuestion={saveQuestion}

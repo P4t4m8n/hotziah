@@ -151,7 +151,7 @@ export const createComment = async (
         createdAt: true,
         postId: true,
         author: {
-          select: userService.buildSmallSql!(),
+          select: userService.buildSmallSql(),
         },
         replies: {
           select: {
