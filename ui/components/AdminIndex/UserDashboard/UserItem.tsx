@@ -32,7 +32,6 @@ export default function UserItem({ user }: Props) {
       const user = await apiClientService.put(`/user/${id}/permission`, {
         permission,
     });
-    console.log("user:", user)
     } catch (error) {
       console.error("Error updating permission:", error);
     }

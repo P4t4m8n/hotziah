@@ -19,7 +19,7 @@ export default async function ForumEditServer({
   let forum: IForum;
 
   if (forumId === "new") {
-    forum = forumService.getEmptyEntity();
+    forum = forumService.getEmpty();
   } else {
     forum = await getForumById(forumId);
   }

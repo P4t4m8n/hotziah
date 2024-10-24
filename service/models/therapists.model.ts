@@ -101,7 +101,7 @@ export interface IAddress extends IEntity {
   street?: string | null;
   number?: string | null;
   zipCode?: string | null;
-  enrance?: string | null;
+  entrance?: string | null;
   floor?: string | null;
   isAccessible: boolean;
 }

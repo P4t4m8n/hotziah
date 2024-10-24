@@ -12,9 +12,7 @@ export async function PUT(
     const { userId } = params;
     const { permission }: { permission: Permission } = await req.json();
     const admin = await getSessionUser();
-    console.log("userId:", userId);
-    console.log("permission:", permission);
-    console.log("admin:", admin);
+  
 
     if (!admin || admin.permission !== "ADMIN") {
       const err = handleRouteError("Unauthorized", 401);

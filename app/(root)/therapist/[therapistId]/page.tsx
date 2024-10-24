@@ -10,12 +10,10 @@ export default async function TherapistDetailsServer({
 }: {
   params: { therapistId: string };
 }) {
-  console.log("params:", params);
   const { therapistId } = params;
   //Get empty therapist to prevent props error
   let therapist = therapistService.getEmpty();
   //Only fetch when there is a real ID. temp ID exist for SSG
   if (therapistId !== "1") therapist = await getTherapistById(therapistId);
-  console.log("therapist:", therapist);
   return <TherapistDetails therapist={therapist} />;
 }

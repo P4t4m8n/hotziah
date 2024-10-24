@@ -74,6 +74,13 @@ enum QustionType {
   SCALE
 }
 
+enum TherapistStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  REJECTED
+}
+
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["relationJoins", "omitApi"]
@@ -147,17 +154,18 @@ model Comment {
 
 model Therapist {
   id          String               @id @default(uuid())
-  subjects    String[]
   summary     String               @default("")
-  languages   Languages[]
-  meetingType MeetingType[]
-  education   TherapistEducation[]
-  gender      Gender
-  phone       String
+  phone       String               @default("")
+  subjects    String[]             @default([])
   userId      String               @unique
   user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  address     Address?             @relation("TherapistAddress")
   addressId   String?
+  address     Address?             @relation("TherapistAddress")
+  status      TherapistStatus      @default(PENDING)
+  gender      Gender               @default(MAN)
+  languages   Languages[]          @default([])
+  meetingType MeetingType[]        @default([])
+  education   TherapistEducation[] @default([])
 }
 
 model Address {

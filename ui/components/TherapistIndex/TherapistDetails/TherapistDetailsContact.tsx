@@ -11,7 +11,6 @@ export default function TherapistDetailsContact({
   phone,
   address,
 }: Props) {
-  console.log("address:", address.isAccessible);
   //TODO:improve better fetching handling to no include id
   delete address.id;
 

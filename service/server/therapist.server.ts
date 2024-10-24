@@ -77,15 +77,15 @@ export const removeTherapist = async (id: string): Promise<boolean> => {
 };
 
 /**
- * Retrieves all therapists from the database.
+ * Retrieves therapists based on the provided filter criteria.
  *
- * @param filter - The filter object to apply to the query.
- * @returns A Promise that resolves to an array of therapist objects.
- * @throws Error if there is an issue retrieving the therapists.
+ * @param filter - The filter criteria to search for therapists.
+ * @returns A promise that resolves to an object containing an array of therapists and the total count.
+ * @throws If an error occurs during the retrieval process.
  */
 export const getTherapists = async (
   filter: ITherapistFilter
-): Promise<ITherapist[]> => {
+): Promise<{ therapists: ITherapist[]; total: number }> => {
   try {
     const OR: {
       OR: {
@@ -122,14 +122,20 @@ export const getTherapists = async (
 
     const where = OR.OR.length > 0 ? { OR: OR.OR } : {};
 
-    const therapists: ITherapist[] = await prisma.therapist.findMany({
-      where: where,
-      select: therapistService.buildSql(),
-      take: filter.take,
-      skip: ((filter?.page || 1) - 1) * (filter?.take || 10),
-    });
+    // Get therapists and total count for pagination
+    const [therapists, total] = await prisma.$transaction([
+      prisma.therapist.findMany({
+        where: where,
+        select: therapistService.buildSql(),
+        take: filter.take,
+        skip: ((filter?.page || 1) - 1) * (filter?.take || 10),
+      }),
+      prisma.therapist.count({
+        where: where,
+      }),
+    ]);
 
-    return therapists;
+    return { therapists, total };
   } catch (error) {
     const err = handleError(error, "Error getting therapists");
     throw err;
