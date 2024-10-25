@@ -9,17 +9,13 @@ import { handleError } from "./util/error.util";
 import { IUser, IUserDto, IUserSelectSql } from "../models/user.model";
 import { userService } from "../service/user.service";
 import { getUserById } from "./user.server";
-import { IAddressDto, ITherapistDto } from "../models/therapists.model";
 import { therapistService } from "../service/therapist.service";
 import { redirect } from "next/navigation";
-import xss from "xss";
-import {
-  Gender,
-  Languages,
-  MeetingType,
-  TherapistEducation,
-} from "@prisma/client";
+
 import { sanitizeTherapistSignupForm } from "./util/sanitization.util";
+import { validateUserDto } from "../validations/user.validation";
+import { validateTherapistDto } from "../validations/therapist.validation";
+import { validateAddressDto } from "../validations/address.validation";
 
 export const login = async (userDto: IUserDto): Promise<IUser> => {
   try {
@@ -124,8 +120,31 @@ export const therapistSignup = async (formData: FormData) => {
     const { userDto, therapistDto, addressDto } =
       sanitizeTherapistSignupForm(formData);
 
-    if (!userDto.email || !userDto.password || !userDto.username) {
-      throw new Error("Email, password, and username are required");
+    const userErrors = validateUserDto(userDto);
+    if (userErrors.length) {
+      const err = handleError(
+        userErrors.join("\n"),
+        "Error validating user data"
+      );
+      throw err;
+    }
+
+    const therapistErrors = validateTherapistDto(therapistDto);
+    if (therapistErrors.length) {
+      const err = handleError(
+        therapistErrors.join("\n"),
+        "Error validating therapist data"
+      );
+      throw err;
+    }
+
+    const addressErrors = validateAddressDto(addressDto);
+    if (addressErrors.length) {
+      const err = handleError(
+        addressErrors.join("\n"),
+        "Error validating address data"
+      );
+      throw err;
     }
 
     const users = await prisma.user.findMany({
@@ -137,7 +156,7 @@ export const therapistSignup = async (formData: FormData) => {
       throw new Error("User already exists");
     }
 
-    const hash = await bcrypt.hash(userDto.password, saltRounds);
+    const hash = await bcrypt.hash(userDto.password!, saltRounds);
     const userSql = userService.buildSql();
 
     const data = await prisma.user.create({

@@ -1,22 +1,17 @@
 /* cSpell:disable */
 
-import {
-  Gender,
-  Languages,
-  MeetingType,
-  TherapistEducation,
-} from "@prisma/client";
+import { Gender } from "@prisma/client";
 import { IUser } from "./user.model";
 import { IEntity } from "./app.model";
 
 interface TTherapistBase extends IEntity {
   subjects: string[];
-  languages: Languages[];
-  meetingType: MeetingType[];
+  languages: string[];
+  meetingType: string[];
   gender: Gender;
   phone: string;
   address?: IAddress | null;
-  education: TherapistEducation[];
+  education: string[];
   summary: string;
 }
 
@@ -31,13 +26,13 @@ export interface ITherapistDto extends TTherapistBase {
 
 export interface ITherapistFilter {
   subjects?: string[];
-  languages?: Languages[];
-  meetingType?: MeetingType[];
+  languages?: string[];
+  meetingType?: string[];
   firstName?: string;
   lastName?: string;
   gender?: Gender;
   city?: string;
-  education?: TherapistEducation[];
+  education?: string[];
   take?: number;
   page?: number;
 }

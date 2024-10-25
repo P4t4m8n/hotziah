@@ -154,19 +154,19 @@ model Comment {
 }
 
 model Therapist {
-  id          String               @id @default(uuid())
-  summary     String               @default("")
-  phone       String               @default("")
-  subjects    String[]             @default([])
-  userId      String               @unique
-  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String          @id @default(uuid())
+  summary     String          @default("")
+  phone       String          @default("")
+  subjects    String[]        @default([])
+  userId      String          @unique
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   addressId   String?
-  address     Address?             @relation("TherapistAddress")
-  status      TherapistStatus      @default(PENDING)
-  gender      Gender               @default(MAN)
-  languages   Languages[]          @default([])
-  meetingType MeetingType[]        @default([])
-  education   TherapistEducation[] @default([])
+  address     Address?        @relation("TherapistAddress")
+  status      TherapistStatus @default(PENDING)
+  gender      Gender          @default(MAN)
+  languages   String[]        @default(["Hebrew"])
+  meetingType String[]        @default(["In Person"])
+  education   String[]        @default(["Psychology"])
 }
 
 model Address {

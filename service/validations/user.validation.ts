@@ -8,7 +8,7 @@ import { IUserDto } from "@/service/models/user.model";
  * @param userDto - The IUserDto object containing user data to be validated.
  * @returns An array of error messages indicating validation failures, or an empty array if all fields are valid.
  */
-export const userValidation = (userDto: IUserDto) => {
+export const validateUserDto = (userDto: IUserDto) => {
   const errors: string[] = [];
 
   const usernameError = _validateUsername(userDto.username || "");
