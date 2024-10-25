@@ -1,5 +1,5 @@
 import { LOGIN_INPUTS, SIGN_UP_INPUTS } from "@/service/constants/formInputs";
-import AuthForm from "./AuthForm";
+import AuthForm from "./AuthFormClient";
 
 interface Props {
   isLogin: boolean;

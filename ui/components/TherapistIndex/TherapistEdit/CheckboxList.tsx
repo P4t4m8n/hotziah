@@ -2,20 +2,21 @@ interface Props {
   list: string[];
   checkAgainst?: string[];
   title: string;
+  name:string
 }
 
-export default function CheckboxList({ list, checkAgainst, title }: Props) {
+export default function CheckboxList({ list, checkAgainst, title,name }: Props) {
   return (
     <div>
-      <label htmlFor="subjects">{title}:</label>
+      <label className="py-2 block font-semibold" htmlFor="subjects">{title}:</label>
 
-      <ul>
+      <ul className="flex gap-4 flex-wrap">
         {list.map((item) => (
-          <li key={item} className="flex items-center gap-4">
+          <li key={item} className="flex items-center gap-4 border p-1 rounded">
             <input
               type="checkbox"
               id={item}
-              name={item}
+              name={name}
               value={item}
               defaultChecked={checkAgainst?.includes(item)}
               className="h-4 w-4"

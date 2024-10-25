@@ -2,6 +2,7 @@ enum Permission {
   ADMIN
   MODERATOR
   USER
+  THERAPIST
 }
 
 enum ForumType {

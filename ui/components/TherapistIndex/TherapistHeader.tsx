@@ -8,7 +8,7 @@ export default function TherapistHeader() {
       <TherapistFilter />
       <Link
         className="bg-orange rounded-lg flex gap-2 h-12 w-fit p-2 items-center justify-center "
-        href={"/therapist/edit/new"}
+        href={"/therapistSignup"}
       >
         Create Therapist
       </Link>

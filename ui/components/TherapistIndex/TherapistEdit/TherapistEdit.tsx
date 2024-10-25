@@ -1,6 +1,6 @@
 import { ITherapist } from "@/service/models/therapists.model";
 import { addressService } from "@/service/service/address.service";
-import AddressFieldSet from "./AddressFieldSet";
+import AddressEdit from "./AddressEdit";
 import CheckboxList from "./CheckboxList";
 import { Languages, MeetingType, TherapistEducation } from "@prisma/client";
 import { GenderFemaleSvg, GenderMaleSvg } from "@/ui/Icons/Svgs";
@@ -33,13 +33,13 @@ export default function TherapistEdit({ therapist }: Props) {
         <input
           id="phone"
           name="phone"
-          type="text"
+          type="tel"
           defaultValue={therapist.phone}
           required
         />
       </div>
 
-      <AddressFieldSet addressProp={address} />
+      <AddressEdit addressProp={address} />
 
       <CheckboxList
         list={subjectDemo}

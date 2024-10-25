@@ -9,12 +9,17 @@ import { handleError } from "./util/error.util";
 import { IUser, IUserDto, IUserSelectSql } from "../models/user.model";
 import { userService } from "../service/user.service";
 import { getUserById } from "./user.server";
-import {
-  IAddressDto,
-  ITherapist,
-  ITherapistDto,
-} from "../models/therapists.model";
+import { IAddressDto, ITherapistDto } from "../models/therapists.model";
 import { therapistService } from "../service/therapist.service";
+import { redirect } from "next/navigation";
+import xss from "xss";
+import {
+  Gender,
+  Languages,
+  MeetingType,
+  TherapistEducation,
+} from "@prisma/client";
+import { sanitizeTherapistSignupForm } from "./util/sanitization.util";
 
 export const login = async (userDto: IUserDto): Promise<IUser> => {
   try {
@@ -72,8 +77,7 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
     }
     const users = await prisma.user.findMany({
       where: {
-        email: userDto.email,
-        username: userDto.username,
+        OR: [{ email: userDto.email }, { username: userDto.username }],
       },
     });
     if (users.length) {
@@ -113,21 +117,20 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
   }
 };
 
-export const therapistSignup = async (
-  userDto: IUserDto,
-  therapistDto: ITherapistDto,
-  address: IAddressDto
-): Promise<{ user: IUser; therapist: ITherapist }> => {
+export const therapistSignup = async (formData: FormData) => {
   try {
     const saltRounds = 10;
+
+    const { userDto, therapistDto, addressDto } =
+      sanitizeTherapistSignupForm(formData);
 
     if (!userDto.email || !userDto.password || !userDto.username) {
       throw new Error("Email, password, and username are required");
     }
+
     const users = await prisma.user.findMany({
       where: {
-        email: userDto.email,
-        username: userDto.username,
+        OR: [{ email: userDto.email }, { username: userDto.username }],
       },
     });
     if (users.length) {
@@ -141,12 +144,13 @@ export const therapistSignup = async (
       data: {
         ...userDto,
         password: hash,
+        permission: "THERAPIST",
         therapist: {
           create: {
             ...therapistDto,
             address: {
               create: {
-                ...address,
+                ...addressDto,
               },
             },
           },
@@ -159,15 +163,85 @@ export const therapistSignup = async (
         },
       },
     });
-    const therapist: ITherapist = data.therapist!;
-    delete (data as unknown as { therapist?: ITherapist }).therapist;
-    const user: IUser = { ...data };
 
-    return { user, therapist };
+    const token = await createJWT(data.id, data.permission);
+
+    cookies().set("session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60, // 24 hours
+    });
+
+    redirect("/");
   } catch (error) {
     throw handleError(error, "Error signing up");
   }
 };
+// export const therapistSignup = async (
+//   userDto: IUserDto,
+//   therapistDto: ITherapistDto,
+//   address: IAddressDto
+// ): Promise<{ user: IUser; therapist: ITherapist }> => {
+//   try {
+//     const saltRounds = 10;
+
+//     if (!userDto.email || !userDto.password || !userDto.username) {
+//       throw new Error("Email, password, and username are required");
+//     }
+//     const users = await prisma.user.findMany({
+//       where: {
+//         email: userDto.email,
+//         username: userDto.username,
+//       },
+//     });
+//     if (users.length) {
+//       throw new Error("User already exists");
+//     }
+
+//     const hash = await bcrypt.hash(userDto.password, saltRounds);
+//     const userSql = userService.buildSql();
+
+//     const data = await prisma.user.create({
+//       data: {
+//         ...userDto,
+//         password: hash,
+//         permission: "THERAPIST",
+//         therapist: {
+//           create: {
+//             ...therapistDto,
+//             address: {
+//               create: {
+//                 ...address,
+//               },
+//             },
+//           },
+//         },
+//       },
+//       select: {
+//         ...userSql,
+//         therapist: {
+//           select: therapistService.buildSql(),
+//         },
+//       },
+//     });
+
+//     const token = await createJWT(data.id, data.permission);
+
+//     cookies().set("session", token, {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV === "production",
+//       path: "/",
+//       sameSite: "lax",
+//       maxAge: 24 * 60 * 60, // 24 hours
+//     });
+
+//     redirect("/");
+//   } catch (error) {
+//     throw handleError(error, "Error signing up");
+//   }
+// };
 
 export const logout = async (): Promise<void> => {
   try {

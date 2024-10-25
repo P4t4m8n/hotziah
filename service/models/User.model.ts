@@ -3,7 +3,6 @@ import { Permission } from "@prisma/client";
 import { ISelectSql, IWhereSql } from "./db.model";
 
 export interface IUserSmall extends IEntity {
-  username: string;
   imgUrl: string;
 }
 

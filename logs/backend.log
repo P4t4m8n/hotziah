@@ -115,3 +115,5 @@ Too many database connections opened: FATAL: sorry, too many clients already
 24.10.2024, 17:11:39 - ERROR - Error getting users | Invalid filter properties
 24.10.2024, 17:14:36 - ERROR - Error getting users | Invalid filter properties
 24.10.2024, 17:14:36 - ERROR - Error getting users | Invalid filter properties
+25.10.2024, 12:23:38 - ERROR - Error getting therapist by id | No Therapist found
+25.10.2024, 12:23:50 - ERROR - Error getting therapist by id | No Therapist found

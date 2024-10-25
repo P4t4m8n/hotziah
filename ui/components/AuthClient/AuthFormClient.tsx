@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 
 interface Props {
-  inputs: TInputUserForm[];
+  inputs: TInput[];
   isLogin: boolean;
 }
 
