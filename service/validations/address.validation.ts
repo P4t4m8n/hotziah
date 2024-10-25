@@ -58,8 +58,8 @@ const _validateOptionalField = (
   fieldValue: string | undefined,
   fieldName: string
 ): string | null => {
-  if (fieldValue && fieldValue.trim().length < 2) {
-    return `${fieldName} must be at least 2 characters long if provided.`;
+  if (fieldValue && fieldValue.trim().length < 1) {
+    return `${fieldName} must be at least 1 characters long if provided.`;
   }
   return null;
 };

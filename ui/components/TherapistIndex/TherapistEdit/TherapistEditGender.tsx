@@ -16,7 +16,7 @@ export default function TherapistEditGender() {
           </label>
         </div>
         <div className="flex flex-col justify-center gap-2 items-center">
-          <input type="radio" id="male" name="gender" value="MALE" />
+          <input type="radio" id="male" name="gender" value="MAN" />
           <label
             htmlFor="male"
             className="flex flex-col justify-center items-center"

@@ -69,8 +69,8 @@ const _validateStringArray = (
     return `${fieldName} cannot contain more than 30 items.`;
   }
   for (const item of array) {
-    if (item.trim().length < 3) {
-      return `Each item in ${fieldName} must be at least 3 characters long.`;
+    if (item.trim().length < 2) {
+      return `Each item in ${fieldName} must be at least 2 characters long.`;
     }
   }
   return null;

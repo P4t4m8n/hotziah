@@ -152,6 +152,7 @@ export const therapistSignup = async (formData: FormData) => {
         OR: [{ email: userDto.email }, { username: userDto.username }],
       },
     });
+
     if (users.length) {
       throw new Error("User already exists");
     }
@@ -192,75 +193,12 @@ export const therapistSignup = async (formData: FormData) => {
       sameSite: "lax",
       maxAge: 24 * 60 * 60, // 24 hours
     });
-
-    redirect("/");
   } catch (error) {
     throw handleError(error, "Error signing up");
+  } finally {
+    redirect("/");
   }
 };
-// export const therapistSignup = async (
-//   userDto: IUserDto,
-//   therapistDto: ITherapistDto,
-//   address: IAddressDto
-// ): Promise<{ user: IUser; therapist: ITherapist }> => {
-//   try {
-//     const saltRounds = 10;
-
-//     if (!userDto.email || !userDto.password || !userDto.username) {
-//       throw new Error("Email, password, and username are required");
-//     }
-//     const users = await prisma.user.findMany({
-//       where: {
-//         email: userDto.email,
-//         username: userDto.username,
-//       },
-//     });
-//     if (users.length) {
-//       throw new Error("User already exists");
-//     }
-
-//     const hash = await bcrypt.hash(userDto.password, saltRounds);
-//     const userSql = userService.buildSql();
-
-//     const data = await prisma.user.create({
-//       data: {
-//         ...userDto,
-//         password: hash,
-//         permission: "THERAPIST",
-//         therapist: {
-//           create: {
-//             ...therapistDto,
-//             address: {
-//               create: {
-//                 ...address,
-//               },
-//             },
-//           },
-//         },
-//       },
-//       select: {
-//         ...userSql,
-//         therapist: {
-//           select: therapistService.buildSql(),
-//         },
-//       },
-//     });
-
-//     const token = await createJWT(data.id, data.permission);
-
-//     cookies().set("session", token, {
-//       httpOnly: true,
-//       secure: process.env.NODE_ENV === "production",
-//       path: "/",
-//       sameSite: "lax",
-//       maxAge: 24 * 60 * 60, // 24 hours
-//     });
-
-//     redirect("/");
-//   } catch (error) {
-//     throw handleError(error, "Error signing up");
-//   }
-// };
 
 export const logout = async (): Promise<void> => {
   try {

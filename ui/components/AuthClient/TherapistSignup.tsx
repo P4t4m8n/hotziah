@@ -2,19 +2,21 @@ import { THERAPIST_SIGN_UP_INPUTS } from "@/service/constants/formInputs";
 import TherapistEditInput from "../TherapistIndex/TherapistEdit/TherapistEditInput";
 import AddressEdit from "../TherapistIndex/TherapistEdit/AddressEdit";
 import CheckboxList from "../TherapistIndex/TherapistEdit/CheckboxList";
-import { Languages, MeetingType, TherapistEducation } from "@prisma/client";
 import TherapistEditGender from "../TherapistIndex/TherapistEdit/TherapistEditGender";
 import { therapistSignup } from "@/service/server/auth.server";
+import { ITaxonomy, TTaxonomyName } from "@/service/models/taxonomy.model";
 
-export default function TherapistSignup() {
-  const subjectDemo = [
-    "Psychology",
-    "Counseling",
-    "Therapy",
-    "Behavioral Therapy",
-    "CBT",
-    "DBT",
-  ];
+interface Props {
+  taxonomies: ITaxonomy[];
+}
+
+export default function TherapistSignup({ taxonomies }: Props) {
+  const taxonomyMap = taxonomies.reduce((acc, tax) => {
+    acc[tax.name as TTaxonomyName] = tax.enums;
+    return acc;
+  }, {} as Record<TTaxonomyName, string[]>);
+
+
   return (
     <form
       action={therapistSignup}
@@ -32,19 +34,23 @@ export default function TherapistSignup() {
 
       <AddressEdit />
 
-      <CheckboxList list={subjectDemo} title="Subjects" name="subjects" />
       <CheckboxList
-        list={Object.keys(Languages)}
+        list={taxonomyMap["subjects"]}
+        title="Subjects"
+        name="subjects"
+      />
+      <CheckboxList
+        list={taxonomyMap["languages"]}
         title="Languages"
         name="languages"
       />
       <CheckboxList
-        list={Object.keys(MeetingType)}
+        list={taxonomyMap["meetingTypes"]}
         title="Meeting Types"
         name="meetingType"
       />
       <CheckboxList
-        list={Object.keys(TherapistEducation)}
+        list={taxonomyMap["education"]}
         title="Education"
         name="education"
       />

@@ -250,3 +250,9 @@ model Like {
   @@unique([userId, commentId])
   @@unique([userId, articleId])
 }
+
+model Taxonomy {
+  id    String   @id @default(cuid())
+  name  String
+  enums String[]
+}

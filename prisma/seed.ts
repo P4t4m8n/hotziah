@@ -3,22 +3,95 @@ import {
   ForumType,
   ForumSubject,
   Permission,
-  MeetingType,
-  Languages,
-  TherapistEducation,
   Gender,
 } from "@prisma/client";
-import { de, faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import { IUser, IUserDto } from "@/service/models/user.model";
 import { IForum } from "@/service/models/forum.model";
-import { therapistSignup } from "@/service/server/auth.server";
 import { IAddressDto, ITherapistDto } from "@/service/models/therapists.model";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 const NUM_USERS = 50;
 const NUM_FORUMS = 12;
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+const languages = [
+  "English",
+  "Spanish",
+  "French",
+  "German",
+  "Italian",
+  "Hebrew",
+  "Russian",
+  "Arabic",
+  "Chinese",
+  "Japanese",
+  "Korean",
+  "Hindi",
+  "Portuguese",
+  "Dutch",
+  "Greek",
+  "Turkish",
+  "Polish",
+  "Swedish",
+  "Danish",
+  "Norwegian",
+  "Finnish",
+  "Czech",
+  "Hungarian",
+  "Romanian",
+  "Bulgarian",
+  "Croatian",
+  "Serbian",
+  "Slovak",
+  "Slovenian",
+  "Lithuanian",
+  "Latvian",
+  "Estonian",
+  "Maltese",
+  "Icelandic",
+  "Faroese",
+  "Basque",
+  "Catalan",
+  "Galician",
+  "Welsh",
+  "Irish",
+  "Scots Gaelic",
+  "Breton",
+];
+const meetingTypes = ["In Person", "Online", "Phone", "Chat"];
+const education = [
+  "PhD",
+  "PsyD",
+  "MD",
+  " Psychotherapist",
+  "MSc",
+  "Social Worker",
+  "Counselor",
+  "Therapist",
+  "Psychologist",
+  "Psychiatrist",
+];
+const subjects = [
+  "Psychology",
+  "Counseling",
+  "Therapy",
+  "Behavioral Therapy",
+  "CBT",
+  "DBT",
+  "EMDR",
+  "Psychotherapy",
+  "Marriage Counseling",
+  "Family Therapy",
+  "Child Therapy",
+  "Adolescent Therapy",
+  "Adult Therapy",
+  "Senior Therapy",
+  "Group Therapy",
+  "Individual Therapy",
+  "Couples Therapy",
+];
 
 async function createUsers() {
   const users = [];
@@ -111,9 +184,9 @@ async function createPostsAndComments(
 
 async function createTherapists() {
   const numberOfTherapists = 100;
+  const saltRounds = 10;
 
   for (let i = 0; i < numberOfTherapists; i++) {
-    await delay(500);
     const userDto: IUserDto = {
       email: faker.internet.email(),
       username: faker.internet.userName(),
@@ -126,26 +199,12 @@ async function createTherapists() {
     };
 
     const therapistDto: Partial<ITherapistDto> = {
-      subjects: faker.helpers.arrayElements(
-        [
-          "Psychology",
-          "Counseling",
-          "Therapy",
-          "Behavioral Therapy",
-          "CBT",
-          "DBT",
-        ],
-        3
-      ),
-      languages: faker.helpers.arrayElements(Object.values(Languages), 3),
-      meetingType: faker.helpers.arrayElements(Object.values(MeetingType), 2),
-      education: faker.helpers.arrayElements(
-        Object.values(TherapistEducation),
-        2
-      ),
+      subjects: faker.helpers.arrayElements(subjects, 3),
+      languages: faker.helpers.arrayElements(languages, 3),
+      meetingType: faker.helpers.arrayElements(meetingTypes, 2),
+      education: faker.helpers.arrayElements(Object.values(education), 2),
       gender: faker.helpers.arrayElement(Object.values(Gender)),
-      phone: faker.phone.number({ style: "human" }),
-     
+      phone: faker.phone.number({ style: "national" }),
     };
 
     const address: IAddressDto = {
@@ -158,7 +217,25 @@ async function createTherapists() {
       entrance: faker.number.int({ min: 0, max: 5 }).toString(),
     };
 
-    await therapistSignup(userDto, therapistDto as ITherapistDto, address);
+    const hash = await bcrypt.hash(userDto.password!, saltRounds);
+
+    await prisma.user.create({
+      data: {
+        ...userDto,
+        password: hash,
+        permission: "THERAPIST",
+        therapist: {
+          create: {
+            ...therapistDto,
+            address: {
+              create: {
+                ...address,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 }
 
@@ -166,23 +243,26 @@ const getRandomNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
+const createTaxonomy = async () => {
+  const x = [
+    { name: "languages", enums: languages },
+    { name: "meetingTypes", enums: meetingTypes },
+    { name: "education", enums: education },
+    { name: "subjects", enums: subjects },
+  ];
+
+  await prisma.taxonomy.createMany({ data: x });
+};
+
 export async function seed() {
+  // await createTaxonomy();
   await createTherapists();
   // const usersData = await createUsers();
-  // const users = usersData.filter((user) => user.permission === Permission.ADMIN);
+  // const users = usersData.filter(
+  //   (user) => user.permission === Permission.ADMIN
+  // );
   // const forums = await createForums(users);
   // await createPostsAndComments(users, forums);
 
   console.info("Database seeded successfully");
 }
-
-seed()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
-
