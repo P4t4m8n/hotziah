@@ -26,7 +26,7 @@ export default function TherapistListPagination({
                 : " bg-light-blue"
             } `}
             key={pageNumber}
-            href={`/therapist?page=${pageNumber}`}
+            href={`?page=${pageNumber}`}
           >
             {pageNumber}
           </Link>

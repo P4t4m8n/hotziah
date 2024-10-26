@@ -1,5 +1,5 @@
 "use server";
-import { Gender } from "@prisma/client";
+import { Gender, TherapistStatus } from "@prisma/client";
 import {
   IAddressDto,
   ITherapist,
@@ -104,6 +104,7 @@ export const getTherapists = async (
         user?: { firstName?: string; lastName?: string };
         address?: { city?: string };
         gender?: Gender;
+        status?: TherapistStatus;
       }[];
     } = { OR: [] };
 
@@ -127,6 +128,9 @@ export const getTherapists = async (
     }
     if (filter.gender) {
       OR.OR.push({ gender: filter.gender });
+    }
+    if (filter.status) {
+      OR.OR.push({ status: filter.status });
     }
 
     const where = OR.OR.length > 0 ? { OR: OR.OR } : {};
@@ -171,13 +175,12 @@ export const getTherapistByUserId = async (
     throw err;
   }
 };
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const saveTherapistForm = async (state: any, formData: FormData) => {
   let therapist = undefined;
   try {
     const therapistDto = sanitizeTherapistForm(formData);
-    console.log("therapistDto:", therapistDto)
+    console.log("therapistDto:", therapistDto);
     const addressDto = sanitizeAddressForm(formData);
 
     const therapistError = validateTherapistDto(therapistDto);
@@ -207,5 +210,30 @@ export const saveTherapistForm = async (state: any, formData: FormData) => {
     if (therapist) {
       redirect(`/therapist/${therapist.id}`);
     }
+  }
+};
+
+export const updateTherapistStatus = async (
+  id: string,
+  status: TherapistStatus
+) => {
+  try {
+    const updateCheck = await prisma.therapist.update({
+      where: { id },
+      data: { status },
+    });
+    console.log("updateCheck:", updateCheck)
+
+    if (!updateCheck) {
+      const err = handleError(
+        "Unable to find therapist",
+        "Error in update stats therapist server"
+      );
+      throw err;
+    }
+    return;
+  } catch (error) {
+    const err = handleError(error, "Error updating therapist status");
+    throw err;
   }
 };

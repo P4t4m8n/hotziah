@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className=" w-full text-black p-4 h-16  flex justify-between items-center border-t-2">
+    <footer className=" w-full text-black p-4 h-16 mt-auto  flex justify-between items-center border-t-2">
 
       <div className="flex gap-1 items-center">
         <p className="text-xs ">

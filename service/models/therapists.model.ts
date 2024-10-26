@@ -1,6 +1,6 @@
 /* cSpell:disable */
 
-import { Gender } from "@prisma/client";
+import { Gender, TherapistStatus } from "@prisma/client";
 import { IUser } from "./user.model";
 import { IEntity } from "./app.model";
 
@@ -13,6 +13,7 @@ interface TTherapistBase extends IEntity {
   address?: IAddress | null;
   education: string[];
   summary: string;
+  status: TherapistStatus;
 }
 
 export interface ITherapist extends TTherapistBase {
@@ -35,6 +36,7 @@ export interface ITherapistFilter {
   education?: string[];
   take?: number;
   page?: number;
+  status?: TherapistStatus;
 }
 
 export const THERAPIST_SUBJECTS = [

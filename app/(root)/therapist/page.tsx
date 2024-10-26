@@ -7,7 +7,7 @@ export default async function TherapistServer({
 }: {
   searchParams?: ITherapistFilter | null;
 }) {
-  //await searchParams as new Next 15 feature ignore error
+  //await searchParams as new Next 15 feature to ignore error
   const filter: ITherapistFilter =
     searchParams && Object.keys(await searchParams).length > 0
       ? {
@@ -31,6 +31,7 @@ export default async function TherapistServer({
           take: searchParams.take ? searchParams.take : 10,
         }
       : { page: 1, take: 10 };
+  filter.status = "ACTIVE";
   const { therapists, total } = await getTherapists(filter);
   const paginationProps = {
     total,

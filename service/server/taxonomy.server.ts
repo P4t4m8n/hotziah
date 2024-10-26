@@ -1,25 +1,37 @@
 import { prisma } from "@/prisma/prismaClient";
 import { handleError } from "./util/error.util";
 import { ITaxonomy, TTaxonomyName } from "../models/taxonomy.model";
+import { unstable_cache } from "next/cache";
+import { taxonomyService } from "../service/taxonomy.service";
 
-export const getTaxonomies = async (filter: {
-  name?: TTaxonomyName;
-  take?: number;
-  page?: number;
-}): Promise<ITaxonomy[]> => {
-  try {
-    const taxonomies = await prisma.taxonomy.findMany({
-      where: filter.name ? { name: filter.name } : undefined,
-      take: filter.take,
-      skip: filter.page ? (filter.page - 1) * (filter.take || 10) : undefined,
-    });
+export const getTaxonomies = unstable_cache(
+  async (filter: {
+    name?: TTaxonomyName;
+    take?: number;
+    page?: number;
+  }): Promise<Record<TTaxonomyName, string[]>> => {
+    try {
+      const taxonomies = await prisma.taxonomy.findMany({
+        where: filter.name ? { name: filter.name } : undefined,
+        take: filter.take || undefined,
+        skip: filter.page ? (filter.page - 1) * (filter.take || 10) : undefined,
+      });
+      const taxonomyMap = taxonomyService.transformTaxonomy(taxonomies);
 
-    return taxonomies;
-  } catch (error) {
-    handleError(error, " Error in getTaxonomies in server");
-    return [];
-  }
-};
+      return taxonomyMap;
+    } catch (error) {
+      handleError(error, " Error in getTaxonomies in server");
+      return {
+        subjects: [""],
+        languages: [""],
+        meetingTypes: [""],
+        education: [""],
+      };
+    }
+  },
+  [],
+  { revalidate: 60 * 1000 * 60, tags: ["taxonomies"] }
+);
 
 export const saveTaxonomy = async (taxonomy: ITaxonomy): Promise<ITaxonomy> => {
   try {

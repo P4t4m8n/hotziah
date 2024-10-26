@@ -1,5 +1,8 @@
+import { ITaxonomy } from "@/service/models/taxonomy.model";
 import { IUser, IUserFilter } from "@/service/models/user.model";
+import { getTaxonomies } from "@/service/server/taxonomy.server";
 import { getUsers } from "@/service/server/user.server";
+import { getCachedData } from "@/service/server/util/cache.util";
 import UserDashboardIndex from "@/ui/components/AdminIndex/UserDashboard/UserDashboardIndex";
 
 export default async function UserDashboard({
@@ -50,5 +53,7 @@ export default async function UserDashboard({
   if (filter) {
     users = await getUsers(filter);
   }
+
+  const taxonomies = await getTaxonomies({});
   return <UserDashboardIndex users={users} />;
 }

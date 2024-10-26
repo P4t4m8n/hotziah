@@ -13,6 +13,7 @@ const buildSql = () => {
     phone: true,
     education: true,
     summary: true,
+    status: true,
     address: {
       select: {
         id: true,
@@ -64,6 +65,7 @@ const getEmpty = (): ITherapist => {
     education: [""],
     summary: "",
     user: userService.getEmptyUser(),
+    status: "PENDING",
   };
 };
 

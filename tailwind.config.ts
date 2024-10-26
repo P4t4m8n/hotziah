@@ -18,18 +18,17 @@ const config: Config = {
         "dark-blue": "#044389",
       },
       height: {
-        "main-height": "calc(100vh - 9rem)",
+        "main-height": "calc(100vh - 5rem)",
         "text-editor": "calc(100% - 4rem)",
         "forum-index": "calc(100% - 5rem)",
         "forum-details-posts": "calc(100% - 12rem)",
-        "forum-details-list": "calc(100% - 5rem)",
         "post-edit": "calc(100% - 11rem)",
         "post-edit-form": "calc(100% - 2.5rem)",
         "user-list": "calc(100% - 8rem)",
         "user-dashboard": "calc(100% - 1.75rem)",
       },
       minHeight: {
-        "main-height": "calc(100vh - 9rem)",
+        "main-height": "calc(100vh - 5rem)",
       },
       width: {
         "title-bar": "50ch",
