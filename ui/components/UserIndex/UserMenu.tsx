@@ -18,6 +18,7 @@ export default function UserMenu() {
         "w-32 h-12 border shadow-lg text-blue rounded-lg px-4 font-bold flex justify-center gap-4 items-center flex-row-reverse text-base truncate ",
       imgUrl: user?.imgUrl || "imgs/avatarDefault.svg",
     };
+    console.log("menuBtn: IMenuBtn.imgUrl:", menuBtn.imgUrl)
 
     const items: IMenuItem[] = [
       {

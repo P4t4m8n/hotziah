@@ -5,43 +5,26 @@ import xss from "xss";
 import { Gender } from "@prisma/client";
 
 /**
- * Sanitizes the therapist signup form data by applying XSS protection to the input fields.
+ * Sanitizes the therapist signup form data by extracting and sanitizing user, therapist, and address information.
  *
- * @param formData - The form data containing therapist signup information.
- * @returns An object containing sanitized user data, therapist data, and address data.
- * @throws Throws an error if there is an issue during the sanitization process.
+ * @param {FormData} formData - The form data containing therapist signup details.
+ * @returns {Object} An object containing sanitized user, therapist, and address data.
+ * @throws {Error} If an error occurs during the sanitization process.
  */
-export const sanitizeTherapistSignupForm = (formData: FormData) => {
+export const sanitizeTherapistSignupForm = (
+  formData: FormData
+): {
+  userDto: IUserDto;
+  therapistDto: Partial<ITherapistDto>;
+  addressDto: IAddressDto;
+} => {
   try {
-    const phone = xss(formData.get("phone")?.toString() || "");
-    const subjects = formData
-      .getAll("subjects")
-      .map((subject) => xss(subject.toString()));
-    const languages = formData
-      .getAll("languages")
-      .map((language) => xss(language.toString()));
-    const meetingType = formData
-      .getAll("meetingType")
-      .map((meetingType) => xss(meetingType.toString()));
-    const education = formData
-      .getAll("education")
-      .map((edu) => xss(edu.toString()));
-    const gender = xss(formData.get("gender")?.toString() || "");
-    const summary = xss(formData.get("summary")?.toString() || "");
-
     const userDto: IUserDto = sanitizeUserSignupForm(formData);
     userDto.isTherapist = true;
     userDto.permission = "THERAPIST";
 
-    const therapistDto: Partial<ITherapistDto> = {
-      phone,
-      gender: gender as Gender,
-      subjects,
-      summary,
-      education,
-      meetingType,
-      languages,
-    };
+    const therapistDto: Partial<ITherapistDto> =
+      sanitizeTherapistForm(formData);
 
     const addressDto: IAddressDto = sanitizeAddressForm(formData);
 
@@ -51,7 +34,6 @@ export const sanitizeTherapistSignupForm = (formData: FormData) => {
     throw err;
   }
 };
-
 /**
  * Sanitizes the user signup form data by applying XSS protection to the input fields.
  *
@@ -84,7 +66,6 @@ export const sanitizeUserSignupForm = (formData: FormData) => {
     throw err;
   }
 };
-
 /**
  * Sanitizes the address form data by applying XSS protection to the input fields.
  *
@@ -115,6 +96,51 @@ export const sanitizeAddressForm = (formData: FormData) => {
     return addressDto;
   } catch (error) {
     const err = handleError(error, "Error sanitizing address form");
+    throw err;
+  }
+};
+/**
+ * Sanitizes the therapist form data by applying XSS protection to the input fields.
+ *
+ * @param formData - The form data containing therapist information.
+ * @returns A sanitized partial therapist DTO object with protected fields like phone, subjects, languages, meeting type, education, gender, and summary.
+ * @throws Throws an error if there is an issue during the sanitization process.
+ */
+export const sanitizeTherapistForm = (formData: FormData) => {
+  try {
+    const phone = xss(formData.get("phone")?.toString() || "");
+    const subjects = formData
+      .getAll("subjects")
+      .map((subject) => xss(subject.toString()));
+    const languages = formData
+      .getAll("languages")
+      .map((language) => xss(language.toString()));
+    const meetingType = formData
+      .getAll("meetingType")
+      .map((meetingType) => xss(meetingType.toString()));
+    const education = formData
+      .getAll("education")
+      .map((edu) => xss(edu.toString()));
+    const gender = xss(formData.get("gender")?.toString() || "");
+    const summary = xss(formData.get("summary")?.toString() || "");
+    const id = xss(formData.get("id")?.toString() || "");
+    const userId = xss(formData.get("userId")?.toString() || "");
+
+    const therapistDto: Partial<ITherapistDto> = {
+      id,
+      userId,
+      phone,
+      gender: gender as Gender,
+      subjects,
+      summary,
+      education,
+      meetingType,
+      languages,
+    };
+
+    return therapistDto;
+  } catch (error) {
+    const err = handleError(error, "Error sanitizing therapist form");
     throw err;
   }
 };

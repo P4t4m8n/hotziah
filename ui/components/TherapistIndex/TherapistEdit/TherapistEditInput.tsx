@@ -4,8 +4,16 @@ interface Props {
 }
 
 export default function TherapistEditInput({ input, value }: Props) {
-
-  const { type, placeHolder, name, label } = input;
+  const {
+    type,
+    placeHolder,
+    name,
+    label,
+    autoComplete,
+    required,
+    pattern,
+    title,
+  } = input;
 
   return (
     <div key={name} className="flex">
@@ -17,9 +25,11 @@ export default function TherapistEditInput({ input, value }: Props) {
         placeholder={placeHolder}
         name={name}
         className="bg-slate-700 px-2 py-1 rounded-md"
-        required
-        autoComplete={"new-password"}
+        required={required}
+        autoComplete={autoComplete}
         defaultValue={value}
+        pattern={pattern}
+        title={title}
       />
     </div>
   );

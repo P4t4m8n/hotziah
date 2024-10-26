@@ -1,4 +1,5 @@
-import { Gender, Languages, MeetingType } from "@prisma/client";
+"use server";
+import { Gender } from "@prisma/client";
 import {
   IAddressDto,
   ITherapist,
@@ -8,6 +9,14 @@ import {
 import { therapistService } from "../service/therapist.service";
 import { handleError } from "./util/error.util";
 import { prisma } from "@/prisma/prismaClient";
+import { redirect } from "next/navigation";
+import {
+  sanitizeAddressForm,
+  sanitizeTherapistForm,
+} from "./util/sanitization.util";
+import { validateTherapistDto } from "../validations/therapist.validation";
+import { validateAddressDto } from "../validations/address.validation";
+
 /**
  * Saves a therapist to the database.
  *
@@ -24,13 +33,14 @@ export const saveTherapist = async (
     const therapist: ITherapist = await prisma.$transaction(
       async (prismaClient) => {
         return prismaClient.therapist.upsert({
-          where: { id: therapistDto.id },
-          update: { ...therapistDto, address: { create: addressDto } },
+          where: { id: therapistDto.id || undefined },
+          update: { ...therapistDto, address: { update: addressDto } },
           create: { ...therapistDto, address: { create: addressDto } },
           select: therapistService.buildSql(),
         });
       }
     );
+    console.log("therapist:", therapist);
 
     return therapist;
   } catch (error) {
@@ -75,7 +85,6 @@ export const removeTherapist = async (id: string): Promise<boolean> => {
     throw err;
   }
 };
-
 /**
  * Retrieves therapists based on the provided filter criteria.
  *
@@ -90,8 +99,8 @@ export const getTherapists = async (
     const OR: {
       OR: {
         subjects?: { hasSome: string[] };
-        languages?: { hasSome: Languages[] };
-        meetingType?: { hasSome: MeetingType[] };
+        languages?: { hasSome: string[] };
+        meetingType?: { hasSome: string[] };
         user?: { firstName?: string; lastName?: string };
         address?: { city?: string };
         gender?: Gender;
@@ -139,5 +148,64 @@ export const getTherapists = async (
   } catch (error) {
     const err = handleError(error, "Error getting therapists");
     throw err;
+  }
+};
+/**
+ * Retrieves a therapist based on the provided user ID.
+ *
+ * @param userId - The ID of the user associated with the therapist.
+ * @returns A Promise that resolves to the therapist object.
+ * @throws Error if there is an issue retrieving the therapist.
+ */
+export const getTherapistByUserId = async (
+  userId: string
+): Promise<ITherapist> => {
+  try {
+    const therapist = await prisma.therapist.findUniqueOrThrow({
+      where: { userId },
+      select: therapistService.buildSql(),
+    });
+    return therapist;
+  } catch (error) {
+    const err = handleError(error, "Error getting therapist by userId");
+    throw err;
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const saveTherapistForm = async (state: any, formData: FormData) => {
+  let therapist = undefined;
+  try {
+    const therapistDto = sanitizeTherapistForm(formData);
+    console.log("therapistDto:", therapistDto)
+    const addressDto = sanitizeAddressForm(formData);
+
+    const therapistError = validateTherapistDto(therapistDto);
+    if (therapistError.length) {
+      const err = handleError(
+        therapistError.join("\n"),
+        "Error validating therapist data"
+      );
+      throw err;
+    }
+
+    const addressErrors = validateAddressDto(addressDto);
+    if (addressErrors.length) {
+      const err = handleError(
+        addressErrors.join("\n"),
+        "Error validating address data"
+      );
+      throw err;
+    }
+    console.log("therapistDto:", therapistDto);
+
+    therapist = await saveTherapist(therapistDto as ITherapistDto, addressDto);
+  } catch (error) {
+    const err = handleError(error, "Error saving therapist form");
+    throw err;
+  } finally {
+    if (therapist) {
+      redirect(`/therapist/${therapist.id}`);
+    }
   }
 };

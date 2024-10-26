@@ -7,8 +7,9 @@ export default async function TherapistServer({
 }: {
   searchParams?: ITherapistFilter | null;
 }) {
+  //await searchParams as new Next 15 feature ignore error
   const filter: ITherapistFilter =
-    searchParams && Object.keys(searchParams).length > 0
+    searchParams && Object.keys(await searchParams).length > 0
       ? {
           subjects:
             typeof searchParams.subjects === "string"

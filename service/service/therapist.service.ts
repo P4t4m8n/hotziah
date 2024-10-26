@@ -1,9 +1,4 @@
-import {
-  Gender,
-  Languages,
-  MeetingType,
-  TherapistEducation,
-} from "@prisma/client";
+import { Gender } from "@prisma/client";
 import { ITherapist, ITherapistFilter } from "../models/therapists.model";
 import { addressService } from "./address.service";
 import { userService } from "./user.service";
@@ -48,27 +43,27 @@ const buildSql = () => {
 const getEmptyFilter = (): ITherapistFilter => {
   return {
     subjects: [""],
-    languages: ["" as Languages],
-    meetingType: ["" as MeetingType],
+    languages: [""],
+    meetingType: [""],
     firstName: "",
     lastName: "",
     gender: "" as Gender,
     city: "",
-    education: ["" as TherapistEducation],
+    education: [""],
   };
 };
 
 const getEmpty = (): ITherapist => {
   return {
     subjects: [""],
-    languages: ["HEBREW"],
-    meetingType: ["IN_PERSON"],
+    languages: [""],
+    meetingType: [""],
     gender: "FEMALE",
     phone: "",
     address: addressService.getEmpty(),
-    education: ["BACHELOR"],
+    education: [""],
     summary: "",
-    user:userService.getEmptyUser()
+    user: userService.getEmptyUser(),
   };
 };
 

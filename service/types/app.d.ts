@@ -3,5 +3,9 @@ declare type TInput = {
   placeHolder?: string;
   name: string;
   label?: string;
-  autoComplete?: "current-password" | "new-password";
+  autoComplete?: string;
+  pattern?: string;
+  required?: boolean;
+  title?: string;
+  inputMode?: "numeric";
 };

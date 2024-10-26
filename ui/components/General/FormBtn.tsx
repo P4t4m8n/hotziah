@@ -1,3 +1,8 @@
+"use client";
+
+import { useFormStatus } from "react-dom";
+import Loader from "./Loader";
+
 interface Props {
   cancelAction: (...args: unknown[]) => void;
   containerStyle?: string;
@@ -14,12 +19,18 @@ export default function FormBtn({
   cancelText,
   submitText,
 }: Props) {
+  const { pending } = useFormStatus();
   return (
     <div className={containerStyle}>
-      <button onClick={() => cancelAction(false)} className={cancelBtnStyle}>
+      <button
+        disabled={pending}
+        onClick={() => cancelAction(false)}
+        className={cancelBtnStyle}
+      >
         {cancelText || "CANCEL"}
       </button>
-      <button type="submit" className={submitBtnStyle}>
+      {pending && <Loader />}
+      <button disabled={pending} type="submit" className={submitBtnStyle}>
         {submitText || "ADD POST"}
       </button>
     </div>

@@ -1,10 +1,15 @@
+"use client";
 import { ITherapist } from "@/service/models/therapists.model";
 import { addressService } from "@/service/service/address.service";
 import AddressEdit from "./AddressEdit";
 import CheckboxList from "./CheckboxList";
-import { GenderFemaleSvg, GenderMaleSvg } from "@/ui/Icons/Svgs";
 import { ITaxonomy } from "@/service/models/taxonomy.model";
 import { taxonomyService } from "@/service/service/taxonomy.service";
+import TherapistEditInput from "./TherapistEditInput";
+import { saveTherapistForm } from "@/service/server/therapist.server";
+import { useActionState } from "react";
+import TherapistEditGender from "./TherapistEditGender";
+import { useUser } from "@/ui/hooks/useUser";
 
 interface Props {
   therapist: ITherapist;
@@ -12,28 +17,33 @@ interface Props {
 }
 
 export default function TherapistEdit({ therapist, taxonomies }: Props) {
+  const user = useUser().user;
+  const [state, editAction] = useActionState(saveTherapistForm, undefined);
+  console.log("state:", state);
   const taxonomyMap = taxonomyService.transformTaxonomy(taxonomies);
 
   let { address } = therapist;
 
   if (!address) address = addressService.getEmpty();
+  const input: TInput = {
+    type: "tel",
+    name: "phone",
+    label: "Phone",
+    placeHolder: "Phone",
+    required: true,
+    pattern: "^\\d{3}-\\d{7}$",
+    title: "Phone number must be in the format xxx-xxxxxxx.",
+    inputMode: "numeric",
+  };
 
   const { subjects, languages, meetingType, gender, education } = therapist;
 
   return (
-    <form action="/api/therapist/update" method="POST">
+    <form className="p-6  bg-slate-600 flex flex-col gap-4" action={editAction}>
       <input type="hidden" name="id" value={therapist.id} />
+      <input type="hidden" name="userId" value={user?.id} />
 
-      <div>
-        <label htmlFor="phone">Phone:</label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          defaultValue={therapist.phone}
-          required
-        />
-      </div>
+      <TherapistEditInput input={input} value={therapist.phone} />
 
       <AddressEdit addressProp={address} />
 
@@ -56,35 +66,7 @@ export default function TherapistEdit({ therapist, taxonomies }: Props) {
         title="Meeting Types"
       />
 
-      <div>
-        <label>Gender:</label>
-        <div>
-          <input
-            type="radio"
-            id="female"
-            name="gender"
-            value="FEMALE"
-            defaultChecked={therapist.gender === "FEMALE"}
-          />
-          <label htmlFor="female">
-            <GenderFemaleSvg />
-            <span>Female</span>
-          </label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="male"
-            name="gender"
-            value="MALE"
-            defaultChecked={gender === "MAN"}
-          />
-          <label htmlFor="male">
-            <GenderMaleSvg />
-            <span>Man</span>
-          </label>
-        </div>
-      </div>
+      <TherapistEditGender gender={gender} />
 
       <CheckboxList
         list={taxonomyMap.education}
