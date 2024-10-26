@@ -1,3 +1,4 @@
+import { getTaxonomies } from "@/service/server/taxonomy.server";
 import { getTherapistById } from "@/service/server/therapist.server";
 import { therapistService } from "@/service/service/therapist.service";
 import TherapistEdit from "@/ui/components/TherapistIndex/TherapistEdit/TherapistEdit";
@@ -18,5 +19,6 @@ export default async function TherapistEditServer({
   } else {
     therapist = await getTherapistById(therapistId);
   }
-  return <TherapistEdit therapist={therapist} />;
+  const taxonomies = await getTaxonomies({});
+  return <TherapistEdit therapist={therapist} taxonomies={taxonomies} />;
 }

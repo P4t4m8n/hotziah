@@ -1,22 +1,16 @@
 interface Props {
-  name: string;
-  placeHolder?: string;
-  type: "text" | "email" | "tel" | "password";
-  labelText?: string;
-  value?: string | number;
+  input: TInput;
+  value?: string;
 }
 
-export default function TherapistEditInput({
-  name,
-  placeHolder,
-  type,
-  labelText,
-  value,
-}: Props) {
+export default function TherapistEditInput({ input, value }: Props) {
+
+  const { type, placeHolder, name, label } = input;
+
   return (
     <div key={name} className="flex">
       <label className="w-24 block" htmlFor={name}>
-        {labelText}:
+        {label}:
       </label>
       <input
         type={type}
@@ -24,6 +18,7 @@ export default function TherapistEditInput({
         name={name}
         className="bg-slate-700 px-2 py-1 rounded-md"
         required
+        autoComplete={"new-password"}
         defaultValue={value}
       />
     </div>

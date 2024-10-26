@@ -32,7 +32,6 @@ export const sanitizeTherapistSignupForm = (formData: FormData) => {
     const userDto: IUserDto = sanitizeUserSignupForm(formData);
     userDto.isTherapist = true;
     userDto.permission = "THERAPIST";
-    console.log("userDto:", userDto);
 
     const therapistDto: Partial<ITherapistDto> = {
       phone,
@@ -43,10 +42,8 @@ export const sanitizeTherapistSignupForm = (formData: FormData) => {
       meetingType,
       languages,
     };
-    console.log("therapistDto:", therapistDto);
 
     const addressDto: IAddressDto = sanitizeAddressForm(formData);
-    console.log("addressDto:", addressDto);
 
     return { userDto, therapistDto, addressDto };
   } catch (error) {
@@ -77,7 +74,7 @@ export const sanitizeUserSignupForm = (formData: FormData) => {
       firstName,
       lastName,
       isTherapist: false,
-      imgUrl: "imgs/user.svg",
+      imgUrl: "",
       permission: "USER",
     };
 

@@ -26,7 +26,7 @@
     "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
-    "next": "14.2.15",
+    "next": "^15.0.1",
     "react": "^18",
     "react-dom": "^18",
     "react-draft-wysiwyg": "^1.15.0",

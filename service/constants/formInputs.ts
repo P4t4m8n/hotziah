@@ -10,6 +10,7 @@ export const LOGIN_INPUTS: TInput[] = [
     placeHolder: "Password",
     name: "password",
     label: "Password",
+    autoComplete: "current-password",
   },
 ];
 

@@ -15,10 +15,7 @@ export default function AddressEdit({ addressProp }: Props) {
       {ADDRESS_INPUTS.map((input) => (
         <TherapistEditInput
           key={input.name}
-          name={input.name}
-          placeHolder={input?.placeHolder}
-          type={input.type}
-          labelText={input.label}
+          input={input}
           //TODO:ugly make a better why to get the value
           value={
             address[input.name as keyof IAddress] != null

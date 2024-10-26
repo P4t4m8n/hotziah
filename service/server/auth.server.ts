@@ -48,7 +48,7 @@ export const login = async (userDto: IUserDto): Promise<IUser> => {
 
     const token = await createJWT(user.id, user.permission);
 
-    cookies().set("session", token, {
+    (await cookies()).set("session", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
@@ -97,7 +97,7 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
 
     const token = await createJWT(user.id, user.permission);
 
-    cookies().set("session", token, {
+    (await cookies()).set("session", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
@@ -113,7 +113,8 @@ export const signup = async (userDto: IUserDto): Promise<IUser> => {
   }
 };
 
-export const therapistSignup = async (formData: FormData) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const therapistSignup = async (prevState: any, formData: FormData) => {
   try {
     const saltRounds = 10;
 
@@ -186,7 +187,7 @@ export const therapistSignup = async (formData: FormData) => {
 
     const token = await createJWT(data.id, data.permission);
 
-    cookies().set("session", token, {
+    (await cookies()).set("session", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
@@ -202,7 +203,7 @@ export const therapistSignup = async (formData: FormData) => {
 
 export const logout = async (): Promise<void> => {
   try {
-    cookies().set("session", "", {
+    (await cookies()).set("session", "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
@@ -216,7 +217,7 @@ export const logout = async (): Promise<void> => {
 
 export const getSessionUser = async (): Promise<IUser | null> => {
   try {
-    const token = cookies().get("session")?.value;
+    const token = (await cookies()).get("session")?.value;
 
     if (!token) {
       return null;

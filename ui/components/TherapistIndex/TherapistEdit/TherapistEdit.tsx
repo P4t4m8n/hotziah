@@ -2,28 +2,24 @@ import { ITherapist } from "@/service/models/therapists.model";
 import { addressService } from "@/service/service/address.service";
 import AddressEdit from "./AddressEdit";
 import CheckboxList from "./CheckboxList";
-import { Languages, MeetingType, TherapistEducation } from "@prisma/client";
 import { GenderFemaleSvg, GenderMaleSvg } from "@/ui/Icons/Svgs";
+import { ITaxonomy } from "@/service/models/taxonomy.model";
+import { taxonomyService } from "@/service/service/taxonomy.service";
 
 interface Props {
   therapist: ITherapist;
+  taxonomies: ITaxonomy[];
 }
 
-export default function TherapistEdit({ therapist }: Props) {
+export default function TherapistEdit({ therapist, taxonomies }: Props) {
+  const taxonomyMap = taxonomyService.transformTaxonomy(taxonomies);
+
   let { address } = therapist;
 
   if (!address) address = addressService.getEmpty();
 
   const { subjects, languages, meetingType, gender, education } = therapist;
 
-  const subjectDemo = [
-    "Psychology",
-    "Counseling",
-    "Therapy",
-    "Behavioral Therapy",
-    "CBT",
-    "DBT",
-  ];
   return (
     <form action="/api/therapist/update" method="POST">
       <input type="hidden" name="id" value={therapist.id} />
@@ -42,17 +38,20 @@ export default function TherapistEdit({ therapist }: Props) {
       <AddressEdit addressProp={address} />
 
       <CheckboxList
-        list={subjectDemo}
+        list={taxonomyMap.subjects}
+        name="subjects"
         checkAgainst={subjects}
         title="Subjects"
       />
       <CheckboxList
-        list={Object.keys(Languages)}
+        list={taxonomyMap.languages}
+        name="languages"
         checkAgainst={languages}
         title="Languages"
       />
       <CheckboxList
-        list={Object.keys(MeetingType)}
+        list={taxonomyMap.meetingTypes}
+        name="meetingType"
         checkAgainst={meetingType}
         title="Meeting Types"
       />
@@ -88,7 +87,8 @@ export default function TherapistEdit({ therapist }: Props) {
       </div>
 
       <CheckboxList
-        list={Object.keys(TherapistEducation)}
+        list={taxonomyMap.education}
+        name="education"
         checkAgainst={education}
         title="Education"
       />
