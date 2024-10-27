@@ -1,49 +1,40 @@
+import { QuestionType } from "@prisma/client";
+import { IEntity } from "./app.model";
 import { IUser } from "./user.model";
 
-interface IQuestionnaireBase {
-  subjects: TQuestionnaireSubject[];
+interface IQuestionnaireBase extends IEntity {
+  subjects: string[];
   title: string;
   description: string;
-  question: IQuestion | null; // Root question
+  rootQuestion: IQuestion | null; 
+  createdAt?: Date | string;
 }
-export interface IQuestionnaireDto extends  IQuestionnaireBase {
+export interface IQuestionnaireDto extends IQuestionnaireBase {
   authorId: string;
 }
 
 export interface IQuestionnaire extends IQuestionnaireBase {
-  _id?: string;
   author: IUser;
 }
 
-export interface IQuestionnaireFilter  {
-  subjects?: TQuestionnaireSubject[];
+export interface IQuestionnaireFilter {
+  subjects?: string[];
   title?: string;
   authorName?: string;
-  createdAfter?: Date;
+  createdAfter?: Date | string;
+  take?: number;
+  skip?: number;
 }
 
-export interface IAnswer {
+export interface IAnswer extends IEntity {
   answerText: string;
   nextQuestion: IQuestion | null;
-  value: string; // Unique identifier for the question
-  type: TQuestionType;
+  nextQuestionId?: string | null;
+
 }
-export interface IQuestion {
+
+export interface IQuestion extends IEntity {
   questionText: string;
-  value: string; // Unique identifier for the answer
+  type: QuestionType;
   answers: IAnswer[];
 }
-
-export const QUESTION_TYPE = ["בחירה", "פתוח"] as const;
-export type TQuestionType = (typeof QUESTION_TYPE)[number];
-
-export const QUESTIONNAIRE_SUBJECTS = [
-  "",
-  "דכאון",
-  "חרדה",
-  "לחץ",
-  "יחסים",
-  "עבודה",
-  "חיים",
-] as const;
-export type TQuestionnaireSubject = (typeof QUESTIONNAIRE_SUBJECTS)[number];

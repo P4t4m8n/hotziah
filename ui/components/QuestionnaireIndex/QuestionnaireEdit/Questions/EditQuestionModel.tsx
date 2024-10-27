@@ -1,10 +1,6 @@
 /* cSpell:disable */
 
-import {
-  IAnswer,
-  IQuestion,
-  TQuestionType,
-} from "@/service/models/questionnaire.model";
+import { IAnswer, IQuestion } from "@/service/models/questionnaire.model";
 import { useModel } from "@/ui/hooks/useModel";
 import { AddSvg } from "@/ui/Icons/Svgs";
 import { ChangeEvent, useRef, useState } from "react";
@@ -12,7 +8,7 @@ import { ChangeEvent, useRef, useState } from "react";
 import GeneralMenu from "../../../Menus/GeneralMenu";
 import { IMenu } from "@/service/models/menu.model";
 import { questionnaireService } from "@/service/service/questionnaire.service";
-
+import { QuestionType } from "@prisma/client";
 
 interface Props {
   saveQuestion: (question: IQuestion, parentAnswerValue?: string) => void;
@@ -32,7 +28,7 @@ export default function EditQuestionModel({
   const [isOpen, setIsOpen] = useModel(modelRef, onSaveQuestion);
 
   function onSaveQuestion() {
-    saveQuestion(questionToEdit, answer?.value);
+    saveQuestion(questionToEdit, answer?.id);
     if (isNew) setQuestionToEdit(questionnaireService.getEmptyQuestion());
     setIsOpen(false);
   }
@@ -56,8 +52,9 @@ export default function EditQuestionModel({
     });
   };
 
-  const addAnswer = (type: TQuestionType = "בחירה") => {
-    const answer = questionnaireService.getEmptyAnswer(type);
+  const addAnswer = (type: QuestionType = "MULTIPLE_CHOICE") => {
+    console.log("type:", type);
+    const answer = questionnaireService.getEmptyAnswer();
     setQuestionToEdit((prev) => ({
       ...prev,
       answers: [...prev.answers, answer],
@@ -75,19 +72,19 @@ export default function EditQuestionModel({
 
   const menuItems: IMenu = {
     menuBtn: {
-      text: "הוסף תשובה",
+      text: "Add Answer",
       style: " bg-white text-black p-1 rounded-md",
     },
     menuStyle: "flex gap-2 pt-4",
     items: [
       {
-        text: "בחירה",
-        onClick: () => addAnswer("בחירה"),
+        text: "Select",
+        onClick: () => addAnswer("MULTIPLE_CHOICE"),
         style: "bg-white text-black p-1 rounded-md",
       },
       {
         text: "פתוח",
-        onClick: () => addAnswer("פתוח"),
+        onClick: () => addAnswer("TEXT"),
         style: "bg-white text-black p-1 rounded-md",
       },
     ],
@@ -124,7 +121,7 @@ export default function EditQuestionModel({
           <h3 className=" pb-2">שאלות:</h3>
           {answers.map((answer, index) => (
             <div className=" flex flex-col gap-2" key={index}>
-              {answer.type !== "פתוח" ? (
+              {questionToEdit.type !== "TEXT" ? (
                 <>
                   <input
                     onChange={(e) => handleAnswerChange(e, index)}

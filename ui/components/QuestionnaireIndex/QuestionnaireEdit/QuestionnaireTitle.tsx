@@ -6,7 +6,7 @@ export default function QuestionnaireTitle({ title, handleChange }: Props) {
   return (
     <div className="flex flex-col gap-2">
       <label className="" htmlFor="title">
-        כותרת:
+        Title:
       </label>
       <input
         id="title"

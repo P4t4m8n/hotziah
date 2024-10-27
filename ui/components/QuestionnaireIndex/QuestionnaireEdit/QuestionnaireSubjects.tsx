@@ -1,14 +1,11 @@
-import {
-  QUESTIONNAIRE_SUBJECTS,
-  TQuestionnaireSubject,
-} from "@/service/models/questionnaire.model";
-
 interface Props {
-  subjects: TQuestionnaireSubject[];
+  questionnaireSubjects: string[];
+  subjects: string[];
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default function QuestionnaireSubjects({
+  questionnaireSubjects,
   subjects,
   handleChange,
 }: Props) {
@@ -19,10 +16,10 @@ export default function QuestionnaireSubjects({
         id="subjects"
         name="subjects"
         multiple
-        value={subjects}
+        value={questionnaireSubjects}
         onChange={handleChange}
       >
-        {QUESTIONNAIRE_SUBJECTS.map((subject) => (
+        {subjects.map((subject) => (
           <option key={subject} value={subject}>
             {subject}
           </option>

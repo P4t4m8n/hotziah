@@ -68,7 +68,7 @@ enum TherapistEducation {
   LCSW
 }
 
-enum QustionType {
+enum QuestionType {
   TEXT
   MULTIPLE_CHOICE
   YES_NO
@@ -93,7 +93,7 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            String          @id @default(uuid())
   email         String          @unique
   username      String          @unique
   firstName     String          @default("New User")
@@ -114,7 +114,7 @@ model User {
 }
 
 model Forum {
-  id          String         @id @default(cuid())
+  id          String         @id @default(uuid())
   title       String
   description String
   type        ForumType
@@ -126,7 +126,7 @@ model Forum {
 }
 
 model Post {
-  id        String    @id @default(cuid())
+  id        String    @id @default(uuid())
   title     String
   content   String
   authorId  String
@@ -140,7 +140,7 @@ model Post {
 }
 
 model Comment {
-  id        String    @id @default(cuid())
+  id        String    @id @default(uuid())
   content   String
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String
@@ -183,46 +183,43 @@ model Address {
 }
 
 model Questionnaire {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  subjects    String[]
-  authorId    String
-  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  id             String     @id @default(uuid())
+  title          String     @default("New Questionnaire")
+  description    String     @default("New Questionnaire")
+  subjects       String[]   @default(["New"])
+  authorId       String
+  author         User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  rootQuestionId String?
+  rootQuestion   Question?  @relation("RootQuestion", fields: [rootQuestionId], references: [id])
+  createdAt      DateTime   @default(now())
 
-  rootQuestionId String?    @unique
-  rootQuestion   Question?  @relation("rootQuestion", fields: [rootQuestionId], references: [id])
-  questions      Question[] @relation("questionnaireQuestions")
-
-  createdAt DateTime @default(now())
+  @@index([authorId])
 }
 
 model Question {
-  id              String         @id @default(cuid())
-  questionText    String
-  type            QustionType
-  questionnaireId String?        @unique
-  questionnaire   Questionnaire? @relation("questionnaireQuestions", fields: [questionnaireId], references: [id], onDelete: Cascade)
+  id                String          @id @default(uuid())
+  questionText      String          @default("New Question")
+  type              QuestionType    @default(TEXT)
+  answers           Answer[]        @relation("QuestionAnswers")
+  nextQuestions     Answer[]        @relation("NextQuestion")
+  rootQuestionnaire Questionnaire[] @relation("RootQuestion")
 
-  rootQuestionnaire Questionnaire? @relation("rootQuestion")
-
-  answer     Answer[] @relation("question")
-  nextAnswer Answer[] @relation("nextQuestion")
+  @@index([id])
 }
 
 model Answer {
-  id         String @id @default(cuid())
-  answerText String
+  id             String    @id @default(uuid())
+  answerText     String    @default("New Answer")
+  questionId     String
+  question       Question  @relation("QuestionAnswers", fields: [questionId], references: [id], onDelete: Cascade)
+  nextQuestionId String?
+  nextQuestion   Question? @relation("NextQuestion", fields: [nextQuestionId], references: [id])
 
-  questionId String   @unique
-  question   Question @relation("question", fields: [questionId], references: [id], onDelete: Cascade)
-
-  nextQuestionId String?   @unique
-  nextQuestion   Question? @relation("nextQuestion", fields: [nextQuestionId], references: [id])
+  @@index([id])
 }
 
 model Article {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   title       String   @default("New Article")
   description String   @default("New Article")
   imgUrl      String
@@ -235,7 +232,7 @@ model Article {
 }
 
 model Like {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   postId    String?
@@ -252,7 +249,7 @@ model Like {
 }
 
 model Taxonomy {
-  id    String   @id @default(cuid())
+  id    String   @id @default(uuid())
   name  String
   enums String[]
 }

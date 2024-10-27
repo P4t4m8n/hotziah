@@ -2,7 +2,6 @@ import {
   IAnswer,
   IQuestion,
   IQuestionnaire,
-  TQuestionnaireSubject,
 } from "@/service/models/questionnaire.model";
 import { ChangeEvent, useState } from "react";
 import _ from "lodash";
@@ -13,7 +12,9 @@ import { questionnaireService } from "@/service/service/questionnaire.service";
 export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
   const user = useUser().user;
   const [questionnaireToEdit, setQuestionnaireToEdit] =
-    useState<IQuestionnaire>(questionnaire || questionnaireService.getEmptyQuestionnaire(user!));
+    useState<IQuestionnaire>(
+      questionnaire || questionnaireService.getEmptyQuestionnaire(user!)
+    );
 
   const onSaveQuestionnaire = async () => {
     try {
@@ -29,15 +30,15 @@ export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
 
   const findQuestionByValue = (
     question: IQuestion,
-    value: string
+    id: string
   ): IQuestion | null => {
-    if (question.value === value) {
+    if (question.id === id) {
       return question;
     }
 
     for (const answer of question.answers) {
       if (answer.nextQuestion) {
-        const found = findQuestionByValue(answer.nextQuestion, value);
+        const found = findQuestionByValue(answer.nextQuestion, id);
         if (found) {
           return found;
         }
@@ -49,15 +50,15 @@ export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
 
   const findAnswerByValue = (
     question: IQuestion | null,
-    value: string
+    id: string
   ): IAnswer | null => {
     if (!question) return null;
     for (const answer of question.answers) {
-      if (answer.value === value) {
+      if (answer.id === id) {
         return answer;
       }
       if (answer.nextQuestion) {
-        const found = findAnswerByValue(answer.nextQuestion, value);
+        const found = findAnswerByValue(answer.nextQuestion, id);
         if (found) {
           return found;
         }
@@ -75,7 +76,7 @@ export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
         // Handle multiple select
         const options = Array.from(
           target.selectedOptions,
-          (option) => option.value as TQuestionnaireSubject
+          (option) => option.value
         );
         return { ...prev, [name]: options };
       } else {
@@ -91,7 +92,7 @@ export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
       if (parentAnswerValue) {
         // Find the parent answer
         const parentAnswer = findAnswerByValue(
-          questionnaireCopy.question,
+          questionnaireCopy.rootQuestion,
           parentAnswerValue
         );
         if (parentAnswer) {
@@ -100,15 +101,15 @@ export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
       } else {
         // Find and update the existing question
         const existingQuestion = findQuestionByValue(
-          questionnaireCopy.question!,
-          question.value
+          questionnaireCopy.rootQuestion!,
+          question.id!
         );
         if (existingQuestion) {
           // Update the existing question
           Object.assign(existingQuestion, question);
         } else {
           // If not found, set it as the root question
-          questionnaireCopy.question = question;
+          questionnaireCopy.rootQuestion = question;
         }
       }
 
@@ -116,7 +117,7 @@ export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
     });
   };
 
-  const removeQuestion = (questionValue: string) => {
+  const removeQuestion = (id: string) => {
     setQuestionnaireToEdit((prevQuestionnaire) => {
       const questionnaireCopy = _.cloneDeep(prevQuestionnaire);
 
@@ -125,7 +126,7 @@ export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
       ): IQuestion | null => {
         if (!currentQuestion) return null;
 
-        if (currentQuestion.value === questionValue) {
+        if (currentQuestion.id === id) {
           return null;
         }
 
@@ -141,8 +142,8 @@ export const useQuestionnaireEdit = (questionnaire?: IQuestionnaire) => {
         return currentQuestion;
       };
 
-      questionnaireCopy.question = removeQuestionRecursively(
-        questionnaireCopy.question
+      questionnaireCopy.rootQuestion = removeQuestionRecursively(
+        questionnaireCopy.rootQuestion
       );
 
       return questionnaireCopy;

@@ -8,7 +8,7 @@ export default function QuestionnaireDescription({
 }: Props) {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor="description">תקציר:</label>
+      <label htmlFor="description">Description:</label>
       <textarea
         id="description"
         name="description"

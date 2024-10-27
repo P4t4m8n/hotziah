@@ -16,7 +16,7 @@ export default function AnswerList({
     <ul className=" pr-4 flex flex-col gap-4 relative">
       {answers.map((answer) => (
         <AnswerPreview
-          key={answer.value}
+          key={answer.id}
           answer={answer}
           saveQuestion={saveQuestion}
           removeQuestion={removeQuestion}

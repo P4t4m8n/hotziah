@@ -16,11 +16,11 @@ export default function QuestionPreview({
   removeQuestion,
   saveQuestion,
 }: Props) {
-  const { questionText, value, answers } = question;
+  const { questionText, id, answers } = question;
   return (
     <div className=" w-fit flex gap-4 items-center">
       <div className="bg-red-400 p-4 rounded-lg ">
-        <h3>שאלה: {questionText}</h3>
+        <h3>Question: {questionText}</h3>
         <div className="flex gap-4">
           <EditQuestionModel
             question={question}
@@ -28,7 +28,7 @@ export default function QuestionPreview({
             isNew={false}
           />
           {!isRoot && (
-            <button onClick={() => removeQuestion(value)}>מחק</button>
+            <button onClick={() => removeQuestion(id!)}>Delete</button>
           )}
         </div>
       </div>

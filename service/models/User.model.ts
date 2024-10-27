@@ -8,7 +8,6 @@ export interface IUserSmall extends IEntity {
 }
 
 export interface IUser extends IUserSmall {
-  imgUrl: string;
   email: string;
   permission: Permission;
   firstName: string;

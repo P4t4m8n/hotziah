@@ -14,7 +14,7 @@ export default function QuestionnaireRoot({
 }: Props) {
   return (
     <div className="w-full h-[23rem] overflow-auto bg-gray-950 p-4">
-      <h2 className="text-white">שאלות</h2>
+      <h2 className="text-white">Questions</h2>
 
       {question && (
         <QuestionPreview

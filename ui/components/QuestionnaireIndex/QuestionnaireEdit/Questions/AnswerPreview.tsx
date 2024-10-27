@@ -14,24 +14,24 @@ export default function AnswerPreview({
   saveQuestion,
   removeQuestion,
 }: Props) {
-  const { answerText, value, nextQuestion } = answer;
+  const { answerText, id, nextQuestion } = answer;
 
   const addFollowUpQuestion = () => {
     const newQuestion = questionnaireService.getEmptyQuestion();
-    saveQuestion(newQuestion, value); // Pass the parentAnswerValue
+    saveQuestion(newQuestion, id); // Pass the parentAnswerValue
   };
 
   return (
     <li className="flex gap-4">
       <div className="bg-orange-600 p-4 rounded-lg">
-        <h3>תשובה: {answerText}</h3>
+        <h3>Answer: {answerText}</h3>
         <EditQuestionModel
           question={nextQuestion || questionnaireService.getEmptyQuestion()}
           isNew={!nextQuestion}
           answer={answer}
           saveQuestion={saveQuestion}
         />
-        <button onClick={addFollowUpQuestion}>הוסף שאלה המשך</button>
+        <button onClick={addFollowUpQuestion}>Add follow-up question</button>
       </div>
 
       {nextQuestion && (
