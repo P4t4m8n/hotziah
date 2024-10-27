@@ -26,6 +26,7 @@ export default function TherapistFilterClient({ taxonomies }: Props) {
     languages: searchParams.getAll("languages"),
     meetingType: searchParams.getAll("meetingType"),
     gender: (searchParams.get("gender") as Gender) || "MAN",
+    education: searchParams.getAll("education") || undefined,
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -140,6 +141,24 @@ export default function TherapistFilterClient({ taxonomies }: Props) {
         </select>
       </div>
       <div>
+        <label htmlFor="education" className="block">
+          Education:
+        </label>
+        <select
+          name="education"
+          id="education"
+          multiple
+          defaultValue={filter.education}
+          className="w-full p-2 border rounded"
+        >
+          {education.map((edu) => (
+            <option key={edu} value={edu}>
+              {edu}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
         <label htmlFor="gender" className="block">
           Gender:
         </label>
@@ -156,10 +175,7 @@ export default function TherapistFilterClient({ taxonomies }: Props) {
           ))}
         </select>
       </div>
-      <button
-        type="submit"
-        className="px-4 py-2 bg-blue-500 rounded"
-      >
+      <button type="submit" className="px-4 py-2 bg-blue-500 rounded">
         Apply Filters
       </button>
     </form>
