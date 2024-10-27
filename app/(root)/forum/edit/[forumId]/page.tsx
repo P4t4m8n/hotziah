@@ -1,4 +1,5 @@
 import { getForumById } from "@/service/server/forum.server";
+import { getTaxonomies } from "@/service/server/taxonomy.server";
 import { getUsers } from "@/service/server/user.server";
 import { forumService } from "@/service/service/forum.service";
 
@@ -24,6 +25,9 @@ export default async function ForumEditServer({
   }
 
   const admins = await getUsers({ permission: "ADMIN" });
+  const taxonomies = await getTaxonomies({});
 
-  return <ForumEditIndex forum={forum} admins={admins} />;
+  return (
+    <ForumEditIndex forum={forum} admins={admins} taxonomies={taxonomies} />
+  );
 }

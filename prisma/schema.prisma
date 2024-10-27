@@ -114,14 +114,14 @@ model User {
 }
 
 model Forum {
-  id          String         @id @default(uuid())
-  title       String
-  description String
-  type        ForumType
-  subjects    ForumSubject[]
+  id          String   @id @default(uuid())
+  title       String   @default("New Forum")
+  description String   @default("New Forum")
+  type        String   @default("Public")
+  subjects    String[] @default(["General"])
   admins      User[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   posts       Post[]
 }
 
@@ -183,15 +183,15 @@ model Address {
 }
 
 model Questionnaire {
-  id             String     @id @default(uuid())
-  title          String     @default("New Questionnaire")
-  description    String     @default("New Questionnaire")
-  subjects       String[]   @default(["New"])
+  id             String    @id @default(uuid())
+  title          String    @default("New Questionnaire")
+  description    String    @default("New Questionnaire")
+  subjects       String[]  @default(["New"])
   authorId       String
-  author         User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author         User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   rootQuestionId String?
-  rootQuestion   Question?  @relation("RootQuestion", fields: [rootQuestionId], references: [id])
-  createdAt      DateTime   @default(now())
+  rootQuestion   Question? @relation("RootQuestion", fields: [rootQuestionId], references: [id])
+  createdAt      DateTime  @default(now())
 
   @@index([authorId])
 }

@@ -33,12 +33,18 @@ const ajax = async <T>(
       method,
       credentials: "include",
       headers: {
-        "Content-Type": "application/json",
+        ...(data instanceof FormData
+          ? {}
+          : { "Content-Type": "application/json" }),
       },
     };
 
     if (method !== "GET" && data) {
-      options.body = JSON.stringify(data);
+      if (data instanceof FormData) {
+        options.body = data;
+      } else {
+        options.body = JSON.stringify(data);
+      }
     } else if (method === "GET" && data) {
       const queryParams = new URLSearchParams(data as Record<string, string>);
       endpoint += `?${queryParams.toString()}`;

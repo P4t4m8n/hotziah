@@ -3,6 +3,7 @@ import { IUserDto } from "@/service/models/user.model";
 import { handleError } from "./error.util";
 import xss from "xss";
 import { Gender } from "@prisma/client";
+import { IForumDto } from "@/service/models/forum.model";
 
 /**
  * Sanitizes the therapist signup form data by extracting and sanitizing user, therapist, and address information.
@@ -141,6 +142,33 @@ export const sanitizeTherapistForm = (formData: FormData) => {
     return therapistDto;
   } catch (error) {
     const err = handleError(error, "Error sanitizing therapist form");
+    throw err;
+  }
+};
+
+export const sanitizeForumForm = (formData: FormData): IForumDto => {
+  try {
+    const title = xss(formData.get("title")?.toString() || "");
+    const description = xss(formData.get("description")?.toString() || "");
+    const type = xss(formData.get("type")?.toString() || "");
+    const subjects = formData
+      .getAll("subjects")
+      .map((subject) => xss(subject.toString()));
+    const admins = formData
+      .getAll("admins")
+      .map((admin) => xss(admin.toString()));
+
+    const forumDto: IForumDto = {
+      title,
+      description,
+      type,
+      subjects,
+      admins,
+    };
+
+    return forumDto;
+  } catch (error) {
+    const err = handleError(error, "Error sanitizing forum form");
     throw err;
   }
 };

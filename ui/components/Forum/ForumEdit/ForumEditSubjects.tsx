@@ -1,8 +1,7 @@
-import { ForumSubject } from "@prisma/client";
 
 interface Props {
-  subjects: ForumSubject[];
-  checkedSubjects: ForumSubject[];
+  subjects: string[];
+  checkedSubjects: string[];
 }
 export default function ForumEditSubjects({
   subjects,
@@ -11,7 +10,7 @@ export default function ForumEditSubjects({
   return (
     <div className="flex flex-col gap-2 p-2 px-4">
       <label className="font-medium" htmlFor="admins">
-        Select Admins
+        Select SUbjects
       </label>
       <div className="flex flex-col h-48 overflow-auto gap-4 ">
         {subjects.map((subject) => (

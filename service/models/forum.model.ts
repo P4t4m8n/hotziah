@@ -1,14 +1,13 @@
 import { IUserSmall, IUserSmallSelectSql } from "./user.model";
 import { IPost } from "./post.model";
 import { IEntity } from "./app.model";
-import { ForumSubject, ForumType } from "@prisma/client";
 import { ISelectSql } from "./db.model";
 
 interface IForumBase extends IEntity {
   title: string;
   description: string;
-  type: ForumType;
-  subjects: ForumSubject[];
+  type: string;
+  subjects: string[];
   createdAt?: Date;
 }
 
@@ -26,8 +25,8 @@ export interface IForumDto extends IForumBase {
 export interface IForumFilter extends IEntity {
   title?: string;
   postName?: string;
-  type?: ForumType;
-  subject?: ForumSubject[];
+  type?: string;
+  subject?: string[];
   take?: number;
   skip?: number;
 }
@@ -118,6 +117,3 @@ export interface IForumSelectSql extends ISelectSql {
     };
   };
 }
-
-export const FORUM_TYPE: ForumType[] = Object.values(ForumType);
-export const FORUM_SUBJECTS: ForumSubject[] = Object.values(ForumSubject);

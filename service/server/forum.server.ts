@@ -3,27 +3,14 @@
 import { prisma } from "@/prisma/prismaClient";
 import { IForum, IForumDto, IForumFilter } from "../models/forum.model";
 import { handleError } from "./util/error.util";
-import { ForumSubject, ForumType } from "@prisma/client";
 import { forumService } from "../service/forum.service";
-import { redirect } from "next/navigation";
 
-export const saveForum = async (formData: FormData): Promise<void> => {
-  const forumToSave: IForumDto = {
-    id: formData.get("id") as string,
-    title: formData.get("title") as string,
-    description: formData.get("description") as string,
-    type: formData.get("type") as ForumType,
-    subjects: formData.getAll("subjects") as ForumSubject[],
-    admins: formData.getAll("admins") as string[],
-  };
-
-  if (forumToSave.id) {
-    await updateForum(forumToSave);
+export const saveForum = async (formDto: IForumDto): Promise<IForum> => {
+  if (formDto.id) {
+    return await updateForum(formDto);
   } else {
-    await createForum(forumToSave);
+    return await createForum(formDto);
   }
-
-  redirect("/forum");
 };
 
 export const getForums = async (filter: IForumFilter): Promise<IForum[]> => {

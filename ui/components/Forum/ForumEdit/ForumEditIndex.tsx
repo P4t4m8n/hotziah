@@ -1,3 +1,5 @@
+"use client";
+
 import { IUserSmall } from "@/service/models/user.model";
 import Input from "../../General/Input";
 import {
@@ -9,19 +11,18 @@ import ForumEditActions from "./ForumEditActions";
 import ForumEditAdmins from "./ForumEditAdmins";
 import TextArea from "../../General/TextArea";
 import SelectSingle from "../../General/SelectSingle";
-import {
-  FORUM_SUBJECTS,
-  FORUM_TYPE,
-  IForum,
-} from "@/service/models/forum.model";
-import { saveForum } from "@/service/server/forum.server";
+import { IForum } from "@/service/models/forum.model";
 import ForumEditSubjects from "./ForumEditSubjects";
+import { TTaxonomyName } from "@/service/models/taxonomy.model";
+import { apiClientService } from "@/service/client/api.client";
+import { redirect } from "next/navigation";
 
 interface Props {
   forum: IForum;
   admins: IUserSmall[];
+  taxonomies: Record<TTaxonomyName, string[]>;
 }
-export default function ForumEditIndex({ forum, admins }: Props) {
+export default function ForumEditIndex({ forum, admins, taxonomies }: Props) {
   const input: IInputProps = {
     divStyle: "flex flex-col gap-2 p-2 px-4",
     labelStyle: "font-medium",
@@ -47,14 +48,34 @@ export default function ForumEditIndex({ forum, admins }: Props) {
     inputStyle: "bg-slate-100 rounded-lg p-1 px-6",
     labelText: "Forum Type",
     name: "type",
-    options: FORUM_TYPE,
+    options: ["public", "private", "hidden", " restricted", "staff", "support"],
     value: forum.type,
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let _forum: IForum | undefined = undefined;
+    try {
+      const formData = new FormData(e.currentTarget);
+      if (forum.id) {
+        _forum = await apiClientService.put(`forum/${forum.id}`, formData);
+      } else {
+        _forum = await apiClientService.post("forum", formData);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (_forum?.id) {
+        redirect(`/forum/${_forum?.id}`);
+      }
+    }
   };
 
   return (
     <form
       className="flex flex-col gap-4 w-forum-edit h-post-edit-list overflow-auto no-scrollbar p-4 shadow-xl rounded-lg m-4 self-center"
-      action={saveForum}
+      onSubmit={onSubmit}
     >
       <h1 className="text-4xl font-semibold">Create Forum</h1>
 
@@ -65,7 +86,7 @@ export default function ForumEditIndex({ forum, admins }: Props) {
       <SelectSingle selectProps={selectProps} />
 
       <ForumEditSubjects
-        subjects={FORUM_SUBJECTS}
+        subjects={taxonomies.subjects}
         checkedSubjects={forum.subjects}
       />
 
