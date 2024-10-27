@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { therapistId: string } }
+  { params }: { params: Promise<{ therapistId: string }> }
 ) {
   try {
     const { status } = await req.json();

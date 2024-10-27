@@ -11,9 +11,9 @@ export async function generateStaticParams() {
 export default async function ForumEditServer({
   params,
 }: {
-  params: { forumId: string };
+  params: Promise<{ forumId: string }>;
 }) {
-  const { forumId } = params;
+  const { forumId } = await params;
 
   let forum;
 

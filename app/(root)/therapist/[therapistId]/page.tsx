@@ -8,7 +8,7 @@ export async function generateStaticParams() {
 export default async function TherapistDetailsServer({
   params,
 }: {
-  params: { therapistId: string };
+  params: Promise<{ therapistId: string }>;
 }) {
   const { therapistId } = await params;
   //Get empty therapist to prevent props error

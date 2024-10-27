@@ -4,10 +4,10 @@ import { ISelectSql, IWhereSql } from "./db.model";
 
 export interface IUserSmall extends IEntity {
   imgUrl: string;
+  username: string;
 }
 
 export interface IUser extends IUserSmall {
-  username: string;
   imgUrl: string;
   email: string;
   permission: Permission;

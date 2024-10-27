@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { likeId: string } }
+  { params }: { params: Promise<{ likeId: string }> }
 ) {
   try {
-    const { likeId } = params;
+    const { likeId } = await params;
 
     const isDeleted = await deleteLike(likeId);
     if (!isDeleted) {

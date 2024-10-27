@@ -3,8 +3,7 @@ import { ITherapist } from "@/service/models/therapists.model";
 import { addressService } from "@/service/service/address.service";
 import AddressEdit from "./AddressEdit";
 import CheckboxList from "./CheckboxList";
-import { ITaxonomy } from "@/service/models/taxonomy.model";
-import { taxonomyService } from "@/service/service/taxonomy.service";
+import { TTaxonomyName } from "@/service/models/taxonomy.model";
 import TherapistEditInput from "./TherapistEditInput";
 import { saveTherapistForm } from "@/service/server/therapist.server";
 import { useActionState } from "react";
@@ -13,14 +12,13 @@ import { useUser } from "@/ui/hooks/useUser";
 
 interface Props {
   therapist: ITherapist;
-  taxonomies: ITaxonomy[];
+  taxonomies: Record<TTaxonomyName, string[]>;
 }
 
 export default function TherapistEdit({ therapist, taxonomies }: Props) {
   const user = useUser().user;
   const [state, editAction] = useActionState(saveTherapistForm, undefined);
   console.log("state:", state);
-  const taxonomyMap = taxonomyService.transformTaxonomy(taxonomies);
 
   let { address } = therapist;
 
@@ -48,19 +46,19 @@ export default function TherapistEdit({ therapist, taxonomies }: Props) {
       <AddressEdit addressProp={address} />
 
       <CheckboxList
-        list={taxonomyMap.subjects}
+        list={taxonomies.subjects}
         name="subjects"
         checkAgainst={subjects}
         title="Subjects"
       />
       <CheckboxList
-        list={taxonomyMap.languages}
+        list={taxonomies.languages}
         name="languages"
         checkAgainst={languages}
         title="Languages"
       />
       <CheckboxList
-        list={taxonomyMap.meetingTypes}
+        list={taxonomies.meetingTypes}
         name="meetingType"
         checkAgainst={meetingType}
         title="Meeting Types"
@@ -69,7 +67,7 @@ export default function TherapistEdit({ therapist, taxonomies }: Props) {
       <TherapistEditGender gender={gender} />
 
       <CheckboxList
-        list={taxonomyMap.education}
+        list={taxonomies.education}
         name="education"
         checkAgainst={education}
         title="Education"

@@ -2,6 +2,7 @@ import { ITherapist } from "@/service/models/therapists.model";
 import TherapistList from "./TherapistList";
 import TherapistHeader from "./TherapistHeader";
 import TherapistListPagination from "./TherapistListPagination";
+import { TTaxonomyName } from "@/service/models/taxonomy.model";
 
 interface Props {
   therapists: ITherapist[];
@@ -10,12 +11,17 @@ interface Props {
     pageSize: number;
     page: number;
   };
+  taxonomies: Record<TTaxonomyName, string[]>;
 }
 
-export default function TherapistIndex({ therapists, paginationProps }: Props) {
+export default function TherapistIndex({
+  therapists,
+  paginationProps,
+  taxonomies,
+}: Props) {
   return (
     <div className="block h-auto">
-      <TherapistHeader />
+      <TherapistHeader taxonomies={taxonomies} />
       <TherapistList therapists={therapists} />
       <TherapistListPagination {...paginationProps} />
     </div>

@@ -10,15 +10,14 @@ export async function generateStaticParams() {
 export default async function ForumDetailsServer({
   params,
 }: {
-  params: { forumId: string };
+  params: Promise<{ forumId: string }>;
 }) {
-  const { forumId } = params;
-  
+  const { forumId } = await params;
+
   //Get empty forum to prevent props error
   let forum = forumService.getEmpty();
   //Only fetch when there is a real ID. temp ID exist for SSG
   if (forumId !== "1") forum = await getForumById(forumId);
 
-  
   return <ForumDetailsIndex forum={forum} />;
 }

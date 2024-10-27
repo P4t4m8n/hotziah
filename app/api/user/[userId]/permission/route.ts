@@ -6,13 +6,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const { userId } = params;
+    const { userId } = await params;
     const { permission }: { permission: Permission } = await req.json();
     const admin = await getSessionUser();
-  
 
     if (!admin || admin.permission !== "ADMIN") {
       const err = handleRouteError("Unauthorized", 401);

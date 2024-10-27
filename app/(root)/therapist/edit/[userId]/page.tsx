@@ -9,7 +9,7 @@ export async function generateStaticParams() {
 export default async function TherapistEditServer({
   params,
 }: {
-  params: { userId: string };
+  params: Promise<{ userId: string }>;
 }) {
   const { userId } = await params;
 

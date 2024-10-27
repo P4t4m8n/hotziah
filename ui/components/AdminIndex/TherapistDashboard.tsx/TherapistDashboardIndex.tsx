@@ -5,7 +5,7 @@ import {
 import DashboardList from "../DashboardList";
 import TherapistListPagination from "../../TherapistIndex/TherapistListPagination";
 import TherapistFilterClient from "../../TherapistIndex/TherapistFilter";
-import {  TTaxonomyName } from "@/service/models/taxonomy.model";
+import { TTaxonomyName } from "@/service/models/taxonomy.model";
 
 interface props {
   therapists: ITherapist[];

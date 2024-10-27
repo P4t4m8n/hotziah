@@ -1,16 +1,16 @@
-import { LOGIN_INPUTS } from "../../constants/formInputs";
-import { TInputUserFormKeys } from "../../models/app.model";
+// import { LOGIN_INPUTS } from "../../constants/formInputs";
+// import { TInputUserFormKeys } from "../../models/app.model";
 import { IUserDto } from "../../models/user.model";
 
-export const getLoginInputs = (
-  isLogin: boolean,
-  errors: Map<TInputUserFormKeys, string>
-) => {
-  const inputs = isLogin ? LOGIN_INPUTS.slice(1) : LOGIN_INPUTS;
-  return inputs.map((input) => {
-    return { ...input, error: errors.get(input.name) };
-  });
-};
+// export const getLoginInputs = (
+//   isLogin: boolean,
+//   errors: Map<TInputUserFormKeys, string>
+// ) => {
+//   const inputs = isLogin ? LOGIN_INPUTS.slice(1) : LOGIN_INPUTS;
+//   return inputs.map((input) => {
+//     return { ...input, error: errors.get(input.name) };
+//   });
+// };
 
 export const formDataToUserDTO = (formData: FormData): IUserDto => {
   const email = formData.get("email") as string;

@@ -15,9 +15,9 @@ export async function generateStaticParams() {
 export default async function PostEditServer({
   params,
 }: {
-  params: { postId: string; forumId: string };
+  params: Promise<{ postId: string; forumId: string }>;
 }) {
-  const { postId, forumId } = params;
+  const { postId, forumId } = await params;
 
   let post: IPost;
   if (postId === "new") {

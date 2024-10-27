@@ -10,9 +10,9 @@ export async function generateStaticParams() {
 export default async function PostDetailsServer({
   params,
 }: {
-  params: { postId: string };
+  params: Promise<{ postId: string }>;
 }) {
-  const { postId } = params;
+  const { postId } = await params;
 
   //Get empty post to prevent props error
   let post = postService.getEmpty({ id: "", username: "", imgUrl: "" }, "1");

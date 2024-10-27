@@ -1,8 +1,6 @@
-import { Languages, MeetingType, TherapistEducation } from "@prisma/client";
-
 interface Props {
   title: string;
-  list: (TherapistEducation | MeetingType | Languages | string)[];
+  list: string[];
 }
 export default function FieldsList({ title, list }: Props) {
   return (

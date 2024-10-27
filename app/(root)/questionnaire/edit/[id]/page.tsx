@@ -6,9 +6,9 @@ export async function generateStaticParams() {
 export default async function QuestionnaireEditServer({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>
 }) {
-  const { id } = params;
+  const { id } = await params;
 
   // let questionnaire;
   if (id !== "new") {

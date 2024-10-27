@@ -1,4 +1,3 @@
-import { ITaxonomy } from "@/service/models/taxonomy.model";
 import { ITherapistFilter } from "@/service/models/therapists.model";
 import { getTaxonomies } from "@/service/server/taxonomy.server";
 import { getTherapists } from "@/service/server/therapist.server";
@@ -7,7 +6,7 @@ import TherapistDashboardIndex from "@/ui/components/AdminIndex/TherapistDashboa
 export default async function TherapistDashBoard({
   searchParams,
 }: {
-  searchParams?: ITherapistFilter | null;
+  searchParams?: Promise<ITherapistFilter> | undefined;
 }) {
   const x = await searchParams;
   const filter: ITherapistFilter =
@@ -26,14 +25,14 @@ export default async function TherapistDashBoard({
         }
       : { page: 1, take: 10 };
 
-  const pendingTherapists = await getTherapists(filter);
+  const { therapists, total } = await getTherapists(filter);
 
   const taxonomies = await getTaxonomies({});
 
   return (
     <TherapistDashboardIndex
-      therapists={pendingTherapists.therapists}
-      total={pendingTherapists.total}
+      therapists={therapists}
+      total={total}
       filter={filter}
       taxonomies={taxonomies}
     />

@@ -1,34 +1,38 @@
 import { ITherapistFilter } from "@/service/models/therapists.model";
+import { getTaxonomies } from "@/service/server/taxonomy.server";
 import { getTherapists } from "@/service/server/therapist.server";
 import TherapistIndex from "@/ui/components/TherapistIndex/TherapistIndex";
 
 export default async function TherapistServer({
   searchParams,
 }: {
-  searchParams?: ITherapistFilter | null;
+  searchParams?: Promise<ITherapistFilter> | undefined;
 }) {
   //await searchParams as new Next 15 feature to ignore error
+  const searchParamsValue = await searchParams;
   const filter: ITherapistFilter =
-    searchParams && Object.keys(await searchParams).length > 0
+    searchParamsValue && Object.keys(searchParamsValue).length > 0
       ? {
           subjects:
-            typeof searchParams.subjects === "string"
-              ? [searchParams.subjects]
+            typeof searchParamsValue.subjects === "string"
+              ? [searchParamsValue.subjects]
               : undefined,
           languages:
-            typeof searchParams.languages === "string"
-              ? [searchParams.languages]
+            typeof searchParamsValue.languages === "string"
+              ? [searchParamsValue.languages]
               : undefined,
           meetingType:
-            typeof searchParams.meetingType === "string"
-              ? [searchParams.meetingType]
+            typeof searchParamsValue.meetingType === "string"
+              ? [searchParamsValue.meetingType]
               : undefined,
-          firstName: searchParams.firstName
-            ? searchParams.firstName
+          firstName: searchParamsValue.firstName
+            ? searchParamsValue.firstName
             : undefined,
-          lastName: searchParams.lastName ? searchParams.lastName : undefined,
-          page: searchParams.page ? searchParams.page : 1,
-          take: searchParams.take ? searchParams.take : 10,
+          lastName: searchParamsValue.lastName
+            ? searchParamsValue.lastName
+            : undefined,
+          page: searchParamsValue.page ? searchParamsValue.page : 1,
+          take: searchParamsValue.take ? searchParamsValue.take : 10,
         }
       : { page: 1, take: 10 };
   filter.status = "ACTIVE";
@@ -39,7 +43,12 @@ export default async function TherapistServer({
     page: filter.page || 1,
   };
 
+  const taxonomies = await getTaxonomies({});
   return (
-    <TherapistIndex therapists={therapists} paginationProps={paginationProps} />
+    <TherapistIndex
+      therapists={therapists}
+      paginationProps={paginationProps}
+      taxonomies={taxonomies}
+    />
   );
 }

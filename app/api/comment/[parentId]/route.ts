@@ -7,9 +7,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { parentId: string } }
+  { params }: { params: Promise<{ parentId: string }> }
 ) {
-  const { parentId } = params;
+  const { parentId } = await params;
 
   try {
     const comments = await getComments({ parentId });

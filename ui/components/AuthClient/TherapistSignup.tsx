@@ -6,18 +6,16 @@ import AddressEdit from "../TherapistIndex/TherapistEdit/AddressEdit";
 import CheckboxList from "../TherapistIndex/TherapistEdit/CheckboxList";
 import TherapistEditGender from "../TherapistIndex/TherapistEdit/TherapistEditGender";
 import { therapistSignup } from "@/service/server/auth.server";
-import { ITaxonomy } from "@/service/models/taxonomy.model";
-import { taxonomyService } from "@/service/service/taxonomy.service";
 import { useActionState } from "react";
+import { TTaxonomyName } from "@/service/models/taxonomy.model";
 
 interface Props {
-  taxonomies: ITaxonomy[];
+  taxonomies: Record<TTaxonomyName, string[]>;
 }
 
 export default function TherapistSignup({ taxonomies }: Props) {
-  const taxonomyMap = taxonomyService.transformTaxonomy(taxonomies);
   const [state, signupAction] = useActionState(therapistSignup, undefined);
-  console.log("state:", state)
+  console.log("state:", state);
 
   return (
     <form
@@ -31,22 +29,22 @@ export default function TherapistSignup({ taxonomies }: Props) {
       <AddressEdit />
 
       <CheckboxList
-        list={taxonomyMap["subjects"]}
+        list={taxonomies.subjects}
         title="Subjects"
         name="subjects"
       />
       <CheckboxList
-        list={taxonomyMap["languages"]}
+        list={taxonomies.languages}
         title="Languages"
         name="languages"
       />
       <CheckboxList
-        list={taxonomyMap["meetingTypes"]}
+        list={taxonomies.meetingTypes}
         title="Meeting Types"
         name="meetingType"
       />
       <CheckboxList
-        list={taxonomyMap["education"]}
+        list={taxonomies.education}
         title="Education"
         name="education"
       />
