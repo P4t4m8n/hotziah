@@ -2,8 +2,10 @@ import { IInputProps } from "@/service/models/app.model";
 
 interface Props {
   inputProps: IInputProps;
+  error?: string;
 }
-export default function Input({ inputProps }: Props) {
+export default function Input({ inputProps, error }: Props) {
+  console.log("error:", error);
   const {
     divStyle,
     labelStyle,
@@ -17,7 +19,8 @@ export default function Input({ inputProps }: Props) {
   return (
     <div className={divStyle}>
       <label className={labelStyle} htmlFor={name}>
-        {labelText}
+        <h3>{labelText}</h3>
+        {error && <p className="text-red-500 text-sm">{error}</p>}
       </label>
       <input
         id={name}

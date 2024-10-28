@@ -1,3 +1,4 @@
+
 declare type TInput = {
   type: "text" | "password" | "email" | "tel";
   placeHolder?: string;
@@ -20,3 +21,10 @@ declare type PostToSave = {
     tags: string[];
   };
 };
+
+declare type TForumEditInputs =
+  | "title"
+  | "description"
+  | "type"
+  | "admins"
+  | "subjects";

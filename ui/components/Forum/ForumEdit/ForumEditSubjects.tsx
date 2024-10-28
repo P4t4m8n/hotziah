@@ -1,17 +1,17 @@
-
 interface Props {
   subjects: string[];
   checkedSubjects: string[];
+  error?: string;
 }
 export default function ForumEditSubjects({
   subjects,
   checkedSubjects,
+  error,
 }: Props) {
   return (
     <div className="flex flex-col gap-2 p-2 px-4">
-      <label className="font-medium" htmlFor="admins">
-        Select SUbjects
-      </label>
+      <h3>Tags</h3>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
       <div className="flex flex-col h-48 overflow-auto gap-4 ">
         {subjects.map((subject) => (
           <div key={subject} className="flex items-center gap-4">

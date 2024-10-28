@@ -1,3 +1,5 @@
+import { APIError } from "./util/APIError";
+
 const BASE_URL = "//localhost:3000/api/";
 
 interface IApiClientService {
@@ -51,24 +53,22 @@ const ajax = async <T>(
     }
 
     const res = await fetch(url, options);
-
     if (!res.ok) {
-      if (res.status === 401) {
-        sessionStorage.clear();
-        throw new Error("Unauthorized");
+      const errorResponse = await res.json().catch(() => null);
+      //Validation Error
+      if (res.status === 422) {
+        throw new APIError(
+          "Validation Error",
+          res.status,
+          errorResponse || res.statusText
+        );
+      } else {
+        throw new Error(res.statusText);
       }
-
-      if (res.status === 409) {
-        const errorBody = await res.json();
-        throw new Error(errorBody.message, { cause: 409 });
-      }
-
-      throw new Error(res.statusText);
     }
 
     return (await res.json()) as T;
   } catch (err) {
-    console.error("HTTP Service Error:", err);
     throw err;
   }
 };

@@ -2,15 +2,17 @@ import { ISelectSingleProps } from "@/service/models/app.model";
 
 interface Props {
   selectProps: ISelectSingleProps;
+  error: string;
 }
 
-export default function SelectSingle({ selectProps }: Props) {
+export default function SelectSingle({ selectProps, error }: Props) {
   const { divStyle, labelStyle, inputStyle, labelText, name, value, options } =
-  selectProps;
+    selectProps;
   return (
     <div className={divStyle}>
       <label className={labelStyle} htmlFor={name}>
-        {labelText}
+        <h3>{labelText}</h3>
+        {error && <p className="text-red-500 text-sm">{error}</p>}
       </label>
       <select
         className={inputStyle}

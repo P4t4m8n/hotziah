@@ -32,6 +32,7 @@ export interface IUserFilter extends IEntity {
   isTherapist?: boolean;
   firstName?: string;
   lastName?: string;
+  permission?: Permission;
 }
 
 export interface IUserWhereSql extends IWhereSql {

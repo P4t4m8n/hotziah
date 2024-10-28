@@ -4,12 +4,14 @@ import Image from "next/image";
 interface Props {
   admins: IUserSmall[];
   forumAdmins: IUserSmall[];
+  error: string;
 }
-export default function ForumEditAdmins({ admins, forumAdmins }: Props) {
+export default function ForumEditAdmins({ admins, forumAdmins, error }: Props) {
   return (
     <div className="flex flex-col gap-2 p-2 px-4">
       <label className="font-medium" htmlFor="admins">
-        Select Admins
+        <h3>Select admins</h3>
+        {error && <p className="text-red-500 text-sm">{error}</p>}
       </label>
       <ul className="flex flex-col h-48 overflow-auto gap-4 ">
         {admins.map((user) => (

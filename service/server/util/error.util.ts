@@ -11,10 +11,10 @@ export const handleRouteError = (
   errorStr: string,
   errorCode: number,
   error?: unknown
-): Record<"message" | "status", string | number> => {
+): Record<"error" | "status", string | number> => {
   loggerService.error(errorStr, error as Error);
   return {
-    message: `${errorStr}: ${error instanceof Error ? error : String(error)}`,
+    error: `${errorStr}: ${error instanceof Error ? error : String(error)}`,
     status: errorCode,
   };
 };

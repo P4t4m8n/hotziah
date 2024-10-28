@@ -15,7 +15,10 @@ import { IForum } from "@/service/models/forum.model";
 import ForumEditSubjects from "./ForumEditSubjects";
 import { TTaxonomyName } from "@/service/models/taxonomy.model";
 import { apiClientService } from "@/service/client/api.client";
-import { redirect } from "next/navigation";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { APIError } from "@/service/client/util/APIError";
 
 interface Props {
   forum: IForum;
@@ -23,9 +26,18 @@ interface Props {
   taxonomies: Record<TTaxonomyName, string[]>;
 }
 export default function ForumEditIndex({ forum, admins, taxonomies }: Props) {
+  const [errors, setErrors] = useState<Record<TForumEditInputs, string>>({
+    title: "",
+    description: "",
+    type: "",
+    admins: "",
+    subjects: "",
+  });
+
+  const router = useRouter();
   const input: IInputProps = {
     divStyle: "flex flex-col gap-2 p-2 px-4",
-    labelStyle: "font-medium",
+    labelStyle: "font-medium h-10",
     inputStyle: "bg-slate-100 rounded-lg p-1 px-6",
     labelText: "Forum Title",
     name: "title",
@@ -63,11 +75,15 @@ export default function ForumEditIndex({ forum, admins, taxonomies }: Props) {
       } else {
         _forum = await apiClientService.post("forum", formData);
       }
+
+      router.push(`/forum/${_forum?.id}`);
     } catch (error) {
-      console.error(error);
-    } finally {
-      if (_forum?.id) {
-        redirect(`/forum/${_forum?.id}`);
+      if ((error as APIError).status === 422) {
+        setErrors(
+          (error as APIError).response as Record<TForumEditInputs, string>
+        );
+      } else {
+        console.error(error);
       }
     }
   };
@@ -79,18 +95,23 @@ export default function ForumEditIndex({ forum, admins, taxonomies }: Props) {
     >
       <h1 className="text-4xl font-semibold">Create Forum</h1>
 
-      <Input inputProps={input} />
+      <Input inputProps={input} error={errors.title} />
 
-      <TextArea textAreaProps={textArea} />
+      <TextArea textAreaProps={textArea} error={errors.description} />
 
-      <SelectSingle selectProps={selectProps} />
+      <SelectSingle selectProps={selectProps} error={errors.type} />
 
       <ForumEditSubjects
         subjects={taxonomies.subjects}
         checkedSubjects={forum.subjects}
+        error={errors.subjects}
       />
 
-      <ForumEditAdmins admins={admins} forumAdmins={forum.admins} />
+      <ForumEditAdmins
+        admins={admins}
+        forumAdmins={forum.admins}
+        error={errors.admins}
+      />
 
       <ForumEditActions />
     </form>
