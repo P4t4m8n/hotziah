@@ -1,4 +1,5 @@
 import { IForumDto } from "../models/forum.model";
+import { validationService } from "./util.validation";
 /**
  * Validates the provided forum data transfer object.
  * Checks the title, description, type, subjects, and admins fields for validity.
@@ -9,75 +10,39 @@ import { IForumDto } from "../models/forum.model";
 export const validateForumDto = (forumDto: Partial<IForumDto>): string[] => {
   const errors: string[] = [];
 
-  const titleError = _validateTitle(forumDto.title || "");
+  const titleError = validationService.validateLength(
+    forumDto.title || "",
+    3,
+    "Title"
+  );
   if (titleError) errors.push(titleError);
 
-  const descriptionError = _validateDescription(forumDto.description || "");
+  const descriptionError = validationService.validateLength(
+    forumDto.description || "",
+    40,
+    "Description"
+  );
   if (descriptionError) errors.push(descriptionError);
 
-  const typeError = _validateType(forumDto.type || "");
+  const typeError = validationService.validateLettersAndNumbers(
+    forumDto.type || "",
+    "Type"
+  );
   if (typeError) errors.push(typeError);
 
-  const subjectsError = _validateSubjects(forumDto.subjects || []);
+  const subjectsError = validationService.validateArrayLength(
+    forumDto.subjects || [],
+    1,
+    "Subject"
+  );
   if (subjectsError) errors.push(subjectsError);
 
-  const adminsError = _validateAdmins(forumDto.admins || []);
+  const adminsError = validationService.validateArrayLength(
+    forumDto.admins || [],
+    1,
+    "Admin"
+  );
   if (adminsError) errors.push(adminsError);
 
   return errors;
-};
-/**
- * Validates the title input.
- * @param title - The title to validate.
- * @returns A string with an error message if the title is invalid, otherwise null.
- */
-const _validateTitle = (title: string): string | null => {
-  if (title.trim().length < 3) {
-    return "Title must be at least 3 characters long.";
-  }
-  return null;
-};
-/**
- * Validates the description input.
- * @param description - The description to validate.
- * @returns A string with an error message if the description is invalid, otherwise null.
- */
-const _validateDescription = (description: string): string | null => {
-  if (description.trim().length < 40) {
-    return "Description must be at least 40 characters long.";
-  }
-  return null;
-};
-/**
- * Validates the type input.
- * @param type - The type to validate.
- * @returns A string with an error message if the type is invalid, otherwise null.
- */
-const _validateType = (type: string): string | null => {
-  if (type.trim().length < 2 || !/^[a-zA-Z0-9]+$/.test(type)) {
-    return "Type must be at least 2 characters long and contain only letters and numbers.";
-  }
-  return null;
-};
-/**
- * Validates the subjects array.
- * @param subjects - The subjects array to validate.
- * @returns A string with an error message if the subjects array is invalid, otherwise null.
- */
-const _validateSubjects = (subjects: string[]): string | null => {
-  if (subjects.length < 1) {
-    return "At least one subject is required.";
-  }
-  return null;
-};
-/**
- * Validates the admins array.
- * @param admins - The admins array to validate.
- * @returns A string with an error message if the admins array is invalid, otherwise null.
- */
-const _validateAdmins = (admins: string[]): string | null => {
-  if (admins.length < 1) {
-    return "At least one admin is required.";
-  }
-  return null;
 };

@@ -4,7 +4,6 @@ import {
   IPostSelectSql,
   IPostSmallSelectSql,
 } from "../models/post.model";
-import { IUserSmall } from "../models/user.model";
 import { userService } from "./user.service";
 
 const toDTO = (post: IPost): IPostDto => {
@@ -12,14 +11,15 @@ const toDTO = (post: IPost): IPostDto => {
 
   return { ...rest, authorId: author.id! };
 };
-const getEmpty = (author: IUserSmall, forumId: string): IPost => {
+const getEmpty = (forumId: string): IPost => {
   return {
     id: "",
     content: "",
-    author,
+    author: userService.getEmptyUser(),
     title: "",
     forumId,
     comments: [],
+    tags: [],
   };
 };
 const buildSmallSql = (): IPostSmallSelectSql => {
@@ -28,6 +28,10 @@ const buildSmallSql = (): IPostSmallSelectSql => {
     title: true,
     content: true,
     forumId: true,
+    tags: true,
+    isPinned: true,
+    createdAt: true,
+    updatedAt: true,
     author: {
       select: userService.buildSmallSql(),
     },
@@ -39,12 +43,17 @@ const buildSql = (parentId?: string): IPostSelectSql => {
     title: true,
     content: true,
     forumId: true,
+    tags: true,
+    isPinned: true,
+    createdAt: true,
+    updatedAt: true,
     author: {
       select: userService.buildSmallSql(),
     },
     _count: {
       select: {
         comments: true,
+        likes: true,
       },
     },
     comments: {
@@ -56,15 +65,12 @@ const buildSql = (parentId?: string): IPostSelectSql => {
         createdAt: true,
         postId: true,
         author: {
-          select: {
-            id: true,
-            username: true,
-            imgUrl: true,
-          },
+          select: userService.buildSmallSql(),
         },
         _count: {
           select: {
             replies: true,
+            likes: true,
           },
         },
       },

@@ -5,6 +5,8 @@ import { ISelectSql, IWhereSql } from "./db.model";
 export interface IUserSmall extends IEntity {
   imgUrl: string;
   username: string;
+  permission?: Permission;
+  therapistType?: string | null;
 }
 
 export interface IUser extends IUserSmall {
@@ -23,7 +25,6 @@ export interface IUserDto extends IUser {
 
 export interface IUserFilter extends IEntity {
   username?: string;
-  permission?: Permission;
   id?: string;
   email?: string;
   take?: number;
@@ -58,4 +59,6 @@ export interface IUserSelectSql extends IUserSmallSelectSql {
 export interface IUserSmallSelectSql extends ISelectSql {
   username: boolean;
   imgUrl: boolean;
+  permission: boolean;
+  therapistType: boolean;
 }

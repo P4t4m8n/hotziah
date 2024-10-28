@@ -32,7 +32,7 @@ export default function PostDetailsClient({ post }: props) {
   }, []);
 
   return (
-    <div className=" w-full h-full p-4 flex gap-8 ">
+    <div className=" w-full h-full p-8 flex flex-col gap-8 ">
       <PostCmp post={post} comments={comments} submitComment={submitComment} />
 
       <div className="flex flex-col gap-4 w-full">

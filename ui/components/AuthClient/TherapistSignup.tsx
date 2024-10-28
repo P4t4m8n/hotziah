@@ -3,7 +3,7 @@
 import { THERAPIST_SIGN_UP_INPUTS } from "@/service/constants/formInputs";
 import TherapistEditInput from "../TherapistIndex/TherapistEdit/TherapistEditInput";
 import AddressEdit from "../TherapistIndex/TherapistEdit/AddressEdit";
-import CheckboxList from "../TherapistIndex/TherapistEdit/CheckboxList";
+import CheckboxList from "../General/CheckboxList";
 import TherapistEditGender from "../TherapistIndex/TherapistEdit/TherapistEditGender";
 import { therapistSignup } from "@/service/server/auth.server";
 import { useActionState } from "react";

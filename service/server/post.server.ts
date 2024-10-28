@@ -4,7 +4,8 @@ import { prisma } from "@/prisma/prismaClient";
 import { IPost, IPostDto, IPostFilter } from "../models/post.model";
 import { handleError } from "./util/error.util";
 import { postService } from "../service/post.service";
-import { userService } from "../service/user.service";
+import { sanitizePostForm } from "./util/sanitization.util";
+import { unstable_cache } from "next/cache";
 
 export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
   try {
@@ -34,99 +35,46 @@ export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
   }
 };
 
-export const getPostBtId = async (
-  id: string,
-  userId?: string
-): Promise<IPost> => {
-  try {
-    const post = await prisma.post.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: userService.buildSmallSql(),
-        },
-        _count: {
-          select: {
-            comments: true,
-            likes: true,
-          },
-        },
-        likes: {
-          where: { userId: userId || "" },
-          select: {
-            id: true,
-            userId: true,
-            postId: true,
-            createdAt: true,
-            articleId: true,
-            user: {
-              select: userService.buildSmallSql(),
-            },
-          },
-        },
-        comments: {
-          where: { parentId: null },
-          select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            postId: true,
-            likes: {
-              where: { userId: userId || "" },
-              select: {
-                id: true,
-                userId: true,
-                commentId: true,
-                createdAt: true,
-                user: {
-                  select: userService.buildSmallSql(),
-                },
-              },
-            },
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                replies: true,
-                likes: true,
-              },
-            },
-          },
-        },
-      },
-    });
+export const getPostBtId = unstable_cache(
+  async (id: string): Promise<IPost> => {
+    try {
+      const post = await prisma.post.findUnique({
+        where: { id },
+        select: postService.buildSql(),
+      });
 
-    if (!post) {
-      throw new Error("Post not found");
+      if (!post) {
+        throw new Error("Post not found");
+      }
+
+      return post;
+    } catch (error) {
+      throw handleError(error, "Error getting post in post.server.ts");
     }
+  },
+  [],
+  { revalidate: 60 * 1000 * 60, tags: ["post"] }
+);
 
-    return post;
-  } catch (error) {
-    throw handleError(error, "Error getting post in post.server.ts");
-  }
-};
+export const savePost = async (data: PostToSave): Promise<IPost> => {
+  const { title, content, tags } = sanitizePostForm(data.dataToSanitize);
 
-export const savePost = async (post: IPost): Promise<IPost> => {
-  const dto = postService.toDTO(post);
-  if (post.id) {
-    return await updatePost(dto);
+  const postDto: IPostDto = {
+    title,
+    content,
+    tags,
+    forumId: data.forumId,
+    authorId: data.authorId,
+  };
+  console.log("postDto:", postDto);
+  if (postDto.id) {
+    return await updatePost(postDto);
   } else {
-    return await createPost(dto);
+    return await createPost(postDto);
   }
 };
 
 export const createPost = async (post: IPostDto): Promise<IPost> => {
-  //TODO: add the likes and comments likes as empty array instead of the DB query
   try {
     const newPost = await prisma.post.create({
       data: {
@@ -134,57 +82,10 @@ export const createPost = async (post: IPostDto): Promise<IPost> => {
         content: post.content,
         forumId: post.forumId,
         authorId: post.authorId,
+        tags: post.tags,
+        isPinned: post.isPinned || false,
       },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: userService.buildSmallSql(),
-        },
-        _count: {
-          select: {
-            comments: true,
-            likes: true,
-          },
-        },
-        comments: {
-          select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            postId: true,
-            likes: {
-              where: { userId: "" },
-              select: {
-                id: true,
-                userId: true,
-                postId: true,
-                createdAt: true,
-                articleId: true,
-                user: {
-                  select: userService.buildSmallSql(),
-                },
-              },
-            },
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                replies: true,
-                likes: true,
-              },
-            },
-          },
-        },
-      },
+      select: postService.buildSql(),
     });
 
     return newPost;
@@ -200,57 +101,9 @@ export const updatePost = async (post: IPostDto): Promise<IPost> => {
       data: {
         title: post.title,
         content: post.content,
+        tags: post.tags,
       },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: userService.buildSmallSql(),
-        },
-        _count: {
-          select: {
-            comments: true,
-            likes: true,
-          },
-        },
-        comments: {
-          select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            postId: true,
-            likes: {
-              where: { userId: "" },
-              select: {
-                id: true,
-                userId: true,
-                postId: true,
-                createdAt: true,
-                articleId: true,
-                user: {
-                  select: userService.buildSmallSql(),
-                },
-              },
-            },
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                replies: true,
-                likes: true,
-              },
-            },
-          },
-        },
-      },
+      select: postService.buildSql(),
     });
 
     return updatedPost;
@@ -268,5 +121,20 @@ export const removePost = async (id: string): Promise<boolean> => {
     return true;
   } catch (error) {
     throw handleError(error, "Error deleting post in post.server.ts");
+  }
+};
+
+export const togglePinned = async (
+  id: string,
+  isPinned: boolean
+): Promise<void> => {
+  try {
+    await prisma.post.update({
+      where: { id },
+      data: { isPinned },
+      select: postService.buildSql(),
+    });
+  } catch (error) {
+    throw handleError(error, "Error toggling pinned in post.server.ts");
   }
 };

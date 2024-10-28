@@ -1,10 +1,4 @@
-import {
-  PrismaClient,
-  ForumType,
-  ForumSubject,
-  Permission,
-  Gender,
-} from "@prisma/client";
+import { PrismaClient, Permission, Gender } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { IUser, IUserDto } from "@/service/models/user.model";
 import { IForum } from "@/service/models/forum.model";
@@ -93,6 +87,34 @@ const subjects = [
   "Couples Therapy",
 ];
 
+const forumType = ["PUBLIC", "PRIVATE", "RESTRICTED", "TECHNICAL"];
+const postTags = [
+  "PSYCHOLOGY",
+  "COUNSELING",
+  "THERAPY",
+  "BEHAVIORAL_THERAPY",
+  "CBT",
+  "DBT",
+  "EMDR",
+  "PSYCHOTHERAPY",
+  "MARRIAGE_COUNSELING",
+  "FAMILY_THERAPY",
+  "CHILD_THERAPY",
+  "ADOLESCENT_THERAPY",
+  "ADULT_THERAPY",
+  "SENIOR_THERAPY",
+  "GROUP_THERAPY",
+  "INDIVIDUAL_THERAPY",
+  "COUPLES_THERAPY",
+];
+
+const therapistType = [
+  "PSYCHOLOGIST",
+  "PSYCHIATRIST",
+  "THERAPIST",
+  "COUNSELOR",
+];
+
 async function createUsers() {
   const users = [];
   for (let i = 0; i < NUM_USERS; i++) {
@@ -123,13 +145,8 @@ async function createForums(users: IUser[]) {
       data: {
         title: faker.lorem.words(3),
         description: faker.lorem.paragraph(),
-        type: faker.helpers.arrayElement([
-          ForumType.PUBLIC,
-          ForumType.PRIVATE,
-          ForumType.RESTRICTED,
-          ForumType.TECHNICAL,
-        ]),
-        subjects: faker.helpers.arrayElements(Object.values(ForumSubject), 2),
+        type: faker.helpers.arrayElement(forumType),
+        subjects: faker.helpers.arrayElements(Object.values(subjects), 2),
         admins: {
           connect: [...users],
         },
@@ -249,14 +266,16 @@ const createTaxonomy = async () => {
     { name: "meetingTypes", enums: meetingTypes },
     { name: "education", enums: education },
     { name: "subjects", enums: subjects },
+    { name: "forumType", enums: forumType },
+    { name: "tags", enums: postTags },
   ];
 
   await prisma.taxonomy.createMany({ data: x });
 };
 
 export async function seed() {
-  // await createTaxonomy();
-  await createTherapists();
+  await createTaxonomy();
+  // await createTherapists();
   // const usersData = await createUsers();
   // const users = usersData.filter(
   //   (user) => user.permission === Permission.ADMIN

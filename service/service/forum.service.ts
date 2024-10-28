@@ -48,11 +48,7 @@ const buildSmallSql = (): IForumSmallSelectSql => {
         content: true,
         forumId: true,
         author: {
-          select: {
-            id: true,
-            username: true,
-            imgUrl: true,
-          },
+          select: userService.buildSmallSql(),
         },
         comments: {
           orderBy: {

@@ -10,7 +10,7 @@ export default function CheckboxList({ list, checkAgainst, title,name }: Props) 
     <div>
       <label className="py-2 block font-semibold" htmlFor="subjects">{title}:</label>
 
-      <ul className="flex gap-4 flex-wrap">
+      <ul className="flex gap-4 flex-wrap max-h-80 overflow-auto">
         {list.map((item) => (
           <li key={item} className="flex items-center gap-4 border p-1 rounded">
             <input

@@ -521,24 +521,43 @@
   grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
 }
 
-
-.text{
+.text {
   background-color: black;
   font-size: larger;
 }
 
 @layer utilities {
   @keyframes l2-1 {
-    0%   { top: 0; left: 0; }
-    25%  { top: 100%; left: 0; }
-    50%  { top: 100%; left: 100%; }
-    75%  { top: 0; left: 100%; }
-    100% { top: 0; left: 0; }
+    0% {
+      top: 0;
+      left: 0;
+    }
+    25% {
+      top: 100%;
+      left: 0;
+    }
+    50% {
+      top: 100%;
+      left: 100%;
+    }
+    75% {
+      top: 0;
+      left: 100%;
+    }
+    100% {
+      top: 0;
+      left: 0;
+    }
   }
 
   @keyframes l2-2 {
-    40%, 50% { transform: rotate(0.25turn) scale(0.5); }
-    100% { transform: rotate(0.5turn) scale(1); }
+    40%,
+    50% {
+      transform: rotate(0.25turn) scale(0.5);
+    }
+    100% {
+      transform: rotate(0.5turn) scale(1);
+    }
   }
 
   .animate-l2-1 {
@@ -548,4 +567,49 @@
   .animate-l2-2 {
     animation: l2-2 1s infinite;
   }
+}
+
+/*
+  Custom CSS for the author container in a post
+ */
+.author-container-post {
+  @apply absolute flex flex-col gap-2 -top-4 -left-4;
+}
+
+.author-container-post > div {
+  @apply flex gap-1 items-center w-fit bg-turquoise shadow-xl p-1 px-4 rounded-3xl;
+}
+
+.author-container-post .author-image {
+  @apply rounded-full;
+}
+
+.author-container-post h2 {
+  @apply font-bold text-2xl;
+}
+
+.author-container-post h3 {
+  @apply flex gap-1 w-fit text-xs bg-turquoise shadow-xl p-1 px-2 rounded-3xl;
+}
+/*
+  Custom CSS for the author container 
+ */
+.author-container {
+  @apply absolute flex flex-col gap-2 -top-4 -left-4;
+}
+
+.author-container > div {
+  @apply flex gap-1 items-center w-fit bg-purple shadow-xl p-1 px-4 rounded-3xl;
+}
+
+.author-container .author-image {
+  @apply rounded-full;
+}
+
+.author-container h2 {
+  @apply font-bold text-sm;
+}
+
+.author-container h3 {
+  @apply flex gap-1 w-fit text-[.75rem] bg-purple shadow-xl p-1 px-2 rounded-3xl;
 }

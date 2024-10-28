@@ -172,3 +172,28 @@ export const sanitizeForumForm = (formData: FormData): IForumDto => {
     throw err;
   }
 };
+
+export const sanitizePostForm = ({
+  title,
+  content,
+  tags,
+}: {
+  title: string;
+  content: string;
+  tags: string[];
+}) => {
+  try {
+    const sanitizedTitle = xss(title);
+    const sanitizedContent = xss(content);
+    const sanitizedTags = tags.map((tag) => xss(tag));
+
+    return {
+      title: sanitizedTitle,
+      content: sanitizedContent,
+      tags: sanitizedTags,
+    };
+  } catch (error) {
+    const err = handleError(error, "Error sanitizing post form");
+    throw err;
+  }
+};

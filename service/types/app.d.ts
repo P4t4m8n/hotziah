@@ -9,3 +9,14 @@ declare type TInput = {
   title?: string;
   inputMode?: "numeric";
 };
+
+declare type PostToSave = {
+  authorId: string;
+  id?: string;
+  forumId: string;
+  dataToSanitize: {
+    title: string;
+    content: string;
+    tags: string[];
+  };
+};

@@ -104,6 +104,7 @@ model User {
   isTherapist   Boolean         @default(false)
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  therapistType String?
   forum         Forum[]
   post          Post[]
   comments      Comment[]
@@ -127,11 +128,13 @@ model Forum {
 
 model Post {
   id        String    @id @default(uuid())
-  title     String
-  content   String
+  title     String    @default("New Post")
+  content   String    @default("New Post")
   authorId  String
   author    User      @relation(fields: [authorId], references: [id])
   forumId   String
+  tags      String[]  @default([])
+  isPinned  Boolean   @default(false)
   forum     Forum     @relation(fields: [forumId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -141,7 +144,8 @@ model Post {
 
 model Comment {
   id        String    @id @default(uuid())
-  content   String
+  isPinned  Boolean   @default(false)
+  content   String    @default("New Comment")
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String
   post      Post      @relation(fields: [postId], references: [id])

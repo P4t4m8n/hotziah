@@ -16,6 +16,7 @@ import CommentEditNewWrapper from "../CommentEdit/CommentEditNewWrapper";
 import CommentItemActions from "./CommentItemActions";
 import CommentEditWrapper from "../CommentEdit/CommentEditWrapper";
 import { likeService } from "@/service/service/like.service";
+import CommentUser from "../CommentUser";
 
 interface Props {
   comment: IComment;
@@ -26,7 +27,9 @@ export default function CommentItem({ comment, submitComment }: Props) {
 
   const [replies, setReplies] = useState<IComment[]>([]);
   const replayModel = useRef<HTMLFormElement>(null);
+  const [quotedText, setQuotedText] = useState("");
   const [isCommentReplayOpen, setIsCommentReplayOpen] = useModel(replayModel);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
 
@@ -77,38 +80,43 @@ export default function CommentItem({ comment, submitComment }: Props) {
     }
   };
 
+  const handleQuote = () => {
+    if (contentRef.current) {
+      // Access the text content directly through the ref without using window.getSelection()
+      const selectedText = contentRef.current.innerText || "";
+
+      // Optionally filter out the specific portion of text if needed
+      const formattedQuote = `> "${selectedText.trim()}"\n\n`;
+
+      setQuotedText(formattedQuote);
+      setIsCommentReplayOpen(true);
+    }
+  };
+
   return (
-    <li className=" p-2 rounded-lg flex flex-col gap-2 w-full">
-      <div className="flex gap-2 items-center">
-        <Image
-          src={author.imgUrl || "/imgs/default-avatar.svg"}
-          alt="author-image"
-          width={36}
-          height={36}
-          className="rounded-full"
-        />
+    <li className=" ">
+      <div className=" p-1 py-2 rounded-lg flex flex-col gap-2 w-full min-h-40 shadow-md max-w-[70vw] h-fit bg-slate-100 relative">
+        <CommentUser author={author} />
+        <span className="font-thin text-xs ml-auto">
+          {formatDate(createdAt)}
+        </span>
 
-        <div className=" flex flex-col ">
-          <h2 className="font-bold text-sm">{comment.author.username}</h2>
-          <span className="font-thin text-xs">{formatDate(createdAt)}</span>
+        <article className=" pl-20 text-black p-4 min-h-24  ">
+          {content}
+        </article>
+
+        <div className="px-4 flex items-center gap-4 w-full">
+          <CommentEditWrapper comment={comment} submitComment={submitComment} />
+
+          <button onClick={fetchReplies} className="flex gap-1 items-center">
+            <span className="font-semibold text-sm">
+              {_count?.comments || 0}
+            </span>
+            <ArrowSvg isFlip={isRepliesOpen} />
+          </button>
+
+          <CommentItemActions setIsCommentEditOpen={setIsCommentReplayOpen} />
         </div>
-      </div>
-
-      <article className="text-xs text-black p-4 max-h-24  ">{content}</article>
-
-      <div className="px-4 flex items-center gap-4 w-full">
-        <CommentEditWrapper comment={comment} submitComment={submitComment} />
-
-        <button onClick={fetchReplies} className="flex gap-1 items-center">
-          <span className="font-semibold text-sm">{_count?.comments || 0}</span>
-          <ArrowSvg isFlip={isRepliesOpen} />
-        </button>
-
-        <CommentItemActions
-          setIsCommentEditOpen={setIsCommentReplayOpen}
-          like={_like}
-          numOfLikes={_count?.likes || 0}
-        />
       </div>
 
       {isRepliesOpen && replies.length > 0 && (

@@ -26,6 +26,8 @@ export const getTaxonomies = unstable_cache(
         languages: [""],
         meetingTypes: [""],
         education: [""],
+        forumType: [""],
+        postTags: [""],
       };
     }
   },

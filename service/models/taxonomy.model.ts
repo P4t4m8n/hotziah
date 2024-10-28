@@ -9,4 +9,6 @@ export type TTaxonomyName =
   | "languages"
   | "meetingTypes"
   | "education"
-  | "subjects";
+  | "subjects"
+  | "forumType"
+  | "postTags";

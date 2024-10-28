@@ -2,25 +2,24 @@ import { formatDate } from "@/service/client/util/app.util";
 
 interface Props {
   numOfComments: number;
-  lastCommentData?: string | Date;
+  tags?: string[];
 }
 
-export default function PostInfo({ numOfComments, lastCommentData }: Props) {
+export default function PostInfo({ numOfComments, tags }: Props) {
   //TODO: replace with actual data
   const postInfo = [
-    { title: "REPLIES", value: numOfComments || 0 },
-    { title: "VIEWS", value: 15 },
-    { title: "LIKES", value: 200 },
-    { title: "LAST COMMENT ", value: formatDate(lastCommentData) },
+    { title: "Comments", value: numOfComments || 0 },
+    { title: "Views", value: 15 },
+    { title: "Tags", value: tags?.join(", ") || "No tags" },
   ];
   return (
-    <ul className="flex justify-between">
+    <ul className="flex justify-around w-full">
       {postInfo.map((info) => (
-        <li key={info.title}>
-          <h2 className="text-font-size-12 text-platinum font-semibold">
-            {info.title}
+        <li key={info.title} className="max-w-1/2">
+          <h2 className="text-font-size-12 text-black font-semibold">
+            {info.title}:
           </h2>
-          <span className="text-font-size-14">{info.value}</span>
+          <span className="text-font-size-14 ">{info.value}</span>
         </li>
       ))}
     </ul>

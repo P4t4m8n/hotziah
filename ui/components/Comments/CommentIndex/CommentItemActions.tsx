@@ -1,39 +1,71 @@
-import { BookmarkSvg, CopySvg } from "@/ui/Icons/Svgs";
-import LikeBtn from "../../General/LikeBtn";
-import { ILike } from "@/service/models/like.model";
+import {
+  AddNoteASvg,
+  AddNoteSvg,
+  PrintSvg,
+  ReportSvg,
+  ShareSvg,
+} from "@/ui/Icons/Svgs";
 
 interface Props {
   setIsCommentEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  like: Omit<ILike, "user">;
-  numOfLikes: number;
+
+  isPost?: boolean;
 }
 
 export default function CommentItemActions({
   setIsCommentEditOpen,
-  like,
-  numOfLikes,
-}: Props) {
-  /*
-  TODO:
-  -Add copy functionality
-  -Add bookmark functionality
-   */
-  return (
-    <div className="flex gap-2">
-      <LikeBtn like={like} numOfLikes={numOfLikes} />
 
-      <button className="border rounded-full  flex items-center justify-center w-8 h-8">
-        <CopySvg />
-      </button>
-      <button className="border rounded-full  flex items-center justify-center w-8 h-8">
-        <BookmarkSvg />
-      </button>
-      <button
-        onClick={() => setIsCommentEditOpen(true)}
-        className="flex border p-1 px-3 items-center gap-2 h-8 rounded-[5rem] text-xs font-semibold"
-      >
-        REPLAY
-      </button>
-    </div>
+  isPost,
+}: Props) {
+  const items = [
+    {
+      name: "Replay",
+      icon: <AddNoteASvg />,
+      onClick: () => setIsCommentEditOpen(true),
+    },
+    {
+      name: "Quote",
+      icon: <AddNoteSvg />,
+      onClick: () => console.log("Quote"),
+    },
+    {
+      name: "Report",
+      icon: <ReportSvg />,
+      onClick: () => console.log("Report"),
+    },
+    {
+      name: "Share",
+      icon: <ShareSvg />,
+      onClick: () => console.log("Share"),
+    },
+    {
+      name: "Print",
+      icon: <PrintSvg />,
+      onClick: () => console.log("Print"),
+    },
+  ];
+
+  const listStyle = isPost
+    ? " grid gap-2 fixed right-4 top-1/2 -translate-y-1/2  text-center"
+    : "flex gap-2 ml-auto absolute right-4 top-[90%]";
+  const btnStyle = isPost
+    ? "bg-purple h-14 w-14 p-2 "
+    : " bg-turquoise w-8 h-8 p-1  ";
+
+  const textStyle = isPost ? "text-sm font-semibold" : "text-xs ";
+  return (
+    <ul className={listStyle}>
+      {items.map((item) => (
+        <li className="grid gap-1 " key={item.name}>
+          <button
+            className={btnStyle + "rounded-full fill-white "}
+            onClick={item.onClick}
+          >
+            {item.icon}
+          </button>
+          <span className={textStyle + " text-center"}>{item.name}</span>
+        </li>
+      ))}
+    </ul>
   );
 }

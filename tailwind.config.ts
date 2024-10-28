@@ -9,6 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        purple: "#A9539F",
+        turquoise: "#00C7BF",
         black: "#11111F",
         blue: "#14213dff",
         orange: "#fca311ff",

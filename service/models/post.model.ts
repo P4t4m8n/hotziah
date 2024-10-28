@@ -8,6 +8,10 @@ interface IPostBase extends IEntity {
   title: string;
   content: string;
   forumId: string;
+  tags: string[];
+  isPinned?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 export interface IPost extends IPostBase {
   author: IUserSmall;
@@ -34,6 +38,10 @@ export interface IPostSmallSelectSql extends ISelectSql {
   title: boolean;
   content: boolean;
   forumId: boolean;
+  tags: boolean;
+  isPinned: boolean;
+  createdAt: boolean,
+  updatedAt: boolean,
   author: {
     select: IUserSmallSelectSql;
   };
@@ -42,6 +50,7 @@ export interface IPostSelectSql extends IPostSmallSelectSql {
   _count: {
     select: {
       comments: boolean;
+      likes: boolean;
     };
   };
 
@@ -63,6 +72,7 @@ export interface IPostSelectSql extends IPostSmallSelectSql {
       _count: {
         select: {
           replies: boolean;
+          likes: boolean;
         };
       };
     };

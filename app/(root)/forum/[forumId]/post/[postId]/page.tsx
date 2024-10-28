@@ -1,4 +1,3 @@
-import { getSessionUser } from "@/service/server/auth.server";
 import { getPostBtId } from "@/service/server/post.server";
 import { postService } from "@/service/service/post.service";
 import PostDetailsClient from "@/ui/components/Posts/PostDetails/PostDetailsClient";
@@ -15,11 +14,10 @@ export default async function PostDetailsServer({
   const { postId } = await params;
 
   //Get empty post to prevent props error
-  let post = postService.getEmpty({ id: "", username: "", imgUrl: "" }, "1");
+  let post = postService.getEmpty("1");
   //Only fetch when there is a real ID. temp ID exist for SSG
   if (postId !== "1") {
-    const user = await getSessionUser();
-    post = await getPostBtId(postId, user?.id);
+    post = await getPostBtId(postId);
   }
 
   return <PostDetailsClient post={post} />;

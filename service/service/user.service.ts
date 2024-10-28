@@ -20,12 +20,10 @@ const toDTO = (user: IUser): IUserDto => {
 
 const buildSql = (): IUserSelectSql => {
   return {
-    id: true,
-    username: true,
+    ...buildSmallSql(),
     email: true,
     firstName: true,
     lastName: true,
-    permission: true,
     isTherapist: true,
     imgUrl: true,
   };
@@ -36,6 +34,8 @@ const buildSmallSql = (): IUserSmallSelectSql => {
     id: true,
     username: true,
     imgUrl: true,
+    permission: true,
+    therapistType : true,
   };
 };
 
