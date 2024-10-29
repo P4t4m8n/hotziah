@@ -4,6 +4,7 @@ import {
   IForumSelectSql,
   IForumSmallSelectSql,
 } from "../models/forum.model";
+import { postService } from "./post.service";
 import { userService } from "./user.service";
 
 const toDTO = (forum: IForum): IForumDto => {
@@ -28,45 +29,16 @@ const getEmpty = (): IForum => {
 
 const buildSmallSql = (): IForumSmallSelectSql => {
   return {
+    ...buildSql(),
+    posts: {
+      select: buildSql().posts.select,
+      take: 1,
+    },
     _count: {
       select: {
         posts: true,
+        uniqueView: true,
       },
-    },
-    id: true,
-    description: true,
-    admins: {
-      select: userService.buildSmallSql(),
-    },
-    type: true,
-    subjects: true,
-    title: true,
-    posts: {
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: userService.buildSmallSql(),
-        },
-        comments: {
-          orderBy: {
-            createdAt: "desc",
-          },
-          select: {
-            author: {
-              select: userService.buildSmallSql(),
-            },
-            content: true,
-            createdAt: true,
-            id: true,
-            postId: true,
-          },
-          take: 1,
-        },
-      },
-      take: 1,
     },
   };
 };
@@ -83,16 +55,11 @@ const buildSql = (): IForumSelectSql => {
     title: true,
     posts: {
       select: {
-        id: true,
-        title: true,
-        content: true,
-        forumId: true,
-        author: {
-          select: userService.buildSmallSql(),
-        },
+        ...postService.buildSmallSql(),
         _count: {
           select: {
             comments: true,
+            uniqueView: true,
           },
         },
         comments: {

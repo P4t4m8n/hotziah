@@ -5,6 +5,12 @@ enum Permission {
   THERAPIST
 }
 
+enum ViewType {
+  POST
+  FORUM
+  ARTICLE
+}
+
 enum ForumType {
   PUBLIC
   PRIVATE
@@ -115,31 +121,49 @@ model User {
 }
 
 model Forum {
-  id          String   @id @default(uuid())
-  title       String   @default("New Forum")
-  description String   @default("New Forum")
-  type        String   @default("Public")
-  subjects    String[] @default(["General"])
+  id          String       @id @default(uuid())
+  title       String       @default("New Forum")
+  description String       @default("New Forum")
+  type        String       @default("Public")
+  subjects    String[]     @default(["General"])
   admins      User[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   posts       Post[]
+  uniqueView  UniqueView[]
 }
 
 model Post {
-  id        String    @id @default(uuid())
-  title     String    @default("New Post")
-  content   String    @default("New Post")
-  authorId  String
-  author    User      @relation(fields: [authorId], references: [id])
-  forumId   String
-  tags      String[]  @default([])
-  isPinned  Boolean   @default(false)
-  forum     Forum     @relation(fields: [forumId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  comments  Comment[]
-  likes     Like[]
+  id         String       @id @default(uuid())
+  title      String       @default("New Post")
+  content    String       @default("New Post")
+  authorId   String
+  author     User         @relation(fields: [authorId], references: [id])
+  forumId    String
+  tags       String[]     @default([])
+  isPinned   Boolean      @default(false)
+  forum      Forum        @relation(fields: [forumId], references: [id])
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  comments   Comment[]
+  likes      Like[]
+  uniqueView UniqueView[]
+}
+
+model UniqueView {
+  id        String   @id @default(uuid())
+  viewType  ViewType @default(POST)
+  postId    String?
+  forumId   String?
+  articleId String?
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  forum     Forum?   @relation(fields: [forumId], references: [id], onDelete: Cascade)
+  article   Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  userId    String? // Optional for tracking authenticated users
+  visitorId String? // Optional for tracking non-authenticated users
+  viewedAt  DateTime @default(now())
+
+  @@unique([viewType, postId, forumId, articleId, userId, visitorId])
 }
 
 model Comment {
@@ -223,16 +247,17 @@ model Answer {
 }
 
 model Article {
-  id          String   @id @default(uuid())
-  title       String   @default("New Article")
-  description String   @default("New Article")
+  id          String       @id @default(uuid())
+  title       String       @default("New Article")
+  description String       @default("New Article")
   imgUrl      String
   content     Json
   authorId    String
-  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  author      User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   likes       Like[]
+  uniqueView  UniqueView[]
 }
 
 model Like {

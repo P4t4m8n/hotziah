@@ -8,7 +8,6 @@ export default async function TherapistServer({
 }: {
   searchParams?: Promise<ITherapistFilter> | undefined;
 }) {
-  //await searchParams as new Next 15 feature to ignore error
   const searchParamsValue = await searchParams;
   const filter: ITherapistFilter =
     searchParamsValue && Object.keys(searchParamsValue).length > 0

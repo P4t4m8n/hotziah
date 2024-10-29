@@ -1,6 +1,16 @@
+import Link from "next/link";
 
-export default function GeneralLink() {
+interface Props {
+  href: string;
+  text: string;
+  svg: React.ReactNode;
+}
+
+export default function GeneralLink({ href, text, svg }: Props) {
   return (
-    <div>GeneralLink</div>
-  )
+    <Link className="link" href={href}>
+      {svg}
+      <p>{text}</p>
+    </Link>
+  );
 }

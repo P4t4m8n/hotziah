@@ -145,7 +145,13 @@ export const sanitizeTherapistForm = (formData: FormData) => {
     throw err;
   }
 };
-
+/**
+ * Sanitizes the form data for a forum by applying XSS protection to the title, description, type, subjects, and admins fields.
+ *
+ * @param formData - The form data containing the forum details to be sanitized.
+ * @returns An IForumDto object with sanitized forum details.
+ * @throws Throws an error if there is an issue during the sanitization process.
+ */
 export const sanitizeForumForm = (formData: FormData): IForumDto => {
   try {
     const title = xss(formData.get("title")?.toString() || "");
@@ -172,7 +178,16 @@ export const sanitizeForumForm = (formData: FormData): IForumDto => {
     throw err;
   }
 };
-
+/**
+ * Sanitizes the input post form data to prevent cross-site scripting (XSS) attacks.
+ *
+ * @param {Object} postForm - The post form data to be sanitized.
+ * @param {string} postForm.title - The title of the post.
+ * @param {string} postForm.content - The content of the post.
+ * @param {string[]} postForm.tags - The tags associated with the post.
+ * @returns {Object} - The sanitized post form data with title, content, and tags sanitized against XSS.
+ * @throws {Error} - If an error occurs during the sanitization process.
+ */
 export const sanitizePostForm = ({
   title,
   content,

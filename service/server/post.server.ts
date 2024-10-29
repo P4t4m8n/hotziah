@@ -4,7 +4,6 @@ import { prisma } from "@/prisma/prismaClient";
 import { IPost, IPostDto, IPostFilter } from "../models/post.model";
 import { handleError } from "./util/error.util";
 import { postService } from "../service/post.service";
-import { sanitizePostForm } from "./util/sanitization.util";
 import { unstable_cache } from "next/cache";
 
 export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
@@ -55,24 +54,6 @@ export const getPostBtId = unstable_cache(
   [],
   { revalidate: 60 * 1000 * 60, tags: ["post"] }
 );
-
-export const savePost = async (data: PostToSave): Promise<IPost> => {
-  const { title, content, tags } = sanitizePostForm(data.dataToSanitize);
-
-  const postDto: IPostDto = {
-    title,
-    content,
-    tags,
-    forumId: data.forumId,
-    authorId: data.authorId,
-  };
-  console.log("postDto:", postDto);
-  if (postDto.id) {
-    return await updatePost(postDto);
-  } else {
-    return await createPost(postDto);
-  }
-};
 
 export const createPost = async (post: IPostDto): Promise<IPost> => {
   try {

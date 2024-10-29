@@ -4,11 +4,12 @@ import { IPost } from "@/service/models/post.model";
 import Input from "../../General/Input";
 import TextArea from "../../General/TextArea";
 import PostEditActions from "./PostEditActions";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useUser } from "@/ui/hooks/useUser";
 import { apiClientService } from "@/service/client/api.client";
 import { useRouter } from "next/navigation";
 import CheckboxList from "../../General/CheckboxList";
+import { APIError } from "@/service/client/util/APIError";
 
 interface Props {
   post: IPost;
@@ -18,6 +19,13 @@ interface Props {
 export default function PostEdit({ post, tags }: Props) {
   const user = useUser().user;
   const router = useRouter();
+  const [errors, setErrors] = useState<Record<TPostEditInputs, string>>({
+    title: "",
+    content: "",
+    tags: "",
+    forumId: "",
+    authorId: "",
+  });
 
   const input = {
     divStyle: "flex flex-col gap-2 p-2 px-4 text-3xl font-semibold",
@@ -50,7 +58,6 @@ export default function PostEdit({ post, tags }: Props) {
         content: formData.get("content")?.toString() || "",
         tags: formData.getAll("tags").map((tag) => tag.toString()) || [],
       };
-      console.log("dataToSanitize:", dataToSanitize)
 
       const postToSave: PostToSave = {
         authorId: user!.id!,
@@ -66,10 +73,20 @@ export default function PostEdit({ post, tags }: Props) {
       } else {
         savedPost = await apiClientService.post<IPost>(`post`, postToSave);
       }
-      router.push(`/forum/${savedPost.forumId}/post/${savedPost.id}`);
+
       console.log("savedPost:", savedPost);
+      if (!savedPost || !savedPost.id) {
+        throw new Error("Failed to save post");
+      }
+      router.push(`/forum/${savedPost.forumId}/post/${savedPost.id}`);
     } catch (error) {
-      console.error(error);
+      if ((error as APIError).status === 422) {
+        setErrors(
+          (error as APIError).response as Record<TPostEditInputs, string>
+        );
+      } else {
+        console.error(error);
+      }
     }
   };
 

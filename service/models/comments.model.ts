@@ -1,6 +1,5 @@
 import { IEntity } from "./app.model";
 import { ISelectSql } from "./db.model";
-import { ILike } from "./like.model";
 import { IUserSmall, IUserSmallSelectSql } from "./user.model";
 
 interface ICommentBase extends IEntity {
@@ -13,8 +12,7 @@ interface ICommentBase extends IEntity {
 export interface IComment extends ICommentBase {
   author: IUserSmall;
   replies?: IComment[];
-  _count?: { comments?: number; likes?: number };
-  likes?: ILike[];
+  _count?: { comments?: number; uniqueView?: number };
 }
 
 export interface ICommentDto extends ICommentBase {
@@ -35,15 +33,12 @@ export interface ICommentSmallSelectSql extends ISelectSql {
   parentId: boolean;
   postId: boolean;
   author: {
-    select: {
-      imgUrl: boolean;
-      username: boolean;
-      id: boolean;
-    };
+    select: IUserSmallSelectSql;
   };
   _count: {
     select: {
       replies: boolean;
+      uniqueView: boolean;
     };
   };
 }

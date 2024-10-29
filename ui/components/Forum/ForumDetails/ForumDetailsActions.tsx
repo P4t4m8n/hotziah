@@ -1,9 +1,9 @@
 import { IUserSmall } from "@/service/models/user.model";
 import { EditBtnSvg, PlusSvg } from "@/ui/Icons/Svgs";
 
-import Link from "next/link";
 import UserListIcons from "./AdminList";
-import ProtectedBtn from "../../General/ProtectedBtn";
+import ProtectedLink from "../../General/ProtectedLink";
+import GeneralLink from "../../General/GeneralLink";
 
 interface Props {
   description: string;
@@ -21,19 +21,17 @@ export default function ForumDetailsActions({
         {description}
       </p>
       <UserListIcons users={admins} listName="Admins" />
-      <div className="flex gap-2">
-        <ProtectedBtn
+      <div className="flex gap-2 fixed bottom-20 right-8">
+        <ProtectedLink
           href={`/forum/edit/${id}`}
           text={"EDIT FORUM"}
           svg={<EditBtnSvg />}
         />
-        <Link
-          className="bg-orange rounded-lg flex gap-2 h-12 w-32 p-2 items-center justify-center"
+        <GeneralLink
           href={`/forum/${id}/post/edit/new`}
-        >
-          <PlusSvg />
-          <h4 className="text-xs font-bold text-blue">NEW THREAD</h4>
-        </Link>
+          text={"NEW THREAD"}
+          svg={<PlusSvg />}
+        />
       </div>
     </div>
   );

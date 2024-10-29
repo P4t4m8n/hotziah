@@ -1,5 +1,5 @@
 import { IUserSmall, IUserSmallSelectSql } from "./user.model";
-import { IPost } from "./post.model";
+import { IPost, IPostSmallSelectSql } from "./post.model";
 import { IEntity } from "./app.model";
 import { ISelectSql } from "./db.model";
 
@@ -10,18 +10,15 @@ interface IForumBase extends IEntity {
   subjects: string[];
   createdAt?: Date;
 }
-
 export interface IForum extends IForumBase {
   admins: IUserSmall[];
   posts: IPost[];
-  _count?: { posts: number }; //include in case only fetching forums for preview instead of fetching all the threads
+  _count?: { posts: number; uniqueView: number };
 }
-
 export interface IForumDto extends IForumBase {
   admins: string[];
   updatedAt?: Date;
 }
-
 export interface IForumFilter extends IEntity {
   title?: string;
   postName?: string;
@@ -29,30 +26,25 @@ export interface IForumFilter extends IEntity {
   subject?: string[];
   take?: number;
   skip?: number;
+  uniqueView?: number;
+  sortBy?: "createdAt" | "updatedAt" | "uniqueView" | "asc" | "desc";
 }
-
 export interface IForumSmallSelectSql extends ISelectSql {
-  _count: {
-    select: {
-      posts: boolean;
-    };
-  };
   description: boolean;
-  admins: {
-    select: IUserSmallSelectSql;
-  };
   type: boolean;
   subjects: boolean;
   title: boolean;
-  posts: {
+  admins: {
+    select: IUserSmallSelectSql;
+  };
+  _count: {
     select: {
-      id: boolean;
-      title: boolean;
-      content: boolean;
-      forumId: boolean;
-      author: {
-        select: IUserSmallSelectSql;
-      };
+      posts: boolean;
+      uniqueView: boolean;
+    };
+  };
+  posts: {
+    select: IPostSmallSelectSql & {
       comments: {
         orderBy: {
           createdAt: "desc";
@@ -73,30 +65,19 @@ export interface IForumSmallSelectSql extends ISelectSql {
   };
 }
 export interface IForumSelectSql extends ISelectSql {
-  id: boolean;
   description: boolean;
-  admins: {
-    select: IUserSmallSelectSql;
-  };
   type: boolean;
   subjects: boolean;
   title: boolean;
+  admins: {
+    select: IUserSmallSelectSql;
+  };
   posts: {
-    select: {
-      id: boolean;
-      title: boolean;
-      content: boolean;
-      forumId: boolean;
-      author: {
-        select: {
-          id: boolean;
-          username: boolean;
-          imgUrl: boolean;
-        };
-      };
+    select: IPostSmallSelectSql & {
       _count: {
         select: {
           comments: boolean;
+          uniqueView: true;
         };
       };
       comments: {

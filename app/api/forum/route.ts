@@ -6,9 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    console.log("********************");
     const formData = await req.formData();
-    console.log("_formData:", formData);
 
     const forumToSave: IForumDto = sanitizeForumForm(formData);
 

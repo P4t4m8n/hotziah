@@ -613,3 +613,14 @@
 .author-container h3 {
   @apply flex gap-1 w-fit text-[.75rem] bg-purple shadow-xl p-1 px-2 rounded-3xl;
 }
+
+/* general link styes */
+.link {
+  @apply bg-turquoise rounded-3xl flex gap-2  w-32 px-1 py-2 items-center justify-center;
+  p {
+    @apply text-white text-xs font-semibold;
+  }
+  svg {
+    @apply stroke-white;
+  }
+}

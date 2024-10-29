@@ -28,3 +28,10 @@ declare type TForumEditInputs =
   | "type"
   | "admins"
   | "subjects";
+
+declare type TPostEditInputs =
+  | "title"
+  | "content"
+  | "tags"
+  | "forumId"
+  | "authorId";

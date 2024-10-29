@@ -1,7 +1,6 @@
 import { IEntity } from "./app.model";
 import { IComment } from "./comments.model";
 import { ISelectSql } from "./db.model";
-import { ILike } from "./like.model";
 import { IUserSmall, IUserSmallSelectSql } from "./user.model";
 
 interface IPostBase extends IEntity {
@@ -16,8 +15,7 @@ interface IPostBase extends IEntity {
 export interface IPost extends IPostBase {
   author: IUserSmall;
   comments?: IComment[];
-  _count?: { comments?: number; likes?: number };
-  likes?: ILike[];
+  _count?: { comments?: number; uniqueView?: number };
 }
 
 export interface IPostDto extends IPostBase {
@@ -31,6 +29,7 @@ export interface IPostFilter extends IEntity {
   authorName?: string;
   page?: number;
   limit?: number;
+  uniqueView?: number;
 }
 
 export interface IPostSmallSelectSql extends ISelectSql {
@@ -40,8 +39,8 @@ export interface IPostSmallSelectSql extends ISelectSql {
   forumId: boolean;
   tags: boolean;
   isPinned: boolean;
-  createdAt: boolean,
-  updatedAt: boolean,
+  createdAt: boolean;
+  updatedAt: boolean;
   author: {
     select: IUserSmallSelectSql;
   };
@@ -50,7 +49,7 @@ export interface IPostSelectSql extends IPostSmallSelectSql {
   _count: {
     select: {
       comments: boolean;
-      likes: boolean;
+      uniqueView: boolean;
     };
   };
 
@@ -63,16 +62,12 @@ export interface IPostSelectSql extends IPostSmallSelectSql {
       createdAt: boolean;
       postId: boolean;
       author: {
-        select: {
-          id: boolean;
-          username: boolean;
-          imgUrl: boolean;
-        };
+        select: IUserSmallSelectSql;
       };
       _count: {
         select: {
           replies: boolean;
-          likes: boolean;
+          uniqueView: boolean;
         };
       };
     };

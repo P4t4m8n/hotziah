@@ -22,6 +22,7 @@ const getEmpty = (forumId: string): IPost => {
     tags: [],
   };
 };
+
 const buildSmallSql = (): IPostSmallSelectSql => {
   return {
     id: true,
@@ -39,21 +40,11 @@ const buildSmallSql = (): IPostSmallSelectSql => {
 };
 const buildSql = (parentId?: string): IPostSelectSql => {
   return {
-    id: true,
-    title: true,
-    content: true,
-    forumId: true,
-    tags: true,
-    isPinned: true,
-    createdAt: true,
-    updatedAt: true,
-    author: {
-      select: userService.buildSmallSql(),
-    },
+    ...buildSmallSql(),
     _count: {
       select: {
         comments: true,
-        likes: true,
+        uniqueView: true,
       },
     },
     comments: {
@@ -70,7 +61,7 @@ const buildSql = (parentId?: string): IPostSelectSql => {
         _count: {
           select: {
             replies: true,
-            likes: true,
+            uniqueView: true,
           },
         },
       },
