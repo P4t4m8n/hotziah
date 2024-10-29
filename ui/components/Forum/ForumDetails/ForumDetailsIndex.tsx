@@ -3,7 +3,7 @@ import { IForum } from "@/service/models/forum.model";
 import ForumDetailsActions from "./ForumDetailsActions";
 import ForumDetailsHeader from "./ForumDetailsHeader";
 import PostsList from "../../Posts/PostList";
-import UniqueVisitCheck from "../../General/UniqeVisitCheck";
+import TrackUniqueVisit from "../../General/TrackUniqueVisit";
 
 interface Props {
   forum: IForum;
@@ -14,7 +14,7 @@ export default function ForumDetailsIndex({ forum }: Props) {
 
   return (
     <div className="p-8 h-full relative">
-      <UniqueVisitCheck itemId={id! } route="forum" />
+      <TrackUniqueVisit itemId={id!} route="forum" />
       <ForumDetailsHeader name={title} type={type} />
       <ForumDetailsActions
         description={description}

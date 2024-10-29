@@ -33,6 +33,7 @@ const buildSmallSql = (): IForumSmallSelectSql => {
     posts: {
       select: buildSql().posts.select,
       take: 1,
+      orderBy: [{ isPinned:"desc" }, { createdAt: "desc" }],
     },
     _count: {
       select: {
@@ -77,7 +78,10 @@ const buildSql = (): IForumSelectSql => {
           },
           take: 1,
         },
+        
       },
+      orderBy: [{ isPinned:"desc" }, { createdAt: "desc" }],
+
     },
   };
 };

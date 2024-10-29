@@ -4,7 +4,6 @@ import { prisma } from "@/prisma/prismaClient";
 import { IPost, IPostDto, IPostFilter } from "../models/post.model";
 import { handleError } from "./util/error.util";
 import { postService } from "../service/post.service";
-import { unstable_cache } from "next/cache";
 
 export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
   try {
@@ -34,26 +33,22 @@ export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
   }
 };
 
-export const getPostBtId = unstable_cache(
-  async (id: string): Promise<IPost> => {
-    try {
-      const post = await prisma.post.findUnique({
-        where: { id },
-        select: postService.buildSql(),
-      });
+export const getPostBtId = async (id: string): Promise<IPost> => {
+  try {
+    const post = await prisma.post.findUnique({
+      where: { id },
+      select: postService.buildSql(),
+    });
 
-      if (!post) {
-        throw new Error("Post not found");
-      }
-
-      return post;
-    } catch (error) {
-      throw handleError(error, "Error getting post in post.server.ts");
+    if (!post) {
+      throw new Error("Post not found");
     }
-  },
-  [],
-  { revalidate: 60 * 1000 * 60, tags: ["post"] }
-);
+
+    return post;
+  } catch (error) {
+    throw handleError(error, "Error getting post in post.server.ts");
+  }
+};
 
 export const createPost = async (post: IPostDto): Promise<IPost> => {
   try {

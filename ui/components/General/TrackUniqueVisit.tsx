@@ -8,13 +8,13 @@ interface Props {
   itemId: string;
   route: string;
 }
-export default function UniqueVisitCheck({ itemId, route }: Props) {
-  console.log("itemId:", itemId);
+export default function TrackUniqueVisit({ itemId, route }: Props) {
   const user = useUser().user;
 
   useEffect(() => {
     updateUniqueVisit();
-  }, [itemId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateUniqueVisit = async () => {
     try {

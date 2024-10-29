@@ -156,9 +156,11 @@ model UniqueView {
   postId    String?
   forumId   String?
   articleId String?
+  commentId String?
   post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
   forum     Forum?   @relation(fields: [forumId], references: [id], onDelete: Cascade)
   article   Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
   userId    String? // Optional for tracking authenticated users
   visitorId String? // Optional for tracking non-authenticated users
   viewedAt  DateTime @default(now())
@@ -167,18 +169,19 @@ model UniqueView {
 }
 
 model Comment {
-  id        String    @id @default(uuid())
-  isPinned  Boolean   @default(false)
-  content   String    @default("New Comment")
-  author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
-  post      Post      @relation(fields: [postId], references: [id])
-  postId    String
-  parentId  String?
-  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
-  replies   Comment[] @relation("CommentReplies")
-  createdAt DateTime  @default(now())
-  likes     Like[]
+  id         String       @id @default(uuid())
+  isPinned   Boolean      @default(false)
+  content    String       @default("New Comment")
+  author     User         @relation(fields: [authorId], references: [id])
+  authorId   String
+  post       Post         @relation(fields: [postId], references: [id])
+  postId     String
+  parentId   String?
+  parent     Comment?     @relation("CommentReplies", fields: [parentId], references: [id])
+  replies    Comment[]    @relation("CommentReplies")
+  createdAt  DateTime     @default(now())
+  likes      Like[]
+  uniqueView UniqueView[]
 }
 
 model Therapist {

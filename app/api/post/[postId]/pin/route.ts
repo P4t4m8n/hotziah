@@ -2,13 +2,15 @@ import { togglePinned } from "@/service/server/post.server";
 import { handleRouteError } from "@/service/server/util/error.util";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(
+export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
     const { isPinned } = await req.json();
+    console.log("isPinned:", isPinned)
     const { postId } = await params;
+    console.log("postId:", postId)
 
     await togglePinned(postId, isPinned);
     return NextResponse.json({ status: 201, message: "Success" });

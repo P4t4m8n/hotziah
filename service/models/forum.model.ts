@@ -62,6 +62,7 @@ export interface IForumSmallSelectSql extends ISelectSql {
       };
     };
     take: 1;
+    orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }];
   };
 }
 export interface IForumSelectSql extends ISelectSql {
@@ -96,5 +97,6 @@ export interface IForumSelectSql extends ISelectSql {
         take: 1;
       };
     };
+    orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }];
   };
 }

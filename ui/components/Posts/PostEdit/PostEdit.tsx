@@ -1,15 +1,12 @@
 "use client";
 import { IPost } from "@/service/models/post.model";
 
+import { usePostEdit } from "@/ui/hooks/usePostEdit";
+
 import Input from "../../General/Input";
 import TextArea from "../../General/TextArea";
 import PostEditActions from "./PostEditActions";
-import { FormEvent, useState } from "react";
-import { useUser } from "@/ui/hooks/useUser";
-import { apiClientService } from "@/service/client/api.client";
-import { useRouter } from "next/navigation";
 import CheckboxList from "../../General/CheckboxList";
-import { APIError } from "@/service/client/util/APIError";
 
 interface Props {
   post: IPost;
@@ -17,15 +14,7 @@ interface Props {
 }
 
 export default function PostEdit({ post, tags }: Props) {
-  const user = useUser().user;
-  const router = useRouter();
-  const [errors, setErrors] = useState<Record<TPostEditInputs, string>>({
-    title: "",
-    content: "",
-    tags: "",
-    forumId: "",
-    authorId: "",
-  });
+  const { onSubmit, errors, isLoading } = usePostEdit(post.forumId, post.id);
 
   const input = {
     divStyle: "flex flex-col gap-2 p-2 px-4 text-3xl font-semibold",
@@ -47,67 +36,29 @@ export default function PostEdit({ post, tags }: Props) {
     maxLength: 255,
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    let savedPost: IPost | null = null;
-    try {
-      const formData = new FormData(e.currentTarget);
-      const dataToSanitize = {
-        title: formData.get("title")?.toString() || "",
-        content: formData.get("content")?.toString() || "",
-        tags: formData.getAll("tags").map((tag) => tag.toString()) || [],
-      };
-
-      const postToSave: PostToSave = {
-        authorId: user!.id!,
-        forumId: post.forumId,
-        dataToSanitize: dataToSanitize,
-      };
-
-      if (post?.id) {
-        savedPost = await apiClientService.put<IPost>(
-          `post/${post.id}`,
-          postToSave
-        );
-      } else {
-        savedPost = await apiClientService.post<IPost>(`post`, postToSave);
-      }
-
-      console.log("savedPost:", savedPost);
-      if (!savedPost || !savedPost.id) {
-        throw new Error("Failed to save post");
-      }
-      router.push(`/forum/${savedPost.forumId}/post/${savedPost.id}`);
-    } catch (error) {
-      if ((error as APIError).status === 422) {
-        setErrors(
-          (error as APIError).response as Record<TPostEditInputs, string>
-        );
-      } else {
-        console.error(error);
-      }
-    }
-  };
-
   return (
     <div className=" w-full h-full p-4 flex gap-8 ">
       <form
         onSubmit={onSubmit}
         className=" bg-dark-blue text-white h-full w-[55%] max-w-96 min-w-64 p-8 rounded-lg flex flex-col gap-8"
       >
-        <Input inputProps={input} />
+        <Input inputProps={input} error={errors.title} />
 
-        <TextArea textAreaProps={textArea} />
+        <TextArea textAreaProps={textArea} error={errors.content} />
 
         <CheckboxList
           list={tags}
           checkAgainst={post.tags}
           title="tags"
           name="tags"
+          error={errors.tags}
         />
 
-        <PostEditActions forumId={post.forumId} postId={post.id} />
+        <PostEditActions
+          forumId={post.forumId}
+          postId={post.id}
+          isLoading={isLoading}
+        />
       </form>
     </div>
   );

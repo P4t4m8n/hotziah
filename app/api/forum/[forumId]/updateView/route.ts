@@ -1,4 +1,4 @@
-import { updateUniqueView } from "@/service/server/forum.server";
+import { updateUniqueVisit } from "@/service/server/uniqueVisitserver";
 import { generateVisitorId } from "@/service/server/util/generateVisitorId";
 import { ViewType } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
@@ -26,7 +26,7 @@ export async function POST(
       visitorId = generateVisitorId(ipAddress, userAgent);
     }
 
-    await updateUniqueView(viewType, forumId, userId, visitorId);
+    await updateUniqueVisit(viewType, forumId, userId, visitorId);
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
