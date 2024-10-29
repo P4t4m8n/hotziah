@@ -26,7 +26,7 @@ export default function PostPinBtn({ postId, isPinned, forumId }: Props) {
     }
   };
   return (
-    <button onClick={togglePin} className="pl-2 bg-red-500">
+    <button onClick={togglePin} className="pl-2 ">
       {isPinned ? <PinnedFullSvg /> : <PinnedSvg />}
     </button>
   );

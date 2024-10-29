@@ -55,8 +55,7 @@ export const getForumById = async (id: string): Promise<IForum> => {
   try {
     const forum = await prisma.forum.findUnique({
       where: { id },
-      select: forumService.buildSql()
-      ,
+      select: forumService.buildSql(),
     });
 
     if (!forum) {
@@ -138,4 +137,3 @@ export const removeForum = async (id: string): Promise<boolean> => {
     throw handleError(error, "Error in removeForum service");
   }
 };
-
