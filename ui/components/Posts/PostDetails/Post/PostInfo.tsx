@@ -2,14 +2,15 @@ import { formatDate } from "@/service/client/util/app.util";
 
 interface Props {
   numOfComments: number;
+  views: number;
   tags?: string[];
 }
 
-export default function PostInfo({ numOfComments, tags }: Props) {
+export default function PostInfo({ numOfComments, tags,views }: Props) {
   //TODO: replace with actual data
   const postInfo = [
     { title: "Comments", value: numOfComments || 0 },
-    { title: "Views", value: 15 },
+    { title: "Views", value: views },
     { title: "Tags", value: tags?.join(", ") || "No tags" },
   ];
   return (

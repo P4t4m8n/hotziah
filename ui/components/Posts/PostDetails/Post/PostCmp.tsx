@@ -26,13 +26,11 @@ export default function PostCmp({ post, comments, submitComment }: Props) {
   const modelRef = useRef<HTMLFormElement>(null);
   const [isCommentEditOpen, setIsCommentEditOpen] = useModel(modelRef);
 
-  const { title, author, content, _count, likes, createdAt, updatedAt } = post;
+  const { title, author, content, _count, createdAt, updatedAt } = post;
 
   const authors = comments?.map((comment) => comment.author);
 
-  const _like = likes?.length
-    ? likes[0]
-    : likeService.createLikeDto("", { postId: post.id });
+
 
   return (
     <div className="w-[80vw] h-fit relative">
@@ -52,12 +50,10 @@ export default function PostCmp({ post, comments, submitComment }: Props) {
           modelRef={modelRef}
           postId={post.id!}
         />
-        <PostInfo numOfComments={_count?.comments || 0} tags={post.tags} />
+        <PostInfo numOfComments={_count?.comments || 0} tags={post.tags} views = {_count?.uniqueView||0} />
       </div>
       <CommentItemActions
         setIsCommentEditOpen={setIsCommentEditOpen}
-        like={_like}
-        numOfLikes={_count?.likes || 0}
         isPost
       />
     </div>

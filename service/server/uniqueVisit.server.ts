@@ -14,7 +14,7 @@ import { handleError } from "./util/error.util";
  * Checks if a unique view already exists in the database before creating a new one.
  * Handles errors by logging and rethrowing with a custom message.
  */
-export async function updateUniqueVisit(
+export async function addUniqueVisit(
   viewType: ViewType,
   contentId: string,
   userId?: string,
