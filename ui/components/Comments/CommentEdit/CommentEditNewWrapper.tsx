@@ -12,6 +12,7 @@ interface Props {
   isCommentEditOpen: boolean;
   modelRef: RefObject<HTMLFormElement>;
   postId: string;
+  quote?: string;
 }
 
 //Wrapper for new comment component
@@ -21,10 +22,14 @@ export default function CommentEditNewWrapper({
   isCommentEditOpen,
   modelRef,
   postId,
+  quote,
 }: Props) {
   const user = useUser().user;
 
   const newComment: IComment = commentService.getEmpty(user!, postId);
+  if (quote) {
+    newComment.content = quote;
+  }
   newComment.parentId = null;
   return (
     <CommentEdit

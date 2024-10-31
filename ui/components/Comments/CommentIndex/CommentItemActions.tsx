@@ -8,22 +8,34 @@ import {
 } from "@/ui/Icons/Svgs";
 import ProtectedAuthor from "../../General/ProtectedAuthor";
 import Link from "next/link";
+import { MouseEvent,  useState } from "react";
+import { IPost } from "@/service/models/post.model";
+import { IComment } from "@/service/models/comments.model";
+import { usePrint } from "@/ui/hooks/usePrint";
 
 interface Props {
   setIsCommentEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isPost?: boolean;
-  postEditProps?: {
-    authorId?: string;
-    forumId?: string;
-    postId?: string;
-  };
+  onQuote: (e: MouseEvent) => void;
+  item: IPost | IComment;
 }
 
 export default function CommentItemActions({
   setIsCommentEditOpen,
-  isPost,
-  postEditProps,
+  onQuote,
+  item,
 }: Props) {
+  const { handlePrint } = usePrint(item);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000); // Reset copy status after 2 seconds
+    } catch (error) {
+      console.error("Failed to copy link:", error);
+    }
+  };
   const items = [
     {
       name: "Replay",
@@ -33,7 +45,7 @@ export default function CommentItemActions({
     {
       name: "Quote",
       icon: <AddNoteSvg />,
-      onClick: () => {},
+      onClick: (e: MouseEvent) => onQuote(e),
     },
     {
       name: "Report",
@@ -43,14 +55,16 @@ export default function CommentItemActions({
     {
       name: "Share",
       icon: <ShareSvg />,
-      onClick: () => {},
+      onClick: handleCopyLink,
     },
     {
       name: "Print",
       icon: <PrintSvg />,
-      onClick: () => {},
+      onClick: (e:MouseEvent) => handlePrint(e),
     },
   ];
+
+  const isPost = !!(item as IPost)?.title;
 
   const listStyle = isPost
     ? " grid gap-2 fixed right-4 top-1/2 -translate-y-1/2  text-center"
@@ -61,29 +75,38 @@ export default function CommentItemActions({
 
   const textStyle = isPost ? "text-sm font-semibold " : "text-xs ";
   return (
-    <ul className={listStyle}>
-      {items.map((item) => (
-        <li className="grid gap-1 " key={item.name}>
-          <button
-            className={btnStyle + "rounded-full fill-white "}
-            onClick={item.onClick}
-          >
-            {item.icon}
-          </button>
-          <span className={textStyle + " text-center"}>{item.name}</span>
+    <>
+      <ul className={listStyle}>
+        {items.map((item) => (
+          <li className="grid gap-1 " key={item.name}>
+            <button
+              className={btnStyle + "rounded-full fill-white "}
+              onClick={item.onClick}
+            >
+              {item.icon}
+            </button>
+            <span className={textStyle + " text-center"}>{item.name}</span>
+          </li>
+        ))}
+        <li className="grid gap-1 ">
+          <ProtectedAuthor authorId={item?.author.id}>
+            <Link
+              className={btnStyle + "rounded-full  "}
+              href={`/forum/${(item as IPost)?.forumId}/post/edit/${
+                (item as IPost)?.id
+              }`}
+            >
+              <EditBtnSvg />
+            </Link>
+            <span className={textStyle + " text-center"}>Edit</span>
+          </ProtectedAuthor>
         </li>
-      ))}
-      <li className="grid gap-1 ">
-        <ProtectedAuthor authorId={postEditProps?.authorId}>
-          <Link
-            className={btnStyle + "rounded-full  "}
-            href={`/forum/${postEditProps?.forumId}/post/edit/${postEditProps?.postId}`}
-          >
-            <EditBtnSvg />
-          </Link>
-          <span className={textStyle + " text-center"}>Edit</span>
-        </ProtectedAuthor>
-      </li>
-    </ul>
+      </ul>
+      {isCopied && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white p-2 rounded">
+          Link copied to clipboard!
+        </div>
+      )}
+    </>
   );
 }

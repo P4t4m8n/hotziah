@@ -21,6 +21,8 @@ export default function PostDetailsClient({ post }: props) {
   const modelRef = useRef<HTMLFormElement>(null);
   const [isCommentEditOpen, setIsCommentEditOpen] = useModel(modelRef);
 
+  const quote = useRef("");
+
   const submitComment = useCallback(async (comment: IComment) => {
     try {
       const savedComment = await saveComment(comment);
@@ -31,15 +33,17 @@ export default function PostDetailsClient({ post }: props) {
       } else {
         setComments((prev) => [...prev, savedComment]);
       }
+      quote.current = "";
     } catch (error) {
       console.error(error);
     }
   }, []);
 
-  const postEditProps = {
-    forumId: post.forumId,
-    postId: post.id,
-    authorId: post.author.id,
+  const onQuote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    quote.current = `${post.author.username} said: ${post.content}`;
+    setIsCommentEditOpen(true);
   };
 
   return (
@@ -52,11 +56,12 @@ export default function PostDetailsClient({ post }: props) {
         isCommentEditOpen={isCommentEditOpen}
         modelRef={modelRef}
         postId={post.id!}
+        quote={quote.current}
       />
       <CommentItemActions
         setIsCommentEditOpen={setIsCommentEditOpen}
-        isPost
-        postEditProps={postEditProps}
+        onQuote={onQuote}
+        item={post}
       />
 
       <div className="flex flex-col gap-4 w-full">
