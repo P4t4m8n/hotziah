@@ -24,6 +24,7 @@ export default function CommentEdit({
   modelRef,
 }: Props) {
   //To prevent animation of first load
+  //TODO find a better way to do this to many renders
   const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
@@ -59,6 +60,8 @@ export default function CommentEdit({
 
     submitComment({ ...comment, content });
     setIsCommentEditOpen(false);
+
+    e.currentTarget.reset();
   };
 
   return (
