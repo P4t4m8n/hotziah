@@ -14,7 +14,6 @@ interface Props {
 
 export default function TherapistSignup({ taxonomies }: Props) {
   const [state, signupAction] = useActionState(therapistSignup, undefined);
-  console.log("state:", state);
 
   return (
     <form

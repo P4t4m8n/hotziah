@@ -32,7 +32,6 @@ export async function PUT(
     }
 
     const forum = await updateForum(forumToSave);
-    console.log("forum:", forum);
 
     return NextResponse.json(forum, { status: 201 });
   } catch (error) {

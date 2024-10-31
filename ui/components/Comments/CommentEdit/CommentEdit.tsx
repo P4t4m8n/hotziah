@@ -25,7 +25,7 @@ export default function CommentEdit({
 }: Props) {
   //To prevent animation of first load
   const [hasInteracted, setHasInteracted] = useState(false);
-  
+
   useEffect(() => {
     if (isCommentEditOpen) {
       setHasInteracted(true);
@@ -67,7 +67,7 @@ export default function CommentEdit({
         <form
           ref={modelRef}
           onSubmit={onSubmitForm}
-          className={` bg-slate-400 fixed right-0 top-20 w-[35vw]  h-main-height p-4 ${
+          className={` bg-slate-400 fixed right-0 top-20 w-[35vw] z-30  h-main-height p-4 ${
             isCommentEditOpen ? "animate-slideInRight" : "animate-slideOutRight"
           }`}
         >

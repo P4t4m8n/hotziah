@@ -18,7 +18,6 @@ export default function TrackUniqueVisit({ itemId, route }: Props) {
 
   const updateUniqueVisit = async () => {
     try {
-      console.log("updateUniqueVisit", itemId, route);
       await apiClientService.post(`${route}/${itemId}/visit`, {
         userId: user?.id,
       });

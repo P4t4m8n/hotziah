@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
     }
 
     const forum = await saveForum(forumToSave);
-    console.log("forum:", forum);
 
     return NextResponse.json(forum, { status: 201 });
   } catch (error) {

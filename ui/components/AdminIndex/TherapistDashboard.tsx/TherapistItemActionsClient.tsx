@@ -17,15 +17,12 @@ export default function TherapistItemActionsClient({
   const [statusState, setStatusState] = useState(status);
 
   const handleStatusChange = async (status: string) => {
-    console.log("status:", status)
     try {
       const x = await apiClientService.put(`therapist/${therapistId}`, {
         status,
       });
-      console.log("x:", x)
       setStatusState(status);
     } catch (error) {
-      console.log(error);
     }
   };
 

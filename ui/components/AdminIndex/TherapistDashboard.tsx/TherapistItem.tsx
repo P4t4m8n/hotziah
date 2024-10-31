@@ -5,7 +5,6 @@ interface Props {
   therapist: ITherapist;
 }
 export default function TherapistItem({ therapist }: Props) {
-  console.log("therapist:", therapist);
   return (
     <li className="grid grid-cols-5">
       <h3>{therapist.user?.firstName}</h3>

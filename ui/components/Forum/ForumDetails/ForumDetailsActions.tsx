@@ -2,7 +2,7 @@ import { IUserSmall } from "@/service/models/user.model";
 import { EditBtnSvg, PlusSvg } from "@/ui/Icons/Svgs";
 
 import UserListIcons from "./AdminList";
-import ProtectedLink from "../../General/ProtectedLink";
+import ProtectedAdminLink from "../../General/ProtectedLink";
 import GeneralLink from "../../General/GeneralLink";
 
 interface Props {
@@ -22,7 +22,7 @@ export default function ForumDetailsActions({
       </p>
       <UserListIcons users={admins} listName="Admins" />
       <div className="flex gap-2 fixed bottom-20 right-8">
-        <ProtectedLink
+        <ProtectedAdminLink
           href={`/forum/edit/${id}`}
           text={"EDIT FORUM"}
           svg={<EditBtnSvg />}

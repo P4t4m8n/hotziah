@@ -7,7 +7,6 @@ export default async function FormIndexServer({
 }: {
   searchParams?: Promise<IForumFilter> | undefined;
 }) {
-  console.log("searchParams:", searchParams)
   const forums = await getForums({});
 
   return <ForumIndex forums={forums} />;

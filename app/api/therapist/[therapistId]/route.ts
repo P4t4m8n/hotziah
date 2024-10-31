@@ -8,9 +8,7 @@ export async function PUT(
 ) {
   try {
     const { status } = await req.json();
-    console.log("status:", status);
     const { therapistId } = await params;
-    console.log("therapistId:", therapistId);
 
     await updateTherapistStatus(therapistId, status);
     return NextResponse.json({ message: "Therapist updated" });

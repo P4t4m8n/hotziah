@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function DashboardList({ listHeaders, items, type }: Props) {
-  console.log("listHeaders:", listHeaders);
   return (
     <div>
       <ul

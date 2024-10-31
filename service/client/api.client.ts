@@ -53,8 +53,10 @@ const ajax = async <T>(
     }
 
     const res = await fetch(url, options);
+    console.log("res:", res)
     if (!res.ok) {
       const errorResponse = await res.json().catch(() => null);
+      console.log("errorResponse:", errorResponse)
       //Validation Error
       if (res.status === 422) {
         throw new APIError(

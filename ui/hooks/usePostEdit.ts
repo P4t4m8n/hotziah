@@ -43,11 +43,13 @@ export const usePostEdit = (forumId: string, postId?: string) => {
         forumId: typeof forumId === "string" ? forumId : "",
         dataToSanitize,
       };
+      console.log("postToSave:", postToSave)
 
       const savedPost = postId
-        ? await apiClientService.put<IPost>(`post/${postId}`, postToSave)
-        : await apiClientService.post<IPost>(`post`, postToSave);
-
+      ? await apiClientService.put<IPost>(`post/${postId}`, postToSave)
+      : await apiClientService.post<IPost>(`post`, postToSave);
+      console.log("savedPost:", savedPost)
+      
       if (!savedPost?.id) {
         throw new Error(
           "Failed to save the post. Unable to complete the save operation."

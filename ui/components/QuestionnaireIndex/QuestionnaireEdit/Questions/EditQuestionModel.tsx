@@ -53,7 +53,6 @@ export default function EditQuestionModel({
   };
 
   const addAnswer = (type: QuestionType = "MULTIPLE_CHOICE") => {
-    console.log("type:", type);
     const answer = questionnaireService.getEmptyAnswer();
     setQuestionToEdit((prev) => ({
       ...prev,

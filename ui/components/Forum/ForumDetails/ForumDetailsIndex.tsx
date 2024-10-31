@@ -3,7 +3,6 @@ import { IForum } from "@/service/models/forum.model";
 import ForumDetailsActions from "./ForumDetailsActions";
 import ForumDetailsHeader from "./ForumDetailsHeader";
 import PostsList from "../../Posts/PostList";
-import TrackUniqueVisit from "../../General/TrackUniqueVisit";
 
 interface Props {
   forum: IForum;

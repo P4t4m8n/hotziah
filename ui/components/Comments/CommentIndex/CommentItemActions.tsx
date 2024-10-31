@@ -1,21 +1,28 @@
 import {
   AddNoteASvg,
   AddNoteSvg,
+  EditBtnSvg,
   PrintSvg,
   ReportSvg,
   ShareSvg,
 } from "@/ui/Icons/Svgs";
+import ProtectedAuthor from "../../General/ProtectedAuthor";
+import Link from "next/link";
 
 interface Props {
   setIsCommentEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
-
   isPost?: boolean;
+  postEditProps?: {
+    authorId?: string;
+    forumId?: string;
+    postId?: string;
+  };
 }
 
 export default function CommentItemActions({
   setIsCommentEditOpen,
-
   isPost,
+  postEditProps,
 }: Props) {
   const items = [
     {
@@ -26,22 +33,22 @@ export default function CommentItemActions({
     {
       name: "Quote",
       icon: <AddNoteSvg />,
-      onClick: () => console.log("Quote"),
+      onClick: () => {},
     },
     {
       name: "Report",
       icon: <ReportSvg />,
-      onClick: () => console.log("Report"),
+      onClick: () => {},
     },
     {
       name: "Share",
       icon: <ShareSvg />,
-      onClick: () => console.log("Share"),
+      onClick: () => {},
     },
     {
       name: "Print",
       icon: <PrintSvg />,
-      onClick: () => console.log("Print"),
+      onClick: () => {},
     },
   ];
 
@@ -52,7 +59,7 @@ export default function CommentItemActions({
     ? "bg-purple h-14 w-14 p-2 "
     : " bg-turquoise w-8 h-8 p-1  ";
 
-  const textStyle = isPost ? "text-sm font-semibold" : "text-xs ";
+  const textStyle = isPost ? "text-sm font-semibold " : "text-xs ";
   return (
     <ul className={listStyle}>
       {items.map((item) => (
@@ -66,6 +73,17 @@ export default function CommentItemActions({
           <span className={textStyle + " text-center"}>{item.name}</span>
         </li>
       ))}
+      <li className="grid gap-1 ">
+        <ProtectedAuthor authorId={postEditProps?.authorId}>
+          <Link
+            className={btnStyle + "rounded-full  "}
+            href={`/forum/${postEditProps?.forumId}/post/edit/${postEditProps?.postId}`}
+          >
+            <EditBtnSvg />
+          </Link>
+          <span className={textStyle + " text-center"}>Edit</span>
+        </ProtectedAuthor>
+      </li>
     </ul>
   );
 }

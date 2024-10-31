@@ -17,7 +17,6 @@ interface Props {
 export default function TherapistEdit({ therapist, taxonomies }: Props) {
   const user = useUser().user;
   const [state, editAction] = useActionState(saveTherapistForm, undefined);
-  console.log("state:", state);
 
   let { address } = therapist;
 

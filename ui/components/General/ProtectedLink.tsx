@@ -8,7 +8,7 @@ interface Props {
   svg: React.ReactNode;
 }
 
-export default function ProtectedLink({ href, text, svg }: Props) {
+export default function ProtectedAdminLink({ href, text, svg }: Props) {
   const user = useUser().user;
 
   if (!user || user.permission !== "ADMIN") return null;

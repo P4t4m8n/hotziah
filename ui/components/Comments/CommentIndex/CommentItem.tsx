@@ -21,8 +21,7 @@ interface Props {
   submitComment: (comment: IComment) => void;
 }
 export default function CommentItem({ comment, submitComment }: Props) {
-  const { content, author, createdAt, _count, id } = comment;
-  console.log("id:", id)
+  const { content, author, createdAt, _count} = comment;
 
   const [replies, setReplies] = useState<IComment[]>([]);
   const replayModel = useRef<HTMLFormElement>(null);

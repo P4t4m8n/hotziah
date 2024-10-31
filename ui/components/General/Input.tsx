@@ -5,7 +5,6 @@ interface Props {
   error?: string;
 }
 export default function Input({ inputProps, error }: Props) {
-  console.log("error:", error);
   const {
     divStyle,
     labelStyle,

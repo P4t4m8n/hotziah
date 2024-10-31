@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "ui/components/QuestionnaireIndex/EditQuestion,prisma/**/*.ts"
-  ],
+, "ui/components/General/ProtectedAuthor.tsx"  ],
   "exclude": [
     "node_modules"
   ]

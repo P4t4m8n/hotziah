@@ -8,9 +8,7 @@ export async function POST(
 ) {
   try {
     const { isPinned } = await req.json();
-    console.log("isPinned:", isPinned)
     const { postId } = await params;
-    console.log("postId:", postId)
 
     await togglePinned(postId, isPinned);
     return NextResponse.json({ status: 201, message: "Success" });

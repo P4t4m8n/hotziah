@@ -1,5 +1,5 @@
 import { PlusSvg, SearchSvg } from "@/ui/Icons/Svgs";
-import ProtectedLink from "../../General/ProtectedLink";
+import ProtectedAdminLink from "../../General/ProtectedLink";
 
 export default function ForumIndexHeader() {
   return (
@@ -11,7 +11,7 @@ export default function ForumIndexHeader() {
           <SearchSvg />
         </button>
       </div>
-      <ProtectedLink
+      <ProtectedAdminLink
         href={"/forum/edit/new"}
         text={"NEW FORUM"}
         svg={<PlusSvg />}

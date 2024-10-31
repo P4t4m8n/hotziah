@@ -50,7 +50,6 @@ export async function middleware(req: NextRequest) {
   const matchPost = pathname.match(
     /^\/forum\/([a-zA-Z0-9-]+)\/post\/([a-zA-Z0-9-]+)$/
   );
-  console.log("matchPost:", matchPost);
 
   if (matchForum) {
     const forumId = matchForum[1];

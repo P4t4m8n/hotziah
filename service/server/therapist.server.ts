@@ -40,7 +40,6 @@ export const saveTherapist = async (
         });
       }
     );
-    console.log("therapist:", therapist);
 
     return therapist;
   } catch (error) {
@@ -180,7 +179,6 @@ export const saveTherapistForm = async (state: any, formData: FormData) => {
   let therapist = undefined;
   try {
     const therapistDto = sanitizeTherapistForm(formData);
-    console.log("therapistDto:", therapistDto);
     const addressDto = sanitizeAddressForm(formData);
 
     const therapistError = validateTherapistDto(therapistDto);
@@ -200,7 +198,6 @@ export const saveTherapistForm = async (state: any, formData: FormData) => {
       );
       throw err;
     }
-    console.log("therapistDto:", therapistDto);
 
     therapist = await saveTherapist(therapistDto as ITherapistDto, addressDto);
   } catch (error) {
@@ -222,7 +219,6 @@ export const updateTherapistStatus = async (
       where: { id },
       data: { status },
     });
-    console.log("updateCheck:", updateCheck)
 
     if (!updateCheck) {
       const err = handleError(
