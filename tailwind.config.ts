@@ -40,7 +40,7 @@ const config: Config = {
       },
       boxShadow: {
         model: "0px 10px 3000px 1500px rgba(0, 0, 0, 0.5)",
-        "post-card": " rgba(0, 0, 0, 0.24) 0px 3px 8px;",
+        "post-card": "rgba(0, 0, 0, 0.24) 0px 3px 8px",
       },
       fontSize: {
         "font-size-12": "0.75rem",

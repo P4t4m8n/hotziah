@@ -1,6 +1,5 @@
 "use client";
 
-import { TTaxonomyName } from "@/service/models/taxonomy.model";
 import { ITherapistFilter } from "@/service/models/therapists.model";
 import { Gender, TherapistStatus } from "@prisma/client";
 import { useRouter, useSearchParams } from "next/navigation";

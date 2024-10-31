@@ -1,4 +1,3 @@
-// import { IUserDto } from "@/service/models/user.model";
 export const dynamic = "force-dynamic";
 
 import { IUserDto } from "@/service/models/user.model";

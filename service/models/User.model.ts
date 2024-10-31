@@ -8,7 +8,6 @@ export interface IUserSmall extends IEntity {
   permission?: Permission;
   therapistType?: string | null;
 }
-
 export interface IUser extends IUserSmall {
   email: string;
   permission: Permission;
@@ -16,13 +15,11 @@ export interface IUser extends IUserSmall {
   lastName: string;
   isTherapist: boolean;
 }
-
 export interface IUserDto extends IUser {
   password?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
-
 export interface IUserFilter extends IEntity {
   username?: string;
   id?: string;
@@ -34,7 +31,6 @@ export interface IUserFilter extends IEntity {
   lastName?: string;
   permission?: Permission;
 }
-
 export interface IUserWhereSql extends IWhereSql {
   where: {
     isTherapist?: { equals: boolean };
@@ -48,7 +44,6 @@ export interface IUserWhereSql extends IWhereSql {
   take: number;
   skip: number;
 }
-
 export interface IUserSelectSql extends IUserSmallSelectSql {
   email: boolean;
   firstName: boolean;
@@ -56,7 +51,6 @@ export interface IUserSelectSql extends IUserSmallSelectSql {
   permission: boolean;
   isTherapist: boolean;
 }
-
 export interface IUserSmallSelectSql extends ISelectSql {
   username: boolean;
   imgUrl: boolean;

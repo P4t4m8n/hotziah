@@ -1,4 +1,4 @@
-import { getQuestionnaire } from "@/service/server/questionnaire.server";
+import { getQuestionnaireById } from "@/service/server/questionnaire.server";
 import { handleRouteError } from "@/service/server/util/error.util";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const { questionnaireId } = await params;
-    const questionnaires = await getQuestionnaire(questionnaireId);
+    const questionnaires = await getQuestionnaireById(questionnaireId);
     console.dir(questionnaires, { depth: null });
     return NextResponse.json(questionnaires, { status: 200 });
   } catch (error) {

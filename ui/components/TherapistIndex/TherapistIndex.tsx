@@ -2,7 +2,6 @@ import { ITherapist } from "@/service/models/therapists.model";
 import TherapistList from "./TherapistList";
 import TherapistHeader from "./TherapistHeader";
 import TherapistListPagination from "./TherapistListPagination";
-import { TTaxonomyName } from "@/service/models/taxonomy.model";
 
 interface Props {
   therapists: ITherapist[];

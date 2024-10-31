@@ -2,7 +2,7 @@ import { ISelectSingleProps } from "@/service/models/app.model";
 
 interface Props {
   selectProps: ISelectSingleProps;
-  error: string;
+  error?: string;
 }
 
 export default function SelectSingle({ selectProps, error }: Props) {

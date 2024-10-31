@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { MouseEvent, useRef, useState } from "react";
 
 import { IComment } from "@/service/models/comments.model";
@@ -15,7 +14,6 @@ import CommentList from "./CommentList";
 import CommentEditNewWrapper from "../CommentEdit/CommentEditNewWrapper";
 import CommentItemActions from "./CommentItemActions";
 import CommentEditWrapper from "../CommentEdit/CommentEditWrapper";
-import { likeService } from "@/service/service/like.service";
 import CommentUser from "../CommentUser";
 
 interface Props {
@@ -23,19 +21,17 @@ interface Props {
   submitComment: (comment: IComment) => void;
 }
 export default function CommentItem({ comment, submitComment }: Props) {
-  const { content, author, createdAt, likes, _count, id } = comment;
+  const { content, author, createdAt, _count, id } = comment;
+  console.log("id:", id)
 
   const [replies, setReplies] = useState<IComment[]>([]);
   const replayModel = useRef<HTMLFormElement>(null);
-  const [quotedText, setQuotedText] = useState("");
+  // const [quotedText, setQuotedText] = useState("");
   const [isCommentReplayOpen, setIsCommentReplayOpen] = useModel(replayModel);
-  const contentRef = useRef<HTMLDivElement>(null);
+  // const contentRef = useRef<HTMLDivElement>(null);
 
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
 
-  const _like = likes?.length
-    ? likes[0]
-    : likeService.createLikeDto("", { commentId: id });
 
   const fetchReplies = async (ev: MouseEvent) => {
     ev.preventDefault();
@@ -80,18 +76,18 @@ export default function CommentItem({ comment, submitComment }: Props) {
     }
   };
 
-  const handleQuote = () => {
-    if (contentRef.current) {
-      // Access the text content directly through the ref without using window.getSelection()
-      const selectedText = contentRef.current.innerText || "";
+  // const handleQuote = () => {
+  //   if (contentRef.current) {
+  //     // Access the text content directly through the ref without using window.getSelection()
+  //     const selectedText = contentRef.current.innerText || "";
 
-      // Optionally filter out the specific portion of text if needed
-      const formattedQuote = `> "${selectedText.trim()}"\n\n`;
+  //     // Optionally filter out the specific portion of text if needed
+  //     const formattedQuote = `> "${selectedText.trim()}"\n\n`;
 
-      setQuotedText(formattedQuote);
-      setIsCommentReplayOpen(true);
-    }
-  };
+  //     setQuotedText(formattedQuote);
+  //     setIsCommentReplayOpen(true);
+  //   }
+  // };
 
   return (
     <li className=" ">

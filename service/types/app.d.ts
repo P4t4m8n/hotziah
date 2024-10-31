@@ -1,4 +1,3 @@
-
 declare type TInput = {
   type: "text" | "password" | "email" | "tel";
   placeHolder?: string;
@@ -35,3 +34,11 @@ declare type TPostEditInputs =
   | "tags"
   | "forumId"
   | "authorId";
+
+declare type TTaxonomyName =
+  | "languages"
+  | "meetingTypes"
+  | "education"
+  | "subjects"
+  | "forumType"
+  | "postTags";

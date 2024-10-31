@@ -7,7 +7,6 @@ import CheckboxList from "../General/CheckboxList";
 import TherapistEditGender from "../TherapistIndex/TherapistEdit/TherapistEditGender";
 import { therapistSignup } from "@/service/server/auth.server";
 import { useActionState } from "react";
-import { TTaxonomyName } from "@/service/models/taxonomy.model";
 
 interface Props {
   taxonomies: Record<TTaxonomyName, string[]>;

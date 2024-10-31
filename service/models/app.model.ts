@@ -36,13 +36,6 @@ export interface IEntity {
   id?: string;
 }
 
-export interface FetchOptions<TBody> {
-  method?: "GET" | "POST" | "PUT" | "DELETE";
-  body?: TBody;
-  headers?: HeadersInit;
-  queryParams?: Record<string, string | number | boolean>;
-}
-
 export interface INavLinksProps {
   link: string;
   text?: string;

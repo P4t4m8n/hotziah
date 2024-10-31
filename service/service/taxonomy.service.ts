@@ -1,4 +1,4 @@
-import { ITaxonomy, TTaxonomyName } from "../models/taxonomy.model";
+import { ITaxonomy } from "../models/taxonomy.model";
 
 const transformTaxonomy = (
   data: ITaxonomy[]
@@ -10,5 +10,5 @@ const transformTaxonomy = (
 };
 
 export const taxonomyService = {
-   transformTaxonomy,
+  transformTaxonomy,
 };

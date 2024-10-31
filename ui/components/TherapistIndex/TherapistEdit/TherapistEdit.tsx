@@ -3,7 +3,6 @@ import { ITherapist } from "@/service/models/therapists.model";
 import { addressService } from "@/service/service/address.service";
 import AddressEdit from "./AddressEdit";
 import CheckboxList from "../../General/CheckboxList";
-import { TTaxonomyName } from "@/service/models/taxonomy.model";
 import TherapistEditInput from "./TherapistEditInput";
 import { saveTherapistForm } from "@/service/server/therapist.server";
 import { useActionState } from "react";

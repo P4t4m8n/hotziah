@@ -1,5 +1,5 @@
 import { IForumDto } from "@/service/models/forum.model";
-import { saveForum, updateForum } from "@/service/server/forum.server";
+import {  updateForum } from "@/service/server/forum.server";
 import { sanitizeForumForm } from "@/service/server/util/sanitization.util";
 import { validateForumDto } from "@/service/validations/forum.validation";
 import { NextRequest, NextResponse } from "next/server";

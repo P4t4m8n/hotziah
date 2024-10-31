@@ -14,7 +14,7 @@ export default function ForumDetailsIndex({ forum }: Props) {
 
   return (
     <div className="p-8 h-full relative">
-      <TrackUniqueVisit itemId={id!} route="forum" />
+      {/* <TrackUniqueVisit itemId={id!} route="forum" /> */}
       <ForumDetailsHeader name={title} type={type} />
       <ForumDetailsActions
         description={description}

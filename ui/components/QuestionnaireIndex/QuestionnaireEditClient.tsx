@@ -6,7 +6,6 @@ import QuestionnaireSubjects from "./QuestionnaireEdit/QuestionnaireSubjects";
 import QuestionnaireDescription from "./QuestionnaireEdit/QuestionnaireDescription";
 import QuestionnaireRoot from "./QuestionnaireEdit/QuestionnaireRoot";
 import { useQuestionnaireEdit } from "@/ui/hooks/useQuestionnaireEdit";
-import { TTaxonomyName } from "@/service/models/taxonomy.model";
 
 interface Props {
   questionnaire?: IQuestionnaire;

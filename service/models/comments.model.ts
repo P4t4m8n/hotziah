@@ -54,7 +54,7 @@ export interface ICommentSelectSql extends ISelectSql {
   };
   replies: {
     where: {
-      parentId: string;
+      parentId: string|null;
     };
     select: ICommentSmallSelectSql;
   };

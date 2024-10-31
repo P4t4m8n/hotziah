@@ -20,12 +20,13 @@ const buildSmallSql = (): ICommentSmallSelectSql => {
     _count: {
       select: {
         replies: true,
+        uniqueView: true,
       },
     },
   };
 };
 
-const buildSql = (commentId: string): ICommentSelectSql => {
+const buildSql = (commentId: string | null): ICommentSelectSql => {
   return {
     id: true,
     parentId: true,
@@ -39,25 +40,7 @@ const buildSql = (commentId: string): ICommentSelectSql => {
       where: {
         parentId: commentId,
       },
-      select: {
-        id: true,
-        parentId: true,
-        content: true,
-        createdAt: true,
-        postId: true,
-        author: {
-          select: {
-            id: true,
-            username: true,
-            imgUrl: true,
-          },
-        },
-        _count: {
-          select: {
-            replies: true,
-          },
-        },
-      },
+      select: buildSmallSql(),
     },
   };
 };

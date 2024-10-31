@@ -4,16 +4,10 @@ import { IPost } from "@/service/models/post.model";
 import { IComment } from "@/service/models/comments.model";
 
 import { useModel } from "@/ui/hooks/useModel";
-import {
-  cleanDuplicateUsers,
-  formatDate,
-} from "@/service/client/util/app.util";
 
 import CommentItemActions from "../../../Comments/CommentIndex/CommentItemActions";
 import CommentEditNewWrapper from "../../../Comments/CommentEdit/CommentEditNewWrapper";
-import UserListIcons from "../../../Forum/ForumDetails/AdminList";
 import PostInfo from "./PostInfo";
-import { likeService } from "@/service/service/like.service";
 import CommentUser from "@/ui/components/Comments/CommentUser";
 import PostHeader from "./PostHeader";
 
@@ -22,15 +16,11 @@ interface Props {
   comments?: IComment[];
   submitComment: (comment: IComment) => void;
 }
-export default function PostCmp({ post, comments, submitComment }: Props) {
+export default function PostCmp({ post, submitComment }: Props) {
   const modelRef = useRef<HTMLFormElement>(null);
   const [isCommentEditOpen, setIsCommentEditOpen] = useModel(modelRef);
 
   const { title, author, content, _count, createdAt, updatedAt } = post;
-
-  const authors = comments?.map((comment) => comment.author);
-
-
 
   return (
     <div className="w-[80vw] h-fit relative">
@@ -50,12 +40,13 @@ export default function PostCmp({ post, comments, submitComment }: Props) {
           modelRef={modelRef}
           postId={post.id!}
         />
-        <PostInfo numOfComments={_count?.comments || 0} tags={post.tags} views = {_count?.uniqueView||0} />
+        <PostInfo
+          numOfComments={_count?.comments || 0}
+          tags={post.tags}
+          views={_count?.uniqueView || 0}
+        />
       </div>
-      <CommentItemActions
-        setIsCommentEditOpen={setIsCommentEditOpen}
-        isPost
-      />
+      <CommentItemActions setIsCommentEditOpen={setIsCommentEditOpen} isPost />
     </div>
   );
 }

@@ -9,7 +9,6 @@ import { saveComment } from "@/service/client/comment.client";
 
 import PostCmp from "./Post/PostCmp";
 import CommentList from "../../Comments/CommentIndex/CommentList";
-import TrackUniqueVisit from "../../General/TrackUniqueVisit";
 
 interface props {
   post: IPost;
@@ -34,7 +33,6 @@ export default function PostDetailsClient({ post }: props) {
 
   return (
     <div className=" w-full h-full p-8 flex flex-col gap-8 ">
-      <TrackUniqueVisit itemId={post.id!} route={"post"} />
       <PostCmp post={post} comments={comments} submitComment={submitComment} />
 
       <div className="flex flex-col gap-4 w-full">

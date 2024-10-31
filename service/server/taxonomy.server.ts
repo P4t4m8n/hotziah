@@ -1,6 +1,6 @@
 import { prisma } from "@/prisma/prismaClient";
 import { handleError } from "./util/error.util";
-import { ITaxonomy, TTaxonomyName } from "../models/taxonomy.model";
+import { ITaxonomy } from "../models/taxonomy.model";
 import { unstable_cache } from "next/cache";
 import { taxonomyService } from "../service/taxonomy.service";
 

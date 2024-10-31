@@ -8,7 +8,6 @@ import {
 } from "../models/comments.model";
 import { handleError } from "./util/error.util";
 import { commentService } from "../service/comment.service";
-import { userService } from "../service/user.service";
 
 export const getComments = async (
   filter: ICommentFilter
@@ -46,22 +45,7 @@ export const getComments = async (
           },
         ],
       },
-      select: {
-        id: true,
-        parentId: true,
-        content: true,
-        createdAt: true,
-        postId: true,
-        author: {
-          select: userService.buildSmallSql(),
-        },
-        _count: {
-          select: {
-            replies: true,
-            likes: true,
-          },
-        },
-      },
+      select: commentService.buildSmallSql(),
     });
 
     return comments;
@@ -80,38 +64,7 @@ export const getCommentById = async (commentId: string): Promise<IComment> => {
       where: {
         id: commentId,
       },
-      select: {
-        id: true,
-        parentId: true,
-        content: true,
-        createdAt: true,
-        postId: true,
-        author: {
-          select: userService.buildSmallSql!(),
-        },
-        replies: {
-          select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            postId: true,
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                replies: true,
-                likes: true,
-              },
-            },
-          },
-        },
-      },
+      select: commentService.buildSql(commentId),
     });
 
     if (!comment) {
@@ -144,38 +97,7 @@ export const createComment = async (
         parentId: comment.parentId,
         postId: comment.postId,
       },
-      select: {
-        id: true,
-        parentId: true,
-        content: true,
-        createdAt: true,
-        postId: true,
-        author: {
-          select: userService.buildSmallSql(),
-        },
-        replies: {
-          select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            postId: true,
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                replies: true,
-                likes: true,
-              },
-            },
-          },
-        },
-      },
+      select: commentService.buildSmallSql(),
     });
 
     return newComment;
@@ -193,38 +115,7 @@ export const updateComment = async (
       data: {
         content: comment.content,
       },
-      select: {
-        id: true,
-        parentId: true,
-        content: true,
-        createdAt: true,
-        postId: true,
-        author: {
-          select: userService.buildSmallSql!(),
-        },
-        replies: {
-          select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            postId: true,
-            author: {
-              select: {
-                id: true,
-                username: true,
-                imgUrl: true,
-              },
-            },
-            _count: {
-              select: {
-                replies: true,
-                likes: true,
-              },
-            },
-          },
-        },
-      },
+      select: commentService.buildSql(comment?.id || null),
     });
 
     return updatedComment;

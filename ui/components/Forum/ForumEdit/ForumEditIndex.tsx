@@ -13,7 +13,6 @@ import TextArea from "../../General/TextArea";
 import SelectSingle from "../../General/SelectSingle";
 import { IForum } from "@/service/models/forum.model";
 import ForumEditSubjects from "./ForumEditSubjects";
-import { TTaxonomyName } from "@/service/models/taxonomy.model";
 import { apiClientService } from "@/service/client/api.client";
 
 import { useRouter } from "next/navigation";

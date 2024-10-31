@@ -1,4 +1,3 @@
-import { TTaxonomyName } from "@/service/models/taxonomy.model";
 import TherapistFilter from "./TherapistFilter";
 import TherapistEditLinkClient from "./TherapistIndexHeader/TherapistEditLinkClient";
 

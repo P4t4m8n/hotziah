@@ -17,7 +17,6 @@ export interface IPost extends IPostBase {
   comments?: IComment[];
   _count?: { comments?: number; uniqueView?: number };
 }
-
 export interface IPostDto extends IPostBase {
   createdAt?: Date;
   updatedAt?: Date;
@@ -31,7 +30,6 @@ export interface IPostFilter extends IEntity {
   limit?: number;
   uniqueView?: number;
 }
-
 export interface IPostSmallSelectSql extends ISelectSql {
   id: boolean;
   title: boolean;
