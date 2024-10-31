@@ -1,4 +1,4 @@
-import { updatePost } from "@/service/server/post.server";
+import { removePost, updatePost } from "@/service/server/post.server";
 import { handleRouteError } from "@/service/server/util/error.util";
 import { sanitizePostForm } from "@/service/server/util/sanitization.util";
 import { validatePostDto } from "@/service/validations/post.validation";
@@ -29,7 +29,7 @@ export async function PUT(
     };
 
     const errors = validatePostDto(postDto);
-    if (Object.keys(errors).length > 0) {
+    if (Object.values(errors).some((error) => error)) {
       return NextResponse.json(errors, {
         status: 422,
       });
@@ -39,6 +39,26 @@ export async function PUT(
     return NextResponse.json(post, { status: 201 });
   } catch (error) {
     const err = handleRouteError("Failed to delete like", 500, error);
+    return NextResponse.json(err.error, { status: +err.status });
+  }
+}
+/**
+ * Handles the DELETE request to delete a post.
+ *
+ * @param req - The NextRequest object containing the request details.
+ * @param params - An object containing a Promise that resolves to an object with the postId to delete.
+ * @returns A JSON response indicating the success or failure of the deletion operation.
+ */
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ postId: string }> }
+) {
+  try {
+    const { postId } = await params;
+    await removePost(postId);
+    return NextResponse.json({ message: "Post deleted" }, { status: 200 });
+  } catch (error) {
+    const err = handleRouteError("Failed to delete post", 500, error);
     return NextResponse.json(err.error, { status: +err.status });
   }
 }

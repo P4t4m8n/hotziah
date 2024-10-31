@@ -11,11 +11,13 @@ export default function ForumIndexHeader() {
           <SearchSvg />
         </button>
       </div>
-      <ProtectedAdminLink
-        href={"/forum/edit/new"}
-        text={"NEW FORUM"}
-        svg={<PlusSvg />}
-      />
+      <div className=" fixed bottom-24 right-8">
+        <ProtectedAdminLink
+          href={"/forum/edit/new"}
+          text={"NEW FORUM"}
+          svg={<PlusSvg />}
+        />
+      </div>
     </header>
   );
 }

@@ -10,7 +10,6 @@ export async function generateStaticParams() {
   return [{ postId: "new", forumId: "1" }];
 }
 
-//TODO:find a way to make this page SSG
 export default async function PostEditServer({
   params,
 }: {

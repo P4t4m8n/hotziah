@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function PostEdit({ post, tags }: Props) {
-  const { onSubmit, errors, isLoading } = usePostEdit(post.forumId, post.id);
+  const { onSubmit,onRemove, errors, isLoading } = usePostEdit(post.forumId, post.id);
 
   const input = {
     divStyle: "flex flex-col gap-2 p-2 px-4 text-3xl font-semibold",
@@ -58,6 +58,7 @@ export default function PostEdit({ post, tags }: Props) {
           forumId={post.forumId}
           postId={post.id}
           isLoading={isLoading}
+          onRemove={onRemove}
         />
       </form>
     </div>

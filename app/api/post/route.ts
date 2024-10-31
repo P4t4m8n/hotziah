@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     };
 
     const errors = validatePostDto(postDto);
-    if (Object.keys(errors).length > 0) {
+    if (Object.values(errors).some((error) => error)) {
       return NextResponse.json(errors, {
         status: 422,
       });

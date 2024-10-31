@@ -616,12 +616,12 @@
 
 /* general link styes */
 .link {
-  @apply bg-turquoise rounded-3xl flex gap-2  w-32 px-1 py-2 items-center justify-center;
+  @apply bg-turquoise rounded-3xl flex gap-2 h-12  w-32 px-1 py-2 items-center justify-center;
   p {
     @apply text-white text-xs font-semibold;
   }
   svg {
-    @apply stroke-white;
+    @apply stroke-white h-4 w-4;
   }
 }
 

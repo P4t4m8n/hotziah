@@ -8,7 +8,7 @@ interface Props {
 
 export default function GeneralLink({ href, text, svg }: Props) {
   return (
-    <Link  href={href}>
+    <Link className="link" href={href}>
       {svg}
       <p>{text}</p>
     </Link>

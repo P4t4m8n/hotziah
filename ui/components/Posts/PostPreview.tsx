@@ -2,7 +2,6 @@ import { formatDate } from "@/service/client/util/app.util";
 import { IPost } from "@/service/models/post.model";
 import Link from "next/link";
 import PostPinBtn from "./PostPinBtn";
-import ClientBtnWrapper from "../General/ClientBtnWrapper";
 
 interface Props {
   post: IPost;
@@ -19,7 +18,7 @@ export default function PostPreview({ post }: Props) {
       className=" w-72 h-80 shadow-post-card p-2 flex flex-col rounded-xl hover:shadow-2xl hover:translate-y-1 hover:rounded-lg  transition-all duration-300"
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-turquoise font-bold text-xl pb-2 truncate">
+        <h2 className="text-turquoise font-bold text-xl pb-2  line-clamp-3 ">
           {title}
         </h2>
         <PostPinBtn postId={id!} isPinned={isPinned} forumId={forumId} />
