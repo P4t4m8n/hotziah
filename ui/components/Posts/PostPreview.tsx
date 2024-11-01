@@ -28,7 +28,7 @@ export default function PostPreview({ post }: Props) {
           {author.username}
         </h3>
       </span>
-      <article className="p-1 px-3 text-base font-semibold text-purple">
+      <article className="p-1 px-3 text-base font-semibold h-1/2  line-clamp-6 text-purple">
         {content}
       </article>
       <div className="flex justify-around text-xs mt-auto">

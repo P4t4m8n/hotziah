@@ -1,4 +1,4 @@
-import { getPostBtId } from "@/service/server/post.server";
+import { getPostById } from "@/service/server/post.server";
 import { postService } from "@/service/service/post.service";
 import PostDetailsClient from "@/ui/components/Posts/PostDetails/PostDetailsClient";
 
@@ -17,8 +17,9 @@ export default async function PostDetailsServer({
   let post = postService.getEmpty("1");
   //Only fetch when there is a real ID. temp ID exist for SSG
   if (postId !== "1") {
-    post = await getPostBtId(postId);
+    post = await getPostById(postId);
   }
+  console.log(post);
 
   return <PostDetailsClient post={post} />;
 }

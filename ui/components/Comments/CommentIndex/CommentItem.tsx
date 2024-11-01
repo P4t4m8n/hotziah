@@ -18,7 +18,7 @@ interface Props {
 }
 export default function CommentItem({ comment, submitComment }: Props) {
   const { content, author, createdAt, _count } = comment;
-  console.log("comment:", comment)
+  console.log("comment:", comment);
 
   const [replies, setReplies] = useState<IComment[]>([]);
 
@@ -53,7 +53,7 @@ export default function CommentItem({ comment, submitComment }: Props) {
       const savedReplay = await saveComment(replay);
       if (!replies) {
         //TODO move to state?
-        comment._count!.replies!++;
+        _count!.replies!++;
         return;
       }
 
@@ -85,7 +85,7 @@ export default function CommentItem({ comment, submitComment }: Props) {
         <div className="px-4 flex items-center gap-4 w-full">
           <button onClick={fetchReplies} className="flex gap-1 items-center">
             <span className="font-semibold text-sm">
-              {_count?.replies || 0}
+              {_count?.replies || replies?.length || 0}
             </span>
             <ArrowSvg isFlip={isRepliesOpen} />
           </button>
@@ -103,8 +103,6 @@ export default function CommentItem({ comment, submitComment }: Props) {
           <CommentList comments={replies} submitComment={submitReplay} />
         </div>
       )}
-
-    
     </li>
   );
 }
