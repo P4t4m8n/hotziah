@@ -9,7 +9,6 @@ import { saveComment } from "@/service/client/comment.client";
 import { ArrowSvg } from "@/ui/Icons/Svgs";
 
 import CommentList from "./CommentList";
-import CommentEditNewWrapper from "../CommentEdit/CommentEditNewWrapper";
 import CommentItemActions from "./CommentItemActions";
 import CommentUser from "../CommentUser";
 
@@ -19,6 +18,7 @@ interface Props {
 }
 export default function CommentItem({ comment, submitComment }: Props) {
   const { content, author, createdAt, _count } = comment;
+  console.log("comment:", comment)
 
   const [replies, setReplies] = useState<IComment[]>([]);
 
@@ -51,6 +51,11 @@ export default function CommentItem({ comment, submitComment }: Props) {
     try {
       replay.parentId = comment.id;
       const savedReplay = await saveComment(replay);
+      if (!replies) {
+        //TODO move to state?
+        comment._count!.replies!++;
+        return;
+      }
 
       if (replay?.id) {
         if (replies)
@@ -58,8 +63,6 @@ export default function CommentItem({ comment, submitComment }: Props) {
             prev.map((c) => (c.id === savedReplay.id ? savedReplay : c))
           );
       } else {
-        //TODO move to state?
-        comment._count!.comments!++;
         if (replies) setReplies((prev) => [...prev, savedReplay]);
       }
     } catch (error) {
@@ -82,7 +85,7 @@ export default function CommentItem({ comment, submitComment }: Props) {
         <div className="px-4 flex items-center gap-4 w-full">
           <button onClick={fetchReplies} className="flex gap-1 items-center">
             <span className="font-semibold text-sm">
-              {_count?.comments || 0}
+              {_count?.replies || 0}
             </span>
             <ArrowSvg isFlip={isRepliesOpen} />
           </button>
@@ -101,10 +104,7 @@ export default function CommentItem({ comment, submitComment }: Props) {
         </div>
       )}
 
-      <CommentEditNewWrapper
-        submitComment={submitReplay}
-        postId={comment.postId}
-      />
+    
     </li>
   );
 }

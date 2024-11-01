@@ -3,7 +3,6 @@
 import { IComment } from "@/service/models/comments.model";
 import { commentService } from "@/service/service/comment.service";
 import { useUser } from "@/ui/hooks/useUser";
-import CommentEdit from "./CommentEdit";
 interface Props {
   submitComment: (comment: IComment) => void;
   postId: string;
@@ -12,7 +11,6 @@ interface Props {
 
 //Wrapper for new comment component
 export default function CommentEditNewWrapper({
-  submitComment,
   postId,
   quote,
 }: Props) {
@@ -23,5 +21,5 @@ export default function CommentEditNewWrapper({
     newComment.content = quote;
   }
   newComment.parentId = null;
-  return <CommentEdit comment={newComment} submitComment={submitComment} />;
+  return <div></div>;
 }

@@ -5,6 +5,7 @@ import xss from "xss";
 import { Gender, ReportStatus } from "@prisma/client";
 import { IForumDto } from "@/service/models/forum.model";
 import { IReportDto } from "@/service/models/report.model";
+import { ICommentDto } from "@/service/models/comments.model";
 
 /**
  * Sanitizes the therapist signup form data by extracting and sanitizing user, therapist, and address information.
@@ -214,7 +215,6 @@ export const sanitizePostForm = ({
     throw err;
   }
 };
-
 export const sanitizeReportForm = (dto: IReportDto): IReportDto => {
   try {
     const reason = xss(dto.reason);
@@ -224,6 +224,16 @@ export const sanitizeReportForm = (dto: IReportDto): IReportDto => {
     return { ...dto, reason, content, status };
   } catch (error) {
     const err = handleError(error, "Error sanitizing report form");
+    throw err;
+  }
+};
+
+export const sanitizeCommentFrom = (dto: ICommentDto): ICommentDto => {
+  try {
+    const content = xss(dto.content);
+    return { ...dto, content };
+  } catch (error) {
+    const err = handleError(error, "Error sanitizing comment form");
     throw err;
   }
 };

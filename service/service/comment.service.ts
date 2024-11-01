@@ -20,7 +20,6 @@ const buildSmallSql = (): ICommentSmallSelectSql => {
     _count: {
       select: {
         replies: true,
-        uniqueView: true,
       },
     },
   };
@@ -57,12 +56,12 @@ const toDTO = (comment: IComment): ICommentDto => {
   return dto;
 };
 
-const getEmpty = (author: IUserSmall, postId: string): IComment => {
+const getEmpty = (postId: string, author?: IUserSmall): IComment => {
   return {
     id: "",
     content: "",
     createdAt: new Date(),
-    author,
+    author: author || userService.getEmptyUser(),
     postId,
   };
 };

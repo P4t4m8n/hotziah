@@ -12,7 +12,7 @@ interface ICommentBase extends IEntity {
 export interface IComment extends ICommentBase {
   author: IUserSmall;
   replies?: IComment[];
-  _count?: { comments?: number; uniqueView?: number };
+  _count?: { replies?: number};
 }
 
 export interface ICommentDto extends ICommentBase {
@@ -38,7 +38,6 @@ export interface ICommentSmallSelectSql extends ISelectSql {
   _count: {
     select: {
       replies: boolean;
-      uniqueView: boolean;
     };
   };
 }

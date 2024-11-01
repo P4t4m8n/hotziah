@@ -14,8 +14,8 @@ import NewReportWrapper from "@/ui/guards/NewReportWarper";
 import ProtectedAuthor from "@/ui/guards/ProtectedAuthor";
 import { useModel } from "@/ui/hooks/useModel";
 import { commentService } from "@/service/service/comment.service";
-import { useUser } from "@/ui/hooks/useUser";
 import CommentEdit from "../CommentEdit/CommentEdit";
+import ProtectedUser from "@/ui/guards/ProtectedUser";
 
 interface Props {
   item: IPost | IComment;
@@ -33,7 +33,6 @@ export default function CommentItemActions({
   const [commentToEdit, setCommentToEdit] = useState<IComment | null>(null);
   const modelRef = useRef(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
-  const user = useUser().getCurrentUserNoRender();
 
   const quote = () => {
     const quote = `${item.author.username} said: ${item.content}`;
@@ -51,11 +50,11 @@ export default function CommentItemActions({
   };
 
   const reply = (quote?: string) => {
-    console.log("quote:", quote)
+    console.log("quote:", quote);
     const postId = (item as IComment)?.postId
       ? (item as IComment)?.postId
       : item.id;
-    const newComment: IComment = commentService.getEmpty(user!, postId!);
+    const newComment: IComment = commentService.getEmpty(postId!);
     if (quote) {
       newComment.content = quote;
     }
@@ -72,17 +71,6 @@ export default function CommentItemActions({
 
   const items = [
     {
-      name: "Replay",
-      icon: <AddNoteASvg />,
-      onClick: () => reply(),
-    },
-    {
-      name: "Quote",
-      icon: <AddNoteSvg />,
-      onClick: () => quote(),
-    },
-
-    {
       name: "Share",
       icon: <ShareSvg />,
       onClick: () => shareLink(),
@@ -91,6 +79,19 @@ export default function CommentItemActions({
       name: "Print",
       icon: <PrintSvg />,
       onClick: () => handlePrint(),
+    },
+  ];
+
+  const protectedItems = [
+    {
+      name: "Replay",
+      icon: <AddNoteASvg />,
+      onClick: () => reply(),
+    },
+    {
+      name: "Quote",
+      icon: <AddNoteSvg />,
+      onClick: () => quote(),
     },
   ];
 
@@ -125,27 +126,44 @@ export default function CommentItemActions({
             <span className={textStyle + " text-center"}>{item.name}</span>
           </li>
         ))}
-        <NewReportWrapper itemType={itemType} item={item} style={style} />
-        <li className="grid gap-1 ">
-          {isPost ? (
-            <ProtectedAuthor authorId={item?.author.id}>
-              <Link
-                className={btnStyle + "rounded-full  "}
-                href={`/forum/${(item as IPost)?.forumId}/post/edit/${
-                  (item as IPost)?.id
-                }`}
-              >
-                <EditBtnSvg />
-              </Link>
-              <span className={textStyle + " text-center"}>Edit</span>
-            </ProtectedAuthor>
-          ) : (
-            <button onClick={onEdit} className={btnStyle + "rounded-full  "}>
-              <EditBtnSvg />
-              <span className={textStyle + " text-center"}>Edit</span>
-            </button>
-          )}
-        </li>
+        <ProtectedUser>
+          {protectedItems.map((item) => (
+            <li className="grid gap-1 " key={item.name}>
+              <button className={btnStyle} onClick={item.onClick}>
+                {item.icon}
+              </button>
+              <span className={textStyle + " text-center"}>{item.name}</span>
+            </li>
+          ))}
+          <NewReportWrapper itemType={itemType} item={item} style={style} />
+        </ProtectedUser>
+        <ProtectedAuthor authorId={item?.author.id}>
+          <li className="grid gap-1 ">
+            {isPost ? (
+              <>
+                <Link
+                  className={btnStyle + "rounded-full  "}
+                  href={`/forum/${(item as IPost)?.forumId}/post/edit/${
+                    (item as IPost)?.id
+                  }`}
+                >
+                  <EditBtnSvg />
+                </Link>
+                <span className={textStyle + " text-center"}>Edit</span>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={onEdit}
+                  className={btnStyle + "rounded-full  "}
+                >
+                  <EditBtnSvg />
+                </button>
+                <span className={textStyle + " text-center"}>Edit</span>
+              </>
+            )}
+          </li>
+        </ProtectedAuthor>
       </ul>
       {isCopied && (
         <div className="fixed top-4 right-4 bg-green-500 text-white p-2 rounded">
