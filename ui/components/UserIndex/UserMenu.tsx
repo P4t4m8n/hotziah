@@ -11,11 +11,12 @@ import { AdminSvg, AvatarSvg, LogoutSvg } from "@/ui/Icons/Svgs";
 export default function UserMenu() {
   const { user, logout } = useUser();
 
+  const btnStyle =
+    "w-36 min-w-36 max-w-36 h-12 border shadow-lg text-blue rounded-lg px-4 font-bold flex justify-center gap-4 items-center  text-base truncate ";
   const getUserMenuItems = (): IMenu => {
     const menuBtn: IMenuBtn = {
       text: user?.username,
-      style:
-        "w-32 h-12 border shadow-lg text-blue rounded-lg px-4 font-bold flex justify-center gap-4 items-center flex-row-reverse text-base truncate ",
+      style: btnStyle + " flex-row-reverse",
       imgUrl: user?.imgUrl || "imgs/avatarDefault.svg",
     };
 
@@ -57,10 +58,7 @@ export default function UserMenu() {
 
   if (!user) {
     return (
-      <Link
-        className="w-36 h-12 border shadow-lg text-blue rounded-lg px-4 font-bold flex justify-center gap-4 items-center    "
-        href="/login"
-      >
+      <Link className={btnStyle} href="/login">
         <span>Login</span>
         <Image
           src="/imgs/avatarDefault.svg"

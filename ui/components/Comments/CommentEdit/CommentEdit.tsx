@@ -1,7 +1,7 @@
 "use client";
 
 import { IComment } from "@/service/models/comments.model";
-import { FormEvent, RefObject, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { BackSvg } from "@/ui/Icons/Svgs";
 
@@ -10,28 +10,28 @@ import TextArea from "../../General/TextArea";
 
 interface Props {
   submitComment: (comment: IComment) => void;
-  setIsCommentEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsModelOpen: React.Dispatch<React.SetStateAction<boolean>>;
   comment: IComment;
-  isCommentEditOpen: boolean;
-  modelRef: RefObject<HTMLFormElement>;
+  modelRef: React.RefObject<HTMLFormElement>;
+  isModelOpen?: boolean;
 }
 
 export default function CommentEdit({
   submitComment,
-  setIsCommentEditOpen,
+  setIsModelOpen,
   comment,
-  isCommentEditOpen,
   modelRef,
+  isModelOpen,
 }: Props) {
   //To prevent animation of first load
-  //TODO find a better way to do this to many renders
+  //TODO find a better way to do this too many renders
   const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
-    if (isCommentEditOpen) {
+    if (isModelOpen) {
       setHasInteracted(true);
     }
-  }, [isCommentEditOpen]);
+  }, [isModelOpen]);
 
   const textArea = {
     divStyle: "flex flex-col gap-2 p-2 px-4 h-2/3",
@@ -49,7 +49,7 @@ export default function CommentEdit({
       " bg-platinum text-sm font-semibold rounded-md flex gap-2 h-6 w-20 p-2 px-4 items-center justify-center",
     submitBtnStyle:
       "bg-orange text-sm font-semibold rounded-md flex text-black gap-2 h-6 w-28 p-2 px-4 items-center justify-center",
-    cancelAction: () => setIsCommentEditOpen(false),
+    cancelAction: () => setIsModelOpen(false),
   };
 
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
@@ -59,19 +59,20 @@ export default function CommentEdit({
     const content = e.currentTarget.content.value || "";
 
     submitComment({ ...comment, content });
-    setIsCommentEditOpen(false);
+    setIsModelOpen(false);
 
     e.currentTarget.reset();
   };
 
   return (
     <>
+      <button onClick={() => setIsModelOpen((prev) => !prev)}></button>
       {hasInteracted && (
         <form
           ref={modelRef}
           onSubmit={onSubmitForm}
           className={` bg-slate-400 fixed right-0 top-20 w-[35vw] z-30  h-main-height p-4 ${
-            isCommentEditOpen ? "animate-slideInRight" : "animate-slideOutRight"
+            isModelOpen ? "animate-slideInRight" : "animate-slideOutRight"
           }`}
         >
           <header className="flex gap-4 items-center">
@@ -79,7 +80,7 @@ export default function CommentEdit({
               onClick={(ev) => {
                 ev.stopPropagation();
                 ev.preventDefault();
-                setIsCommentEditOpen(false);
+                setIsModelOpen(false);
               }}
             >
               <BackSvg />

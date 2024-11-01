@@ -11,7 +11,7 @@ export default async function Header() {
       <Link className="w-12 h-12" href={"/"}>
         <LogoSvg />
       </Link>
-      <Nav links={APP_LINKS} navStyle="flex w-full justify-around" />
+      <Nav links={APP_LINKS} navStyle="flex w-[calc(100%-10rem)] justify-around" />
 
       <UserMenu />
     </header>

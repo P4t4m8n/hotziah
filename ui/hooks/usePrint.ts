@@ -1,11 +1,9 @@
 import { IComment } from "@/service/models/comments.model";
 import { IPost } from "@/service/models/post.model";
-import { MouseEvent } from "react";
 
 export const usePrint = (item: IPost | IComment) => {
-  const handlePrint = (e: MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handlePrint = () => {
+
     const printWindow = window.open("", "_blank", "width=800,height=600");
 
     printWindow?.document.write(`

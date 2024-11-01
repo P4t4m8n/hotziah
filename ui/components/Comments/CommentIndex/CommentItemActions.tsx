@@ -6,28 +6,41 @@ import {
   ShareSvg,
 } from "@/ui/Icons/Svgs";
 import Link from "next/link";
-import { MouseEvent, useState } from "react";
+import { useRef, useState } from "react";
 import { IPost } from "@/service/models/post.model";
 import { IComment } from "@/service/models/comments.model";
 import { usePrint } from "@/ui/hooks/usePrint";
 import NewReportWrapper from "@/ui/guards/NewReportWarper";
 import ProtectedAuthor from "@/ui/guards/ProtectedAuthor";
+import { useModel } from "@/ui/hooks/useModel";
+import { commentService } from "@/service/service/comment.service";
+import { useUser } from "@/ui/hooks/useUser";
+import CommentEdit from "../CommentEdit/CommentEdit";
 
 interface Props {
-  setIsCommentEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onQuote: (e: MouseEvent) => void;
   item: IPost | IComment;
+  submitComment: (comment: IComment) => void;
+  submitReplay?: (replay: IComment) => void;
 }
 
 export default function CommentItemActions({
-  setIsCommentEditOpen,
-  onQuote,
   item,
+  submitComment,
+  submitReplay,
 }: Props) {
   const { handlePrint } = usePrint(item);
   const [isCopied, setIsCopied] = useState(false);
+  const [commentToEdit, setCommentToEdit] = useState<IComment | null>(null);
+  const modelRef = useRef(null);
+  const [isModelOpen, setIsModelOpen] = useModel(modelRef);
+  const user = useUser().getCurrentUserNoRender();
 
-  const handleCopyLink = async () => {
+  const quote = () => {
+    const quote = `${item.author.username} said: ${item.content}`;
+    reply(quote);
+  };
+
+  const shareLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
       setIsCopied(true);
@@ -36,27 +49,48 @@ export default function CommentItemActions({
       console.error("Failed to copy link:", error);
     }
   };
+
+  const reply = (quote?: string) => {
+    console.log("quote:", quote)
+    const postId = (item as IComment)?.postId
+      ? (item as IComment)?.postId
+      : item.id;
+    const newComment: IComment = commentService.getEmpty(user!, postId!);
+    if (quote) {
+      newComment.content = quote;
+    }
+
+    newComment.parentId = (item as IPost)?.title ? null : item.id;
+    setCommentToEdit(newComment);
+    setIsModelOpen(true);
+  };
+
+  const onEdit = () => {
+    setCommentToEdit(item as IComment);
+    setIsModelOpen(true);
+  };
+
   const items = [
     {
       name: "Replay",
       icon: <AddNoteASvg />,
-      onClick: () => setIsCommentEditOpen(true),
+      onClick: () => reply(),
     },
     {
       name: "Quote",
       icon: <AddNoteSvg />,
-      onClick: (e: MouseEvent) => onQuote(e),
+      onClick: () => quote(),
     },
 
     {
       name: "Share",
       icon: <ShareSvg />,
-      onClick: handleCopyLink,
+      onClick: () => shareLink(),
     },
     {
       name: "Print",
       icon: <PrintSvg />,
-      onClick: (e: MouseEvent) => handlePrint(e),
+      onClick: () => handlePrint(),
     },
   ];
 
@@ -78,6 +112,8 @@ export default function CommentItemActions({
     btnStyle,
     textStyle,
   };
+
+  const isSubmitComment = isPost || commentToEdit?.id;
   return (
     <>
       <ul className={listStyle}>
@@ -91,23 +127,39 @@ export default function CommentItemActions({
         ))}
         <NewReportWrapper itemType={itemType} item={item} style={style} />
         <li className="grid gap-1 ">
-          <ProtectedAuthor authorId={item?.author.id}>
-            <Link
-              className={btnStyle + "rounded-full  "}
-              href={`/forum/${(item as IPost)?.forumId}/post/edit/${
-                (item as IPost)?.id
-              }`}
-            >
+          {isPost ? (
+            <ProtectedAuthor authorId={item?.author.id}>
+              <Link
+                className={btnStyle + "rounded-full  "}
+                href={`/forum/${(item as IPost)?.forumId}/post/edit/${
+                  (item as IPost)?.id
+                }`}
+              >
+                <EditBtnSvg />
+              </Link>
+              <span className={textStyle + " text-center"}>Edit</span>
+            </ProtectedAuthor>
+          ) : (
+            <button onClick={onEdit} className={btnStyle + "rounded-full  "}>
               <EditBtnSvg />
-            </Link>
-            <span className={textStyle + " text-center"}>Edit</span>
-          </ProtectedAuthor>
+              <span className={textStyle + " text-center"}>Edit</span>
+            </button>
+          )}
         </li>
       </ul>
       {isCopied && (
         <div className="fixed top-4 right-4 bg-green-500 text-white p-2 rounded">
           Link copied to clipboard!
         </div>
+      )}
+      {commentToEdit && (
+        <CommentEdit
+          comment={commentToEdit!}
+          modelRef={modelRef}
+          setIsModelOpen={setIsModelOpen}
+          isModelOpen={isModelOpen}
+          submitComment={isSubmitComment ? submitComment : submitReplay!}
+        />
       )}
     </>
   );
