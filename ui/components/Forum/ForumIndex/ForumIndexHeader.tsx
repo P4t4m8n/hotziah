@@ -1,5 +1,5 @@
+import ProtectedAdminLink from "@/ui/guards/ProtectedLink";
 import { PlusSvg, SearchSvg } from "@/ui/Icons/Svgs";
-import ProtectedAdminLink from "../../General/ProtectedLink";
 
 export default function ForumIndexHeader() {
   return (

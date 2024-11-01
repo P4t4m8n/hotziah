@@ -662,3 +662,16 @@
     transform: rotate(1turn);
   }
 }
+
+
+
+body:has(.model) {
+  .model,
+  .model * {
+    pointer-events: all;
+  }
+  :not(.model, .model *) {
+    pointer-events: none;
+  }
+  overflow: hidden;;
+}

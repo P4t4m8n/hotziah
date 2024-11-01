@@ -9,8 +9,8 @@ export default function TextArea({ textAreaProps, error }: Props) {
   return (
     <div className={textAreaProps.divStyle}>
       <label className={textAreaProps.labelStyle} htmlFor={name}>
-      <h3>{textAreaProps.labelText}</h3>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+        <h3>{textAreaProps.labelText}</h3>
+        {error && <p className="text-red-500 text-sm">{error}</p>}
       </label>
       <textarea
         id={name}
@@ -18,7 +18,7 @@ export default function TextArea({ textAreaProps, error }: Props) {
         defaultValue={textAreaProps.value}
         required
         autoFocus={true}
-        maxLength={textAreaProps.maxLength}
+        maxLength={textAreaProps.maxLength || 255}
         className={textAreaProps.inputStyle}
         placeholder={textAreaProps.placeholder}
       />

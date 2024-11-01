@@ -11,67 +11,10 @@ enum ViewType {
   ARTICLE
 }
 
-enum ForumType {
-  PUBLIC
-  PRIVATE
-  RESTRICTED
-  TECHNICAL
-}
-
-enum ForumSubject {
-  GENERAL
-  MENTAL_HEALTH
-  ADDICTION
-  RELATIONSHIPS
-  GRIEF
-  TRAUMA
-  ANXIETY
-  DEPRESSION
-  BIPOLAR
-  SCHIZOPHRENIA
-  PTSD
-  OCD
-  ADHD
-  AUTISM
-  ASPERGERS
-  EATING_DISORDERS
-  SUPPORT
-  THERAPY_SUPPORT
-}
-
-enum MeetingType {
-  IN_PERSON
-  VIDEO
-  PHONE
-}
-
-enum Languages {
-  ENGLISH
-  HEBREW
-  ARABIC
-  RUSSIAN
-  SPANISH
-  FRENCH
-  YIDDISH
-}
-
 enum Gender {
   MAN
   FEMALE
   NON_BINARY
-}
-
-enum TherapistEducation {
-  PSYCHOLOGY
-  PSYCHIATRY
-  SOCIAL_WORK
-  COUNSELING
-  PSYCHOTHERAPY
-  BACHELOR
-  MASTER
-  PHD
-  MD
-  LCSW
 }
 
 enum QuestionType {
@@ -86,6 +29,11 @@ enum TherapistStatus {
   INACTIVE
   PENDING
   REJECTED
+}
+
+enum ReportStatus {
+  PENDING
+  RESOLVED
 }
 
 generator client {
@@ -118,6 +66,8 @@ model User {
   questionnaire Questionnaire[]
   article       Article[]
   likes         Like[]
+  report        Report[]
+  reportedUser  Report[]        @relation("reportedUser")
 }
 
 model Forum {
@@ -148,6 +98,7 @@ model Post {
   comments   Comment[]
   likes      Like[]
   uniqueView UniqueView[]
+  report     Report[]
 }
 
 model UniqueView {
@@ -182,6 +133,7 @@ model Comment {
   createdAt  DateTime     @default(now())
   likes      Like[]
   uniqueView UniqueView[]
+  report     Report[]
 }
 
 model Therapist {
@@ -261,6 +213,7 @@ model Article {
   updatedAt   DateTime     @updatedAt
   likes       Like[]
   uniqueView  UniqueView[]
+  Report      Report[]
 }
 
 model Like {
@@ -284,4 +237,22 @@ model Taxonomy {
   id    String   @id @default(uuid())
   name  String
   enums String[]
+}
+
+model Report {
+  id             String       @id @default(uuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  postId         String?
+  post           Post?        @relation(fields: [postId], references: [id])
+  commentId      String?
+  comment        Comment?     @relation(fields: [commentId], references: [id])
+  articleId      String?
+  article        Article?     @relation(fields: [articleId], references: [id])
+  reportedUserId String?
+  reportedUser   User?        @relation("reportedUser", fields: [reportedUserId], references: [id])
+  reason         String       @default("Other")
+  content        String       @default("")
+  createdAt      DateTime     @default(now())
+  status         ReportStatus @default(PENDING)
 }

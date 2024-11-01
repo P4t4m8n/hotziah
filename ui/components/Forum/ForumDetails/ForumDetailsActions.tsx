@@ -2,8 +2,8 @@ import { IUserSmall } from "@/service/models/user.model";
 import { EditBtnSvg, PlusSvg } from "@/ui/Icons/Svgs";
 
 import UserListIcons from "./AdminList";
-import ProtectedAdminLink from "../../General/ProtectedLink";
 import GeneralLink from "../../General/GeneralLink";
+import ProtectedAdminLink from "@/ui/guards/ProtectedLink";
 
 interface Props {
   description: string;

@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@/ui/hooks/useUser";
-import GeneralLink from "./GeneralLink";
+import GeneralLink from "../components/General/GeneralLink";
 
 interface Props {
   href: string;

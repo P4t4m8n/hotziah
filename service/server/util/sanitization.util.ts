@@ -2,8 +2,9 @@ import { IAddressDto, ITherapistDto } from "@/service/models/therapists.model";
 import { IUserDto } from "@/service/models/user.model";
 import { handleError } from "./error.util";
 import xss from "xss";
-import { Gender } from "@prisma/client";
+import { Gender, ReportStatus } from "@prisma/client";
 import { IForumDto } from "@/service/models/forum.model";
+import { IReportDto } from "@/service/models/report.model";
 
 /**
  * Sanitizes the therapist signup form data by extracting and sanitizing user, therapist, and address information.
@@ -155,6 +156,7 @@ export const sanitizeTherapistForm = (formData: FormData) => {
 export const sanitizeForumForm = (formData: FormData): IForumDto => {
   try {
     const title = xss(formData.get("title")?.toString() || "");
+    console.log("title:", title);
     const description = xss(formData.get("description")?.toString() || "");
     const type = xss(formData.get("type")?.toString() || "");
     const subjects = formData
@@ -209,6 +211,19 @@ export const sanitizePostForm = ({
     };
   } catch (error) {
     const err = handleError(error, "Error sanitizing post form");
+    throw err;
+  }
+};
+
+export const sanitizeReportForm = (dto: IReportDto): IReportDto => {
+  try {
+    const reason = xss(dto.reason);
+    const content = xss(dto.content);
+    const status = xss(dto.status) as ReportStatus;
+
+    return { ...dto, reason, content, status };
+  } catch (error) {
+    const err = handleError(error, "Error sanitizing report form");
     throw err;
   }
 };
