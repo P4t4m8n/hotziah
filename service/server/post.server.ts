@@ -1,4 +1,5 @@
 "use server";
+// cSpell:disable
 
 import { prisma } from "@/prisma/prismaClient";
 import { IPost, IPostDto, IPostFilter } from "../models/post.model";
@@ -34,6 +35,16 @@ export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
     throw handleError(error, "Error querying posts in post.server.ts");
   }
 };
+/**
+ * Fetches a post by its ID along with all its comments, including nested comments.
+ *
+ * This function uses a recursive SQL query to retrieve the post and its comments.
+ * The comments are fetched in a hierarchical structure using a CTE.
+ *
+ * @param {string} id - The ID of the post to fetch.
+ * @returns {Promise<IPost>} A promise that resolves to the post with its comments.
+ * @throws Will throw an error if the SQL query fails.
+ */
 export const getPostById = async (id: string): Promise<IPost> => {
   try {
     const postWithComments: IQueryResultRow[] = await prisma.$queryRaw`
@@ -120,7 +131,13 @@ export const getPostById = async (id: string): Promise<IPost> => {
     );
   }
 };
-
+/**
+ * Creates a new post in the database.
+ *
+ * @param {IPostDto} post - The data transfer object containing the post details.
+ * @returns {Promise<IPost>} - A promise that resolves to the created post.
+ * @throws Will throw an error if there is an issue creating the post.
+ */
 export const createPost = async (post: IPostDto): Promise<IPost> => {
   try {
     const newPost = await prisma.post.create({
@@ -130,7 +147,7 @@ export const createPost = async (post: IPostDto): Promise<IPost> => {
         forumId: post.forumId,
         authorId: post.authorId,
         tags: post.tags,
-        isPinned: post.isPinned || false,
+        isPinned: post.isPinned ?? false,
       },
       select: postService.buildSql(),
     });
@@ -140,7 +157,13 @@ export const createPost = async (post: IPostDto): Promise<IPost> => {
     throw handleError(error, "Error creating post in post.server.ts");
   }
 };
-
+/**
+ * Updates an existing post in the database.
+ *
+ * @param {IPostDto} post - The post data transfer object containing the updated post information.
+ * @returns {Promise<IPost>} - A promise that resolves to the updated post.
+ * @throws Will throw an error if the update operation fails.
+ */
 export const updatePost = async (post: IPostDto): Promise<IPost> => {
   try {
     const updatedPost = await prisma.post.update({
@@ -149,6 +172,7 @@ export const updatePost = async (post: IPostDto): Promise<IPost> => {
         title: post.title,
         content: post.content,
         tags: post.tags,
+        isPinned: post.isPinned ?? undefined,
       },
       select: postService.buildSql(),
     });
@@ -158,7 +182,13 @@ export const updatePost = async (post: IPostDto): Promise<IPost> => {
     throw handleError(error, "Error updating post in post.server.ts");
   }
 };
-
+/**
+ * Deletes a post from the database.
+ *
+ * @param {string} id - The ID of the post to delete.
+ * @returns {Promise<boolean>} - A promise that resolves to true if the post is deleted successfully.
+ * @throws Will throw an error if the delete operation fails.
+ */
 export const removePost = async (id: string): Promise<boolean> => {
   try {
     await prisma.post.delete({
@@ -170,7 +200,14 @@ export const removePost = async (id: string): Promise<boolean> => {
     throw handleError(error, "Error deleting post in post.server.ts");
   }
 };
-
+/**
+ * Toggles the pinned status of a post.
+ *
+ * @param {string} id - The ID of the post to update.
+ * @param {boolean} isPinned - The new pinned status of the post.
+ * @returns {Promise<void>} - A promise that resolves when the post is updated.
+ * @throws Will throw an error if the update operation fails.
+ */
 export const togglePinned = async (
   id: string,
   isPinned: boolean
@@ -185,7 +222,13 @@ export const togglePinned = async (
     throw handleError(error, "Error toggling pinned in post.server.ts");
   }
 };
-
+/**
+ * Formats the raw SQL query result into a structured post object with nested comments.
+ *
+ * @param {IQueryResultRow[]} data - The raw query result rows to format.
+ * @returns {IPost} - The formatted post object with comments.
+ * @throws Will throw an error if no data is found for the specified post.
+ */
 const formatPostWithComments = (data: IQueryResultRow[]): IPost => {
   if (data.length === 0) {
     throw new Error("No data found for the specified post.");
@@ -251,6 +294,9 @@ const formatPostWithComments = (data: IQueryResultRow[]): IPost => {
   return post;
 };
 
+/**
+ * Interface for the result rows of the SQL query to fetch a post with comments.
+ */
 interface IQueryResultRow {
   post_id: string;
   post_title: string;

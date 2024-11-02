@@ -13,7 +13,7 @@ interface Props {
 }
 /**
  * Component representing a single comment item.
- *
+ * Is used recursively to render nested comment.
  * @component
  * @param {Props} props - The properties object.
  * @param {IComment} props.comment - The comment data.
@@ -28,7 +28,7 @@ interface Props {
  * This component displays a comment with its author, content, creation date, and any replies.
  * It also includes actions for submitting replies and displays a list of replies.
  */
-const CommentItem = ({ comment, submitComment }: Props) => {
+const CommentItem = ({ comment, submitComment }: Props): JSX.Element => {
   const { content, author, createdAt } = comment;
 
   const { comments: replies, submitComment: submitReplay } = useComments(

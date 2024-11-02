@@ -1,6 +1,6 @@
 import { IPost } from "@/service/models/post.model";
+import { getPostById } from "@/service/server/post.server";
 
-import { getPostBtId } from "@/service/server/post.server";
 import { getTaxonomies } from "@/service/server/taxonomy.server";
 import { postService } from "@/service/service/post.service";
 
@@ -20,7 +20,7 @@ export default async function PostEditServer({
   if (postId === "new") {
     post = postService.getEmpty(forumId);
   } else {
-    post = await getPostBtId(postId);
+    post = await getPostById(postId);
   }
 
   const tags = await getTaxonomies({ name: "postTags" });

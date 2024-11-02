@@ -2,7 +2,7 @@ interface Props {
   name: string;
   type: string;
 }
-export default function ForumDetailsHeader({ name, type }: Props) {
+const ForumDetailsHeader = ({ name, type }: Props) => {
   return (
     <header
       className={`svg-background-${5} border-[1.25rem] border-neutral-50  shadow-md p-2`}
@@ -13,4 +13,6 @@ export default function ForumDetailsHeader({ name, type }: Props) {
       </h2>
     </header>
   );
-}
+};
+
+export default ForumDetailsHeader;

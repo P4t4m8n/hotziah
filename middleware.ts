@@ -17,6 +17,9 @@ export async function middleware(req: NextRequest) {
   if (token) {
     try {
       const decodeObject = await decodeToken(token);
+      if (!decodeObject || !decodeObject.userPermission) {
+        return NextResponse.redirect(new URL("/login", req.url));
+      }
       userPermission = decodeObject.userPermission;
       userId = decodeObject.userId;
     } catch (error) {

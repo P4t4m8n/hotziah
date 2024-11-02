@@ -1,9 +1,11 @@
 import { Permission } from "@prisma/client";
 import { jwtVerify } from "jose";
 
-export const decodeToken = async (token?: string) => {
+export const decodeToken = async (
+  token?: string
+): Promise<{ userPermission: Permission | null; userId: string }> => {
   if (!token) {
-    return { userPermission: "", userId: "" };
+    return { userPermission: null, userId: "" };
   }
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   const { payload } = await jwtVerify(token, secret);

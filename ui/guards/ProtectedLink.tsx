@@ -1,16 +1,22 @@
 "use client";
 import { useUser } from "@/ui/hooks/useUser";
-import GeneralLink from "../components/General/GeneralLink";
 
 interface Props {
-  href: string;
-  text: string;
-  svg: React.ReactNode;
+  children: React.ReactNode;
 }
+/**
+ * A component that renders its children only if the current user has "ADMIN" permission.
+ * Use client wrapper to use the useUser.
+ *
+ * @param children - The content to render if the user is an admin.
+ * @returns The children components if the user has admin permissions; otherwise, null.
+ */
+const ProtectedAdminLink = ({ children }: Props) => {
+  const { user } = useUser();
 
-export default function ProtectedAdminLink({ href, text, svg }: Props) {
-  const user = useUser().user;
+  if (user?.permission !== "ADMIN") return null;
 
-  if (!user || user.permission !== "ADMIN") return null;
-  return <GeneralLink href={href} text={text} svg={svg} />;
-}
+  return <>{children}</>;
+};
+
+export default ProtectedAdminLink;
