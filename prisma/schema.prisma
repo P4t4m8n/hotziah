@@ -256,3 +256,14 @@ model Report {
   createdAt      DateTime     @default(now())
   status         ReportStatus @default(PENDING)
 }
+
+
+// model Thread {
+//   id         String       @id @default(uuid())
+//   title      String       @default("New Thread")
+//   tags       String[]     @default([])
+//   subject    String       @default("New Thread")
+//   moderators User[]
+//   uniqueView UniqueView[]
+//   posts      Post[]
+// }

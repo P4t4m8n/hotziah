@@ -30,6 +30,7 @@ export interface IUserFilter extends IEntity {
   firstName?: string;
   lastName?: string;
   permission?: Permission;
+  
 }
 export interface IUserWhereSql extends IWhereSql {
   where: {

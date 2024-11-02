@@ -50,7 +50,8 @@ export const useCommentActions = (
       const postId = isPost ? item.id : (item as IComment).postId;
 
       const newComment = commentService.getEmpty(postId!);
-      newComment.content = quote || "";
+      //When activating from a button quote is an event
+      newComment.content = typeof quote === "string" ? quote : "";
       newComment.parentId = isPost ? null : item.id;
 
       setCommentToEdit(newComment);

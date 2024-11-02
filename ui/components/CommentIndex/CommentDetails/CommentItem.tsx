@@ -1,72 +1,42 @@
-import { MouseEvent, useState } from "react";
-
 import { IComment } from "@/service/models/comments.model";
 
 import { formatDate } from "@/service/client/util/app.util";
-import { apiClientService } from "@/service/client/api.client";
-import { saveComment } from "@/service/client/comment.client";
-
-import { ArrowSvg } from "@/ui/Icons/Svgs";
 
 import CommentList from "./CommentList";
 import CommentItemActions from "./CommentItemActions";
 import CommentUser from "../CommentUser";
+import { useComments } from "@/ui/hooks/useComments";
 
 interface Props {
   comment: IComment;
   submitComment: (comment: IComment) => void;
 }
+/**
+ * Component representing a single comment item.
+ *
+ * @component
+ * @param {Props} props - The properties object.
+ * @param {IComment} props.comment - The comment data.
+ * @param {Function} props.submitComment - Function to submit a new comment.
+ *
+ * @returns {JSX.Element} The rendered comment item component.
+ *
+ * @example
+ * <CommentItem comment={comment} submitComment={submitComment} />
+ *
+ * @remarks
+ * This component displays a comment with its author, content, creation date, and any replies.
+ * It also includes actions for submitting replies and displays a list of replies.
+ */
 const CommentItem = ({ comment, submitComment }: Props) => {
-  const { content, author, createdAt, _count } = comment;
+  const { content, author, createdAt } = comment;
 
-  const [replies, setReplies] = useState<IComment[]>(comment.replies || []);
-
-  const [isRepliesOpen, setIsRepliesOpen] = useState(true);
-
-  const fetchReplies = async (ev: MouseEvent) => {
-    ev.preventDefault();
-    ev.stopPropagation();
-
-    // Close replies to prevent unnecessary checks
-    if (isRepliesOpen) {
-      setIsRepliesOpen(false);
-      return;
-    }
-    try {
-      if (replies.length <= 0) {
-        const _comments = await apiClientService.get<IComment[]>(
-          `comment/${comment.id}`
-        );
-
-        setReplies(_comments);
-      }
-      setIsRepliesOpen(true);
-    } catch (error) {
-      console.error("Failed to fetch replies", error);
-    }
-  };
-
-  const submitReplay = async (replay: IComment) => {
-    try {
-      replay.parentId = comment.id;
-      const savedReplay = await saveComment(replay);
-      if (!replies) {
-        //TODO move to state?
-        _count!.replies!++;
-        return;
-      }
-
-      if (replay?.id) {
-        if (replies)
-          setReplies((prev) =>
-            prev.map((c) => (c.id === savedReplay.id ? savedReplay : c))
-          );
-      } else {
-        if (replies) setReplies((prev) => [...prev, savedReplay]);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const { comments: replies, submitComment: submitReplay } = useComments(
+    comment.replies
+  );
+  const onSubmitReplay = async (replay: IComment) => {
+    const newReplay = { ...replay, parentId: comment.id };
+    submitReplay(newReplay);
   };
 
   return (
@@ -82,26 +52,17 @@ const CommentItem = ({ comment, submitComment }: Props) => {
         </article>
 
         <div className="px-4 flex items-center gap-4 w-full">
-          <button onClick={fetchReplies} className="flex gap-1 items-center">
-            <span className="font-semibold text-sm">
-              {_count?.replies || replies?.length || 0}
-            </span>
-            <ArrowSvg isFlip={isRepliesOpen} />
-          </button>
+          <span className="font-semibold text-sm">{replies?.length ?? 0}</span>
 
           <CommentItemActions
             item={comment}
             submitComment={submitComment}
-            submitReplay={submitReplay}
+            submitReplay={onSubmitReplay}
           />
         </div>
       </div>
 
-      {isRepliesOpen && replies.length > 0 && (
-        <div className="px-4 py-2">
-          <CommentList comments={replies} submitComment={submitReplay} />
-        </div>
-      )}
+      <CommentList comments={replies} submitComment={onSubmitReplay} />
     </li>
   );
 };
