@@ -36,7 +36,7 @@ export const getPosts = async (filter: IPostFilter): Promise<IPost[]> => {
 };
 export const getPostById = async (id: string): Promise<IPost> => {
   try {
-    const postWithComments:IQueryResultRow[] = await prisma.$queryRaw`
+    const postWithComments: IQueryResultRow[] = await prisma.$queryRaw`
     WITH RECURSIVE comment_tree AS (
       -- Start with top-level comments for the specified post
       SELECT 
@@ -114,26 +114,12 @@ export const getPostById = async (id: string): Promise<IPost> => {
 
     return formatPostWithComments(postWithComments);
   } catch (error) {
-    throw handleError(error, "Error fetching post with comments in recursive SQL query.");
+    throw handleError(
+      error,
+      "Error fetching post with comments in recursive SQL query."
+    );
   }
 };
-
-// export const getPostBtId = async (id: string): Promise<IPost> => {
-//   try {
-//     const post = await prisma.post.findUnique({
-//       where: { id },
-//       select: postService.buildSql(),
-//     });
-
-//     if (!post) {
-//       throw new Error("Post not found");
-//     }
-
-//     return post;
-//   } catch (error) {
-//     throw handleError(error, "Error getting post in post.server.ts");
-//   }
-// };
 
 export const createPost = async (post: IPostDto): Promise<IPost> => {
   try {
@@ -200,7 +186,7 @@ export const togglePinned = async (
   }
 };
 
-function formatPostWithComments(data: IQueryResultRow[]): IPost {
+const formatPostWithComments = (data: IQueryResultRow[]): IPost => {
   if (data.length === 0) {
     throw new Error("No data found for the specified post.");
   }
@@ -229,7 +215,7 @@ function formatPostWithComments(data: IQueryResultRow[]): IPost {
   const commentsMap = new Map<string, IComment>();
 
   // Populate the comments map with each comment
-  data.forEach(row => {
+  data.forEach((row) => {
     if (row.comment_id) {
       const comment: IComment = {
         id: row.comment_id,
@@ -251,7 +237,7 @@ function formatPostWithComments(data: IQueryResultRow[]): IPost {
   });
 
   // Nest replies under their respective parent comments
-  commentsMap.forEach(comment => {
+  commentsMap.forEach((comment) => {
     if (comment.parentId) {
       const parentComment = commentsMap.get(comment.parentId);
       if (parentComment) {
@@ -263,7 +249,7 @@ function formatPostWithComments(data: IQueryResultRow[]): IPost {
   });
 
   return post;
-}
+};
 
 interface IQueryResultRow {
   post_id: string;

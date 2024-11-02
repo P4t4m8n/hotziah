@@ -18,11 +18,10 @@ interface Props {
 }
 export default function CommentItem({ comment, submitComment }: Props) {
   const { content, author, createdAt, _count } = comment;
-  console.log("comment:", comment);
 
-  const [replies, setReplies] = useState<IComment[]>([]);
+  const [replies, setReplies] = useState<IComment[]>(comment.replies || []);
 
-  const [isRepliesOpen, setIsRepliesOpen] = useState(false);
+  const [isRepliesOpen, setIsRepliesOpen] = useState(true);
 
   const fetchReplies = async (ev: MouseEvent) => {
     ev.preventDefault();

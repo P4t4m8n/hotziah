@@ -50,7 +50,6 @@ export default function CommentItemActions({
   };
 
   const reply = (quote?: string) => {
-    console.log("quote:", quote);
     const postId = (item as IComment)?.postId
       ? (item as IComment)?.postId
       : item.id;

@@ -19,7 +19,6 @@ export default async function PostDetailsServer({
   if (postId !== "1") {
     post = await getPostById(postId);
   }
-  console.log(post);
 
   return <PostDetailsClient post={post} />;
 }

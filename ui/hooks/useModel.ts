@@ -1,38 +1,72 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
+/**
+ * Custom hook that manages the state of a modal based on user interactions.
+ * @param ref A reference to the modal element
+ * @param callBack An optional callback function to execute on specific interactions
+ * @returns A tuple containing the modal state and a function to update the state
+ */
 export const useModel = (
   ref: React.RefObject<Element>,
   callBack?: null | (() => void)
 ): [boolean, Dispatch<SetStateAction<boolean>>] => {
   const [open, setOpen] = useState(false);
+  const eventListenerRef = useRef<{
+    click: (ev: MouseEvent) => void;
+    keydown: (ev: KeyboardEvent) => void;
+  }>({
+    click: () => {},
+    keydown: () => {},
+  });
 
-  useEffect(() => {
-    if (!ref.current || !open) return;
-
-    const checkClickOutside = (ev: MouseEvent) => {
+  const checkClickOutside = useCallback(
+    (ev: MouseEvent) => {
       if (!ev.target) return;
       if (!open) return;
-      if (ref.current?.contains(ev.target as Node)) return;
+      if (!ref.current) return;
+      if (ref.current.contains(ev.target as Node)) return;
 
       if (callBack) {
         callBack();
         return;
       }
       setOpen(false);
-    };
+    },
+    [open, ref, callBack]
+  );
 
-    const checkKeyPress = (ev: KeyboardEvent) => {
-      if (ev.key === "Escape") {
-        setOpen(false);
-      }
-    };
+  const checkKeyPress = useCallback((ev: KeyboardEvent) => {
+    if (ev.key === "Escape") {
+      setOpen(false);
+    }
+  }, []);
 
-    document.addEventListener("click", checkClickOutside);
-    document.addEventListener("keydown", checkKeyPress);
+  useEffect(() => {
+    if (!ref.current || !open) return;
+
+    const currentEventListeners = eventListenerRef.current;
+    currentEventListeners.click = checkClickOutside;
+    currentEventListeners.keydown = checkKeyPress;
+
+    document.addEventListener("click", currentEventListeners.click);
+    document.addEventListener("keydown", currentEventListeners.keydown);
     return () => {
-      document.removeEventListener("click", checkClickOutside);
-      document.removeEventListener("keydown", checkKeyPress);
+      document.removeEventListener("click", currentEventListeners.click);
+      document.removeEventListener("keydown", currentEventListeners.keydown);
     };
-  }, [open, ref, callBack]);
+  }, [open, ref, checkClickOutside, checkKeyPress]);
 
-  return [open, setOpen];
+  const memoizedValue: [boolean, Dispatch<SetStateAction<boolean>>] = useMemo(
+    () => [open, setOpen],
+    [open, setOpen]
+  );
+
+  return memoizedValue;
 };

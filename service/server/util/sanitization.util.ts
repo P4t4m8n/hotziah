@@ -157,7 +157,6 @@ export const sanitizeTherapistForm = (formData: FormData) => {
 export const sanitizeForumForm = (formData: FormData): IForumDto => {
   try {
     const title = xss(formData.get("title")?.toString() || "");
-    console.log("title:", title);
     const description = xss(formData.get("description")?.toString() || "");
     const type = xss(formData.get("type")?.toString() || "");
     const subjects = formData
