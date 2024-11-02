@@ -5,7 +5,7 @@ interface Prop {
   createdAt?: Date;
   updatedAt?: Date;
 }
-export default function PostHeader({ title, createdAt, updatedAt }: Prop) {
+const PostHeader = ({ title, createdAt, updatedAt }: Prop) => {
   return (
     <header>
       <h1 className="text-3xl  font-extrabold text-black">{title}</h1>
@@ -23,4 +23,5 @@ export default function PostHeader({ title, createdAt, updatedAt }: Prop) {
       </div>
     </header>
   );
-}
+};
+export default PostHeader;

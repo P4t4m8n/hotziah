@@ -16,7 +16,7 @@ interface Props {
   comment: IComment;
   submitComment: (comment: IComment) => void;
 }
-export default function CommentItem({ comment, submitComment }: Props) {
+const CommentItem = ({ comment, submitComment }: Props) => {
   const { content, author, createdAt, _count } = comment;
 
   const [replies, setReplies] = useState<IComment[]>(comment.replies || []);
@@ -104,4 +104,6 @@ export default function CommentItem({ comment, submitComment }: Props) {
       )}
     </li>
   );
-}
+};
+
+export default CommentItem;

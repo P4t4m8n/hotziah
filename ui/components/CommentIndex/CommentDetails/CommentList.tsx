@@ -6,7 +6,7 @@ interface Props {
   submitComment: (comment: IComment) => void;
 }
 
-export default function CommentList({ comments, submitComment }: Props) {
+const CommentList = ({ comments, submitComment }: Props) => {
   return (
     <ul className="flex pt-8 pl-4 flex-col gap-12 min-h-main-height  no-scrollbar w-full p-1">
       {comments.map((comment) => (
@@ -18,4 +18,5 @@ export default function CommentList({ comments, submitComment }: Props) {
       ))}
     </ul>
   );
-}
+};
+export default CommentList;

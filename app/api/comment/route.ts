@@ -1,6 +1,5 @@
-import { ICommentDto } from "@/service/models/comments.model";
-import { getSessionUser } from "@/service/server/auth.server";
 import { createComment } from "@/service/server/comments.server";
+import { decodeToken } from "@/service/server/util/decodeToken.util";
 import { handleRouteError } from "@/service/server/util/error.util";
 import { sanitizeCommentFrom } from "@/service/server/util/sanitization.util";
 import { validateCommentDto } from "@/service/validations/Comment.validation";
@@ -16,10 +15,18 @@ import { NextRequest, NextResponse } from "next/server";
  */
 export async function POST(req: NextRequest) {
   try {
-    const { comment }: { comment: ICommentDto } = await req.json();
-    const user = await getSessionUser();
+    const token = req.cookies.get("session")?.value;
+    if (!token) {
+      const err = handleRouteError("Invalid token", 400);
+      return NextResponse.json(err.error, { status: +err.status });
+    }
+    const [{ comment }, { userId }] = await Promise.all([
+      req.json(),
+      decodeToken(token),
+    ]);
+   
 
-    if (!user) {
+    if (!userId) {
       const err = handleRouteError("User not authenticated", 401);
       return NextResponse.json(err.error, { status: +err.status });
     }
@@ -30,7 +37,8 @@ export async function POST(req: NextRequest) {
     }
 
     const dto = sanitizeCommentFrom(comment);
-    dto.authorId = user.id!;
+    dto.authorId = userId;
+    console.log("dto:", dto);
 
     const errors = validateCommentDto(dto);
     if (errors.content) {
