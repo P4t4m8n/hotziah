@@ -5,22 +5,19 @@ import ForumDetailsIndex from "@/ui/components/Forum/ForumDetails/ForumDetailsIn
 export async function generateStaticParams() {
   return [{ forumId: "1" }];
 }
-/**
- * Server-side function to fetch and display forum details.
- *
- * @param {Props} params - The parameters object containing the forum ID.
- * @returns {JSX.Element} The forum details component with the fetched forum data.
- *
- * This function fetches the forum details based on the provided forum ID.
- * If the forum ID is "1", it returns an empty forum to prevent props error.
- * Otherwise, it fetches the forum details using the `getForumById` function.
- */
 
+/**
+ * Server-side function to fetch and display forum details based on the provided forum ID.
+ *
+ * @param {Object} params - The parameters object.
+ * @param {Promise<{ forumId: string }>} params.params - A promise that resolves to an object containing the forum ID.
+ * @returns {Promise<JSX.Element>} A promise that resolves to a JSX element displaying the forum details.
+ */
 export default async function ForumDetailsServer({
   params,
 }: {
   params: Promise<{ forumId: string }>;
-}) {
+}): Promise<JSX.Element> {
   const { forumId } = await params;
 
   let forum = forumService.getEmpty();
