@@ -57,7 +57,6 @@ export default function CommentEdit({
     e.stopPropagation();
 
     const content = e.currentTarget.content.value || "";
-
     submitComment({ ...comment, content });
     setIsModelOpen(false);
 

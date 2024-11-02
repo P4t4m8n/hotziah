@@ -5,11 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 //Get comments based on the parentId
 //ParentId of dirent comments to a post have null as parentId
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ parentId: string }> }
-) {
-  const { parentId } = await params;
+export async function GET(req: NextRequest) {
+  const { parentId } = await req.json();
 
   try {
     const comments = await getComments({ parentId });

@@ -3,6 +3,7 @@ import { commentService } from "../service/comment.service";
 import { apiClientService } from "./api.client";
 
 export const saveComment = async (comment: IComment): Promise<IComment> => {
+
   const dto = commentService.toDTO(comment);
   if (comment.id) {
     return await updateComment(dto);

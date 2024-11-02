@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { jwtVerify } from "jose";
 import { Permission } from "@prisma/client";
 import { generateVisitorId } from "./service/server/util/generateVisitorId";
+import { decodeToken } from "./service/server/util/decodeToken.util";
 
 //TODO messy code, need to refactor
 export async function middleware(req: NextRequest) {
@@ -16,11 +16,9 @@ export async function middleware(req: NextRequest) {
 
   if (token) {
     try {
-      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-      const { payload } = await jwtVerify(token, secret);
-
-      userPermission = payload.permission as Permission;
-      userId = payload.userId as string;
+      const decodeObject = await decodeToken(token);
+      userPermission = decodeObject.userPermission;
+      userId = decodeObject.userId;
     } catch (error) {
       console.error("Error decoding token:", error);
     }

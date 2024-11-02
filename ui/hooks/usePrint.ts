@@ -36,7 +36,6 @@ export const usePrint = (item: IPost | IComment) => {
       `);
 
       printWindow.print();
-      printWindow.close();
     }
   };
 

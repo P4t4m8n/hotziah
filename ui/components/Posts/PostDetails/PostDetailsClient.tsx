@@ -8,8 +8,8 @@ import { IComment } from "@/service/models/comments.model";
 import { saveComment } from "@/service/client/comment.client";
 
 import PostCmp from "./Post/PostCmp";
-import CommentList from "../../Comments/CommentIndex/CommentList";
-import CommentItemActions from "../../Comments/CommentIndex/CommentItemActions";
+import CommentList from "../../CommentIndex/CommentDetails/CommentList";
+import CommentItemActions from "../../CommentIndex/CommentDetails/CommentItemActions";
 
 interface props {
   post: IPost;

@@ -3,7 +3,7 @@ import { IPost } from "@/service/models/post.model";
 
 
 import PostInfo from "./PostInfo";
-import CommentUser from "@/ui/components/Comments/CommentUser";
+import CommentUser from "@/ui/components/CommentIndex/CommentUser";
 import PostHeader from "./PostHeader";
 
 interface Props {
