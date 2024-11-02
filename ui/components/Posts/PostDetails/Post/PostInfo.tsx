@@ -1,13 +1,19 @@
-import { formatDate } from "@/service/client/util/app.util";
-
+/**
+ * Component to display post information such as number of comments, views, and tags.
+ *
+ * @component
+ * @param {Object} props - The properties object.
+ * @param {number} props.numOfComments - The number of comments on the post.
+ * @param {string[]} props.tags - The tags associated with the post.
+ * @param {number} props.views - The number of views the post has received.
+ * @returns {JSX.Element} A list displaying the post information.
+ */
 interface Props {
   numOfComments: number;
   views: number;
   tags?: string[];
 }
-
-export default function PostInfo({ numOfComments, tags,views }: Props) {
-  //TODO: replace with actual data
+const PostInfo = ({ numOfComments, tags, views }: Props) => {
   const postInfo = [
     { title: "Comments", value: numOfComments || 0 },
     { title: "Views", value: views },
@@ -25,4 +31,5 @@ export default function PostInfo({ numOfComments, tags,views }: Props) {
       ))}
     </ul>
   );
-}
+};
+export default PostInfo;
