@@ -1,3 +1,4 @@
+
 declare type TInput = {
   type: "text" | "password" | "email" | "tel";
   placeHolder?: string;
@@ -42,3 +43,19 @@ declare type TTaxonomyName =
   | "subjects"
   | "forumType"
   | "postTags";
+
+declare type TFilterItem = {
+  type:
+    | "text"
+    | "number"
+    | "date"
+    | "select"
+    | "checkbox"
+    | "radio"
+    | "range"
+    | "multiSelect";
+  name: string;
+  placeHolder?: string;
+  labelText?: string;
+  options?: string[];
+};

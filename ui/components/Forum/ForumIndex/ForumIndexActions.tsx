@@ -1,6 +1,7 @@
 import ProtectedAdminLink from "@/ui/guards/ProtectedLink";
-import { PlusSvg, SearchSvg } from "@/ui/Icons/Svgs";
+import { PlusSvg } from "@/ui/Icons/Svgs";
 import GeneralLink from "../../General/GeneralLink";
+import Filter from "../../General/Filter/Filter";
 
 /**
  * ForumIndexActions component renders the header section of the forum index page.
@@ -10,16 +11,41 @@ import GeneralLink from "../../General/GeneralLink";
  *
  * @returns {JSX.Element} The rendered header section with search functionality and admin link.
  */
-const ForumIndexActions = () => {
+interface Props {
+  taxonomies: Record<TTaxonomyName, string[]>;
+}
+const ForumIndexActions = ({ taxonomies }: Props) => {
+  const forumFilterItems: TFilterItem[] = [
+    {
+      type: "text",
+      name: "Name",
+      placeHolder: "Enter forum title",
+      labelText: "Title",
+    },
+    {
+      type: "multiSelect",
+      name: "subject",
+      labelText: "Subjects",
+      placeHolder: "Select subjects",
+      options: taxonomies.subjects,
+    },
+
+    {
+      type: "range",
+      name: "uniqueView",
+      placeHolder: "Minimum unique views",
+      labelText: "Unique Views",
+    },
+    {
+      type: "select",
+      name: "sortBy",
+      labelText: "Sort By",
+      options: ["createdAt", "updatedAt", "uniqueView", "asc", "desc"],
+    },
+  ];
   return (
-    <header className="h-16 px-4  mb-4 flex justify-between">
-      <div className=" border-2 flex rounded-3xl gap-2 p-2  pl-6 h-12 items-center">
-        <input type="search" placeholder="search" className=" border-r w-64" />
-        <select className="w-24 p-1 "></select>
-        <button className="bg-orange w-8 h-8 p-1 rounded-full ml-4">
-          <SearchSvg />
-        </button>
-      </div>
+    <header className="h-fit px-4  mb-4 flex justify-between">
+      <Filter items={forumFilterItems} route="forum" />
       <div className=" fixed bottom-24 right-8">
         <ProtectedAdminLink>
           <GeneralLink

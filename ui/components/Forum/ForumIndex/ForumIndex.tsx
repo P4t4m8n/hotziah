@@ -4,6 +4,7 @@ import { IForum } from "@/service/models/forum.model";
 
 interface Props {
   forums: IForum[];
+  taxonomies: Record<TTaxonomyName, string[]>;
 }
 /**
  * ForumIndex component manage the UI.
@@ -13,10 +14,10 @@ interface Props {
  *
  * @returns {JSX.Element} The rendered forum index component.
  */
-const ForumIndex = ({ forums }: Props) => {
+const ForumIndex = ({ forums, taxonomies }: Props): JSX.Element => {
   return (
     <div className="bg-orange-500 p-4 h-full overflow-auto no-scrollbar">
-      <ForumIndexActions />
+      <ForumIndexActions taxonomies={taxonomies} />
       <ForumList forums={forums} />
     </div>
   );
